@@ -10,13 +10,23 @@ namespace Common.DTOs
     {
         private int numero;
         private int numeroReclamo;
-        private DateTime fecha;
+        private DateTime fechaCambio;
+        private DateTime fechaIngreso;
+        private string observaciones;
+        private string comentario;
+        private decimal latitud;
+        private decimal longitud;
         private string estado;
         private DtoReclamo dtoReclamo;
 
         public int Numero { get => numero; set => numero = value; }
         public int NumeroReclamo { get => numeroReclamo; set => numeroReclamo = value; }
-        public DateTime Fecha { get => fecha; set => fecha = value; }
+        public DateTime FechaCambio { get => fechaCambio; set => fechaCambio = value; }
+        public DateTime FechaIngreso { get => fechaIngreso; set => fechaIngreso = value; }
+        public string Observaciones { get => observaciones; set => observaciones = value; }
+        public string Comentario { get => comentario; set => comentario = value; }
+        public decimal Latitud { get => latitud; set => latitud = value; }
+        public decimal Longitud { get => longitud; set => longitud = value; }
         public string Estado { get => estado; set => estado = value; }
         public DtoReclamo DtoReclamo { get => dtoReclamo; set => dtoReclamo = value; }
     }

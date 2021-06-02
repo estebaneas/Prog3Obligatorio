@@ -17,9 +17,9 @@ namespace DataAccess.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public zona()
         {
-            this.punto = new HashSet<punto>();
             this.reclamo = new HashSet<reclamo>();
             this.cuadrilla = new HashSet<cuadrilla>();
+            this.punto = new HashSet<punto>();
         }
     
         public int numero { get; set; }
@@ -27,10 +27,10 @@ namespace DataAccess.Model
         public string color { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<punto> punto { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<reclamo> reclamo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<cuadrilla> cuadrilla { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<punto> punto { get; set; }
     }
 }

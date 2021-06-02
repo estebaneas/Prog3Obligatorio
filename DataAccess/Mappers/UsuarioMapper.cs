@@ -16,7 +16,7 @@ namespace DataAccess.Mappers
             dto.Email = _usuario.email;
             dto.Nombre = _usuario.nombre;
             dto.Apellido = _usuario.apellido;
-            dto.Usario = _usuario.usario;
+            dto.Usario = _usuario.nombreDeUsuario;
             dto.Contraseña = _usuario.contraseña;
             dto.Telefono = _usuario.telefono;
             dto.Funcionario = _usuario.funcionario;
@@ -31,7 +31,7 @@ namespace DataAccess.Mappers
             _usuario.email = dto.Email;
             _usuario.nombre = dto.Nombre;
             _usuario.apellido = dto.Apellido;
-            _usuario.usario = dto.Usario;
+            _usuario.nombreDeUsuario = dto.Usario;
             _usuario.contraseña = dto.Contraseña;
             _usuario.telefono = dto.Telefono;
             _usuario.funcionario = dto.Funcionario;

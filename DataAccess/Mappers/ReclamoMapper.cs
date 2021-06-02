@@ -21,7 +21,7 @@ namespace DataAccess.Mappers
             dto.Latitud = _reclamo.latitud;
             dto.Longitud = _reclamo.longitud;
             dto.EmailUsuario = _reclamo.emailUsuario;
-            dto.NumTipoReclamo = _reclamo.numTipoReclamo;
+            dto.NumTipoReclamo = _reclamo.numeroTipoReclamo;
             dto.NumeroCuadrilla = _reclamo.numeroCuadrilla;
             dto.NumeroZona = _reclamo.numeroZona;
 
@@ -40,7 +40,7 @@ namespace DataAccess.Mappers
             _reclamo.latitud = dto.Latitud;
             _reclamo.longitud = dto.Longitud;
             _reclamo.emailUsuario = dto.EmailUsuario;
-            _reclamo.numTipoReclamo = dto.NumTipoReclamo;
+            _reclamo.numeroTipoReclamo = dto.NumTipoReclamo;
             _reclamo.numeroCuadrilla = dto.NumeroCuadrilla;
             _reclamo.numeroZona = dto.NumeroZona;
 
