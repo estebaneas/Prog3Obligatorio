@@ -12,6 +12,7 @@ namespace Common.DTOs
         private string estado;
         private DateTime fechaIngreso;
         private string observaciones;
+        private string comentario;
         private decimal latitud;
         private decimal longitud;
         private string emailUsuario;
@@ -28,6 +29,7 @@ namespace Common.DTOs
         public string Estado { get => estado; set => estado = value; }
         public DateTime FechaIngreso { get => fechaIngreso; set => fechaIngreso = value; }
         public string Observaciones { get => observaciones; set => observaciones = value; }
+        public string Comentario { get => comentario; set => comentario = value; }
         public decimal Latitud { get => latitud; set => latitud = value; }
         public decimal Longitud { get => longitud; set => longitud = value; }
         public string EmailUsuario { get => emailUsuario; set => emailUsuario = value; }

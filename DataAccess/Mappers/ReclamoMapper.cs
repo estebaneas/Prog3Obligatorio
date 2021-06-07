@@ -11,7 +11,7 @@ namespace DataAccess.Mappers
 {
     public class ReclamoMapper
     {
-        public DtoReclamo mapToDto(reclamo _reclamo)
+        /*public DtoReclamo mapToDto(reclamo _reclamo)
         {
             DtoReclamo dto = new DtoReclamo();
             dto.Numero = _reclamo.numero;
@@ -27,6 +27,27 @@ namespace DataAccess.Mappers
 
             
 
+            return dto;
+        }*/
+
+        public DtoReclamo MapToDto(reclamo entity)
+        {
+            DtoReclamo dto = null;
+            if (entity != null)
+            {
+                dto = new DtoReclamo();
+                dto.Numero = entity.numero;
+                dto.Estado = entity.estado;
+                dto.FechaIngreso = entity.fechaIngreso;
+                dto.Observaciones = entity.observaciones;
+                dto.Latitud = entity.latitud;
+                dto.Longitud = entity.longitud;
+                dto.EmailUsuario = entity.emailUsuario;
+                dto.NumTipoReclamo = entity.numeroTipoReclamo;
+                dto.NumeroCuadrilla = entity.numeroCuadrilla;
+                dto.NumeroZona = entity.numeroZona;
+
+            }
             return dto;
         }
 
@@ -47,6 +68,18 @@ namespace DataAccess.Mappers
            
 
             return _reclamo;
+        }
+
+        public List<DtoReclamo> MapToDto(List<reclamo> colEntity)
+        {
+            List<DtoReclamo> colDto = new List<DtoReclamo>();
+            foreach (reclamo item in colEntity)
+            {
+                DtoReclamo dto = this.MapToDto(item);
+                colDto.Add(dto);
+            }
+
+            return colDto;
         }
     }
 }
