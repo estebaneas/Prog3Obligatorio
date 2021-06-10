@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\CuadrillaController.cs" />
     <Compile Include="Controllers\ReclamoController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
