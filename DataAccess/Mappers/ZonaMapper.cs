@@ -21,10 +21,23 @@ namespace DataAccess.Mappers
             return dto;
         }
 
+        public List<DtoZona> mapToDto(List<zona> _colZonas)
+        {
+            List<DtoZona> colDtoZonas = new List<DtoZona>();
+            foreach(zona item in _colZonas)
+            {
+                colDtoZonas.Add(this.mapToDto(item));
+            }
+
+            return colDtoZonas;
+        }
+
+
+
         public zona mapToEntity(DtoZona dto)
         {
             zona _zona = new zona();
-            _zona.numero = dto.Numero;
+            //_zona.numero = dto.Numero;
             _zona.nombre = dto.Nombre;
             _zona.color = dto.Color;
             

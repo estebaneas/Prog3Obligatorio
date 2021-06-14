@@ -44,6 +44,7 @@
     <Compile Include="Controllers\TipoDeReclamoController.cs" />
     <Compile Include="Controllers\CuadrillaController.cs" />
     <Compile Include="Controllers\ReclamoController.cs" />
+    <Compile Include="Controllers\ZonaController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
