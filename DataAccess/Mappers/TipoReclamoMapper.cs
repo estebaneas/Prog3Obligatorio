@@ -21,10 +21,20 @@ namespace DataAccess.Mappers
             return dto;
         }
 
+        //Mapper para una lista
+        public List<DtoTipoReclamo> mapToDto(List<tipoReclamo> colTipoReclamo)
+        {
+            List<DtoTipoReclamo> colDtoTipoReclamo = new List<DtoTipoReclamo>();
+            foreach(tipoReclamo item in colTipoReclamo)
+            {
+                colDtoTipoReclamo.Add(this.mapToDto(item));
+            }
+            return colDtoTipoReclamo;
+        }
+
         public tipoReclamo mapToEntity(DtoTipoReclamo dto)
         {
             tipoReclamo _tipo = new tipoReclamo();
-            _tipo.numero = dto.Numero;
             _tipo.nombre = dto.Nombre;
             _tipo.descripcion = dto.Descripcion;
             

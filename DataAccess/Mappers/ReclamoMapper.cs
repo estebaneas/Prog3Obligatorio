@@ -11,24 +11,7 @@ namespace DataAccess.Mappers
 {
     public class ReclamoMapper
     {
-        /*public DtoReclamo mapToDto(reclamo _reclamo)
-        {
-            DtoReclamo dto = new DtoReclamo();
-            dto.Numero = _reclamo.numero;
-            dto.Estado = _reclamo.estado;
-            dto.FechaIngreso = _reclamo.fechaIngreso;
-            dto.Observaciones = _reclamo.observaciones;
-            dto.Latitud = _reclamo.latitud;
-            dto.Longitud = _reclamo.longitud;
-            dto.EmailUsuario = _reclamo.emailUsuario;
-            dto.NumTipoReclamo = _reclamo.numeroTipoReclamo;
-            dto.NumeroCuadrilla = _reclamo.numeroCuadrilla;
-            dto.NumeroZona = _reclamo.numeroZona;
-
-            
-
-            return dto;
-        }*/
+        
 
         public DtoReclamo MapToDto(reclamo entity)
         {
