@@ -20,6 +20,7 @@ namespace DataAccess.Mappers
             
             return dto;
         }
+        
 
         public cuadrilla mapToEntity(DtoCuadrilla dto)
         {
@@ -30,6 +31,17 @@ namespace DataAccess.Mappers
             _cuadrilla.cantidadPeones = dto.CantidadPeones;
             
             return _cuadrilla;
+        }
+
+        public List<DtoCuadrilla> mapToDto(List<cuadrilla> colCuadrillas)
+        {
+            List<DtoCuadrilla> colDtoCuadrilla = new List<DtoCuadrilla>();
+            foreach (cuadrilla item in colCuadrillas)
+            {
+                colDtoCuadrilla.Add(this.mapToDto(item));
+            }
+
+            return colDtoCuadrilla;
         }
     }
 }
