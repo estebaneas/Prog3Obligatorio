@@ -8,14 +8,14 @@ namespace Common.DTOs
 {
     public class DtoUsuario
     {
-        private string email;
-        private string nombre;
-        private string apellido;
-        private string usario;
-        private string contraseña;
-        private string telefono;
-        private Nullable<bool> funcionario;
-        private List<DtoReclamo> colDtoReclamo;
+        public string email;
+        public string nombre;
+        public string apellido;
+        public string usario;
+        public string contraseña;
+        public string telefono;
+        public Nullable<bool> funcionario;
+        public List<DtoReclamo> colDtoReclamo;
 
         public string Email { get => email; set => email = value; }
         public string Nombre { get => nombre; set => nombre = value; }

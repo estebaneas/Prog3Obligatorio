@@ -8,22 +8,22 @@ namespace Common.DTOs
 {
     public class DtoReclamo
     {
-        private int numero;
-        private string estado;
-        private DateTime fechaIngreso;
-        private string observaciones;
-        private string comentario;
-        private decimal latitud;
-        private decimal longitud;
-        private string emailUsuario;
-        private int numTipoReclamo;
-        private int numeroCuadrilla;
-        private int numeroZona;
-        private DtoCuadrilla dtoCuadrilla;
-        private List<DtoHistorialCambios> colDtoHistorialCambios;
-        private DtoUsuario dtoUsuario;
-        private DtoZona dtoZona;
-        private DtoTipoReclamo dtoTipoReclamo;
+        public int numero;
+        public string estado;
+        public DateTime fechaIngreso;
+        public string observaciones;
+        public string comentario;
+        public decimal latitud;
+        public decimal longitud;
+        public string emailUsuario;
+        public int numTipoReclamo;
+        public int numeroCuadrilla;
+        public int numeroZona;
+        public DtoCuadrilla dtoCuadrilla;
+        public List<DtoHistorialCambios> colDtoHistorialCambios;
+        public DtoUsuario dtoUsuario;
+        public DtoZona dtoZona;
+        public DtoTipoReclamo dtoTipoReclamo;
 
         public int Numero { get => numero; set => numero = value; }
         public string Estado { get => estado; set => estado = value; }

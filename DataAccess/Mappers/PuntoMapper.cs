@@ -21,6 +21,15 @@ namespace DataAccess.Mappers
 
             return dto;
         }
+        public List<DtoPunto> mapToDto(List<punto> colPutnos)
+        {
+            List<DtoPunto> colDtoPuntos = new List<DtoPunto>();
+            foreach(punto item in colPutnos)
+            {
+                colDtoPuntos.Add(this.mapToDto(item));
+            }
+            return colDtoPuntos;
+        }
 
         public punto mapToEntity(DtoPunto dto)
         {
