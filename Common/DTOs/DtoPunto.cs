@@ -8,11 +8,11 @@ namespace Common.DTOs
 {
     public class DtoPunto
     {
-        private int numero;
-        private int numeroZona;
-        private decimal latitud;
-        private decimal longitud;
-        private DtoZona dtoZona;
+        public int numero;
+        public int numeroZona;
+        public decimal latitud;
+        public decimal longitud;
+        public DtoZona dtoZona;
 
         public int Numero { get => numero; set => numero = value; }
         public int NumeroZona { get => numeroZona; set => numeroZona = value; }

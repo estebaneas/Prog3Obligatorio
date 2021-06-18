@@ -8,12 +8,12 @@ namespace Common.DTOs
 {
     public class DtoZona
     {
-        private int numero;
-        private string nombre;
-        private string color;
-        private List<DtoPunto> colDtoPunto;
-        private List<DtoReclamo> colDtoReclamo;
-        private List<DtoCuadrilla> colDtoCuadrilla;
+        public int numero;
+        public string nombre;
+        public string color;
+        public List<DtoPunto> colDtoPunto;
+        public List<DtoReclamo> colDtoReclamo;
+        public List<DtoCuadrilla> colDtoCuadrilla;
 
         public int Numero { get => numero; set => numero = value; }
         public string Nombre { get => nombre; set => nombre = value; }

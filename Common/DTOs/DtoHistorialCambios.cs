@@ -8,16 +8,16 @@ namespace Common.DTOs
 {
     public class DtoHistorialCambios
     {
-        private int numero;
-        private int numeroReclamo;
-        private DateTime fechaCambio;
-        private DateTime fechaIngreso;
-        private string observaciones;
-        private string comentario;
-        private decimal latitud;
-        private decimal longitud;
-        private string estado;
-        private DtoReclamo dtoReclamo;
+        public int numero;
+        public int numeroReclamo;
+        public DateTime fechaCambio;
+        public DateTime fechaIngreso;
+        public string observaciones;
+        public string comentario;
+        public decimal latitud;
+        public decimal longitud;
+        public string estado;
+        public DtoReclamo dtoReclamo;
 
         public int Numero { get => numero; set => numero = value; }
         public int NumeroReclamo { get => numeroReclamo; set => numeroReclamo = value; }

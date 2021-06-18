@@ -41,7 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\TipoDeReclamoController.cs" />
+    <Compile Include="Controllers\BLTipoDeReclamoController.cs" />
     <Compile Include="Controllers\CuadrillaController.cs" />
     <Compile Include="Controllers\ReclamoController.cs" />
     <Compile Include="Controllers\ZonaController.cs" />

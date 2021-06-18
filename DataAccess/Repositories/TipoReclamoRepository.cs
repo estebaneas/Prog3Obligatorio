@@ -14,7 +14,7 @@ namespace DataAccess.Repositories
 {
     public class TipoReclamoRepository
     {
-        TipoReclamoMapper _tipoReclamoMapper;
+        private TipoReclamoMapper _tipoReclamoMapper;
         public TipoReclamoRepository()
         {
             this._tipoReclamoMapper = new TipoReclamoMapper();
@@ -70,7 +70,7 @@ namespace DataAccess.Repositories
             List<DtoTipoReclamo> colDtoTiposReclamo = new List<DtoTipoReclamo>();
             using (ControlDeReclamosEntities context = new ControlDeReclamosEntities())
             {
-                colDtoTiposReclamo = this._tipoReclamoMapper.mapToDto(context.tipoReclamo.AsNoTracking().ToList());
+                colDtoTiposReclamo = this._tipoReclamoMapper.mapToDto(context.tipoReclamo.AsNoTracking().OrderByDescending(t=>t.numero).ToList());
             }
             return colDtoTiposReclamo;
         }
@@ -84,9 +84,9 @@ namespace DataAccess.Repositories
                 {
                     try
                     {
-                        modTipoReclamo = context.tipoReclamo.FirstOrDefault(t=>t.numero==dtoTipoReclamo.Numero);
-                        modTipoReclamo.nombre = dtoTipoReclamo.Nombre;
-                        modTipoReclamo.descripcion = dtoTipoReclamo.Descripcion;
+                        modTipoReclamo = context.tipoReclamo.FirstOrDefault(t=>t.numero==dtoTipoReclamo.numero);
+                        modTipoReclamo.nombre = dtoTipoReclamo.nombre;
+                        modTipoReclamo.descripcion = dtoTipoReclamo.descripcion;
                         context.SaveChanges();
                         trans.Commit();
                     }

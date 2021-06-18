@@ -29,9 +29,18 @@ namespace DataAccess.Mappers
             _punto.numeroZona = dto.NumeroZona;
             _punto.latitud = dto.Latitud;
             _punto.longitud = dto.Longitud;
-            
 
             return _punto;
+        }
+
+        public List<punto> mapToEntity(List<DtoPunto> dto)
+        {
+            List<punto> colPuntos = new List<punto>();
+            foreach(DtoPunto item in dto)
+            {
+                colPuntos.Add(this.mapToEntity(item));
+            }
+            return colPuntos;
         }
     }
 }

@@ -13,8 +13,8 @@ namespace DataAccess.Mappers
         public DtoTipoReclamo mapToDto(tipoReclamo _tipo)
         {
             DtoTipoReclamo dto = new DtoTipoReclamo();
-            dto.Numero = _tipo.numero;
-            dto.Nombre = _tipo.nombre;
+            dto.numero = _tipo.numero;
+            dto.nombre = _tipo.nombre;
             dto.Descripcion = _tipo.descripcion;
             
 
@@ -35,8 +35,8 @@ namespace DataAccess.Mappers
         public tipoReclamo mapToEntity(DtoTipoReclamo dto)
         {
             tipoReclamo _tipo = new tipoReclamo();
-            _tipo.nombre = dto.Nombre;
-            _tipo.descripcion = dto.Descripcion;
+            _tipo.nombre = dto.nombre;
+            _tipo.descripcion = dto.descripcion;
             
 
             return _tipo;

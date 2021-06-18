@@ -37,11 +37,9 @@ namespace DataAccess.Mappers
         public zona mapToEntity(DtoZona dto)
         {
             zona _zona = new zona();
-            //_zona.numero = dto.Numero;
+            _zona.numero = dto.Numero;
             _zona.nombre = dto.Nombre;
             _zona.color = dto.Color;
-            
-
             return _zona;
         }
     }

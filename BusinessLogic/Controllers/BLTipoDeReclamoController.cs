@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic.Controllers
 {
-    public class TipoDeReclamoController
+    public class BLTipoDeReclamoController
     {
         private Repository _Repository;
-        public TipoDeReclamoController()
+        public BLTipoDeReclamoController()
         {
             this._Repository = new Repository();
         }
@@ -53,7 +53,7 @@ namespace BusinessLogic.Controllers
             List<string> colErrores = new List<string>();
             if(modificacion)
             {
-                if (!this._Repository.GetTipoReclamoRepository().existeTipoDeReclamo(dtoTipoReclamo.Numero))
+                if (!this._Repository.GetTipoReclamoRepository().existeTipoDeReclamo(dtoTipoReclamo.numero))
                 {
                     colErrores.Add("El tipo de reclamo que esta intentando midifcar no existe o dejo de existir y no se encuentra en la base de datos");
                 }
