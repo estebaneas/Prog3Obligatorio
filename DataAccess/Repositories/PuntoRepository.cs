@@ -1,71 +1,88 @@
 ﻿using System;
-using DataAccess.Model;
-using DataAccess.Mappers;
-using Common.DTOs;
-using System.Data.Entity;
-using System.Data;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Common.DTOs;
+using DataAccess.Mappers;
+using DataAccess.Model;
+using System.Data;
+using System.Data.Entity;
+
 
 namespace DataAccess.Repositories
 {
     public class PuntoRepository
     {
-        private PuntoMapper _puntoMapper;
+        public PuntoMapper _PuntoMapper;
         public PuntoRepository()
         {
-            this._puntoMapper = new PuntoMapper();
+            this._PuntoMapper = new PuntoMapper();
         }
 
-        public void altaPunto(DtoPunto dtoPunto)
+        public void AltaPunto(DtoPunto dtoPunto)
         {
-            punto nPunto = new punto();
+            punto nuevoPunto = new punto();
+            int numPunto;
             using (ControlDeReclamosEntities context = new ControlDeReclamosEntities())
             {
+                numPunto = context.punto.Count(p => p.numeroZona == dtoPunto.numeroZona)+1;
                 using (DbContextTransaction trans = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
                 {
-                    context.punto.Add(this._puntoMapper.mapToEntity(dtoPunto));
+                    try
+                    {
+                        nuevoPunto = this._PuntoMapper.mapToEntity(dtoPunto);
+                        nuevoPunto.numero = numPunto;
+                        context.punto.Add(nuevoPunto);
+                        context.SaveChanges();
+                        trans.Commit();
+                    }
+                    catch(Exception ex)
+                    {
+                        trans.Rollback();
+                    }
                 }
             }
         }
 
-        public bool existePunto(DtoPunto dtoPunto)
+        public void BajaPunto(DtoPunto dtoPunto)
         {
             using (ControlDeReclamosEntities context = new ControlDeReclamosEntities())
             {
-                return context.punto.AsNoTracking().Any(p => p.numero == dtoPunto.numero&&p.numeroZona==dtoPunto.numeroZona);
-            }
-        }
 
-
-        public void bajaPunto(DtoPunto dtoPunto)
-        {
-            using (ControlDeReclamosEntities context = new ControlDeReclamosEntities())
-            {
                 using (DbContextTransaction trans = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
                 {
-                    context.punto.Remove(this._puntoMapper.mapToEntity(dtoPunto));
+                    try
+                    {
+                        context.punto.Remove(this._PuntoMapper.mapToEntity(dtoPunto));
+                        context.SaveChanges();
+                        trans.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        trans.Rollback();
+                    }
                 }
             }
         }
 
-
-
-        //funcion de prueba
-        public void altaPuntos(List<DtoPunto> colDtoPuntos)
+        public bool ExistePunto(DtoPunto dtoPunto)
         {
-            List<punto> colPuntos = new List<punto>();
             using (ControlDeReclamosEntities context = new ControlDeReclamosEntities())
             {
-                using (DbContextTransaction trans = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
-                {
-                    context.punto.AddRange(this._puntoMapper.mapToEntity(colDtoPuntos));
-                }
+                return context.punto.AsNoTracking().Any(p=>p.numero==dtoPunto.numero&&p.numeroZona==dtoPunto.numeroZona);
             }
         }
 
+
+        public List<DtoPunto> ListarPuntos()
+        {
+            List<DtoPunto> colPuntos = new List<DtoPunto>();
+            using (ControlDeReclamosEntities context = new ControlDeReclamosEntities())
+            {
+                return this._PuntoMapper.mapToDto(context.punto.AsNoTracking().ToList());
+            }
+        }
 
 
     }

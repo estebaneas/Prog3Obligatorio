@@ -22,5 +22,12 @@ namespace MVCControlReclamos.Controllers
         {
             return View();
         }
+        public ActionResult AgregarTipoReclamo(DtoTipoReclamo dtoTipoReclamo)
+        {
+            BLTipoDeReclamoController BLTdR = new BLTipoDeReclamoController();
+            BLTdR.agregarTipoReclamo(dtoTipoReclamo);
+
+            return RedirectToAction("ListarReclamos");
+        }
     }
 }

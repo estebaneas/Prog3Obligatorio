@@ -1,4 +1,4 @@
-﻿// La generación de código T4 está habilitada para el modelo 'I:\Users\Esteban\Desktop\Curso Analista programador Clases Online\Programacion 3\ObligatorioProg3\ObligatorioP3\ObligatorioP3\DataAccess\Model\Model1.edmx'. 
+﻿// La generación de código T4 está habilitada para el modelo 'K:\ObligatorioP3\DataAccess\Model\Model1.edmx'. 
 // Para habilitar la generación de código heredada, cambie el valor de la propiedad del diseñador 'Estrategia de generación de código'
 // por 'ObjectContext heredado'. Esta propiedad está disponible en la ventana Propiedades cuando se abre
 // el modelo en el diseñador.

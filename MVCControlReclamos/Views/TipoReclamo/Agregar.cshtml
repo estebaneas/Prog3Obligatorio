@@ -7,7 +7,7 @@
 <h2>Registrar nuevo tipo de reclamo</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("AgregarTipoReclamo","TipoReclamo")) 
 {
     @Html.AntiForgeryToken()
     
@@ -33,13 +33,14 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />
+                <input type="button" value="Cancelar" class="btn btn-default" onclick="location.href='@Url.Action("ListarReclamos","TipoReclamo")'"/>
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "ListarReclamos")
 </div>
 
 @section Scripts {
