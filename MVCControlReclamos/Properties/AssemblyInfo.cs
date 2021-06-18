@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // La información general sobre un ensamblado se controla mediante lo siguiente
 // conjunto de atributos. Cambie los valores de estos atributos para modificar la información
 // asociada con un ensamblado.
-[assembly: AssemblyTitle("MVCReclamos")]
+[assembly: AssemblyTitle("MVCControlReclamos")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("MVCReclamos")]
+[assembly: AssemblyProduct("MVCControlReclamos")]
 [assembly: AssemblyCopyright("Copyright © Microsoft 2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // El siguiente GUID sirve como ID de typelib si este proyecto se expone a COM
-[assembly: Guid("6e240c3d-f6e0-4623-9363-e36ae181f1b2")]
+[assembly: Guid("b0c47fa0-4c0c-4d73-8b7c-838a7f6981ba")]
 
 // La información de versión de un ensamblado consta de los siguientes cuatro valores:
 //
