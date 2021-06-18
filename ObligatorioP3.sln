@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLogic", "BusinessLogic\BusinessLogic.csproj", "{5472AEB8-CAD2-4EB9-B6F9-04BF6253CD59}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "MVCControleReclamos", "MVCControleReclamos\MVCControleReclamos.vbproj", "{8ACF2A93-838F-4E8B-8B92-1930BF3CB124}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{5472AEB8-CAD2-4EB9-B6F9-04BF6253CD59}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5472AEB8-CAD2-4EB9-B6F9-04BF6253CD59}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5472AEB8-CAD2-4EB9-B6F9-04BF6253CD59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8ACF2A93-838F-4E8B-8B92-1930BF3CB124}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8ACF2A93-838F-4E8B-8B92-1930BF3CB124}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8ACF2A93-838F-4E8B-8B92-1930BF3CB124}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8ACF2A93-838F-4E8B-8B92-1930BF3CB124}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -45,6 +51,7 @@ Global
 		{89CA627F-F0AA-471A-AE7C-750718AF4E55} = {81EDCDEA-1F8B-4913-B149-3B6858C4349C}
 		{52BB1742-1BE1-476B-BF39-FE428BA233FB} = {DF5306A2-5673-4C3A-89EE-77A0E3522F4E}
 		{5472AEB8-CAD2-4EB9-B6F9-04BF6253CD59} = {60A5A01A-B7B9-4400-9771-B891E87C8243}
+		{8ACF2A93-838F-4E8B-8B92-1930BF3CB124} = {FC2DE02B-2E89-4444-B3B8-6599DC135EDE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {62154993-E748-43D7-912D-5434C016CA0F}
