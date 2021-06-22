@@ -28,6 +28,7 @@ namespace Common.DTOs
         public int Numero { get => numero; set => numero = value; }
         public string Estado { get => estado; set => estado = value; }
         public DateTime FechaIngreso { get => fechaIngreso; set => fechaIngreso = value; }
+    
         public string Observaciones { get => observaciones; set => observaciones = value; }
         public string Comentario { get => comentario; set => comentario = value; }
         public decimal Latitud { get => latitud; set => latitud = value; }
