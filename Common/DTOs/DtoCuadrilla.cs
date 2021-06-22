@@ -15,6 +15,7 @@ namespace Common.DTOs
         private List<DtoReclamo> colDtoReclamo;
         private List<DtoZona> colDtoZona;
 
+
         public int Numero { get => numero; set => numero = value; }
         public string Nombre { get => nombre; set => nombre = value; }
         public string Encargado { get => encargado; set => encargado = value; }
