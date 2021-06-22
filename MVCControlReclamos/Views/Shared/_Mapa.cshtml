@@ -1,0 +1,14 @@
+﻿@Styles.Render("~/Content/mapa")
+<div id="contenedorMapa">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script src="~/Scripts/mapaScript.js"></script>
+    <div id="map"></div>
+    <label id="txt">Texto</label>
+    <input id="ocultar" type="button" value="Ocultar Iconos">
+    <input id="mostrar" type="button" value="Mostrar Iconos">
+    <input id="editarOn" type="button" value="Editar Forma">
+    <input id="editarOff" type="button" value="Terminar Edicion">
+    <input id="completarZona" type="button" value="Completar Zona">
+    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCivABarU0Y-yPySojqjaL_glEdTIE2GaU&callback=initMap&libraries=&v=weekly" async></script>
+</div>
