@@ -12,12 +12,6 @@ namespace Common.DTOs
         public int numeroZona;
         public decimal latitud;
         public decimal longitud;
-        public DtoZona dtoZona;
-
-        public int Numero { get => numero; set => numero = value; }
-        public int NumeroZona { get => numeroZona; set => numeroZona = value; }
-        public decimal Latitud { get => latitud; set => latitud = value; }
-        public decimal Longitud { get => longitud; set => longitud = value; }
-        public DtoZona DtoZona { get => dtoZona; set => dtoZona = value; }
+       //si pasa algo es porque borre esto: public string colDtoPunto;
     }
 }

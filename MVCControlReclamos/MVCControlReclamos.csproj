@@ -208,7 +208,9 @@
     <Content Include="Views\TipoReclamo\ListarReclamos.cshtml" />
     <Content Include="Views\TipoReclamo\Agregar.cshtml" />
     <Content Include="Views\Shared\_Mapa.cshtml" />
-    <Content Include="Views\Zona\Zona.cshtml" />
+    <Content Include="Views\Zona\Zonas.cshtml" />
+    <Content Include="Views\Zona\View.cshtml" />
+    <Content Include="Views\Zona\NuevaZona.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
