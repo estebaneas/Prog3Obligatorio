@@ -63,11 +63,11 @@ namespace DataAccess.Repositories
                 {
                     try
                     {
-                        cuadrilla currCuadrillaEntity = context.cuadrilla.FirstOrDefault(f => f.numero == cuadrilla.Numero);
+                        cuadrilla currCuadrillaEntity = context.cuadrilla.FirstOrDefault(f => f.numero == cuadrilla.numero);
 
-                        currCuadrillaEntity.nombre = cuadrilla.Nombre;
-                        currCuadrillaEntity.encargado = cuadrilla.Encargado;
-                        currCuadrillaEntity.cantidadPeones = cuadrilla.CantidadPeones;
+                        currCuadrillaEntity.nombre = cuadrilla.nombre;
+                        currCuadrillaEntity.encargado = cuadrilla.encargado;
+                        currCuadrillaEntity.cantidadPeones = cuadrilla.cantidadPeones;
 
                         context.SaveChanges();
                         trann.Commit();

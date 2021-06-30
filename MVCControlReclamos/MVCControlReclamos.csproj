@@ -126,7 +126,9 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CuadrillaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ReclamoController.cs" />
     <Compile Include="Controllers\TipoReclamoController.cs" />
     <Compile Include="Controllers\ZonaController.cs" />
     <Compile Include="Global.asax.cs">
@@ -209,6 +211,10 @@
     <Content Include="Views\TipoReclamo\Agregar.cshtml" />
     <Content Include="Views\Shared\_Mapa.cshtml" />
     <Content Include="Views\Zona\Zona.cshtml" />
+    <Content Include="Views\Reclamo\Agregar.cshtml" />
+    <Content Include="Views\Reclamo\ListarReclamos.cshtml" />
+    <Content Include="Views\Cuadrilla\Agregar.cshtml" />
+    <Content Include="Views\Cuadrilla\ListarCuadrillas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -233,6 +239,10 @@
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{52bb1742-1be1-476b-bf39-fe428ba233fb}</Project>
       <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
+      <Project>{89CA627F-F0AA-471A-AE7C-750718AF4E55}</Project>
+      <Name>DataAccess</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

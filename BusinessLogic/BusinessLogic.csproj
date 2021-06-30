@@ -43,8 +43,8 @@
   <ItemGroup>
     <Compile Include="Controllers\HistorialCambiosController.cs" />
     <Compile Include="Controllers\BLTipoDeReclamoController.cs" />
-    <Compile Include="Controllers\CuadrillaController.cs" />
-    <Compile Include="Controllers\ReclamoController.cs" />
+    <Compile Include="Controllers\BLCuadrillaController.cs" />
+    <Compile Include="Controllers\BLReclamoController.cs" />
     <Compile Include="Controllers\ZonaController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
