@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic.Controllers
 {
-    public class UsuarioController
+    public class BLUsuarioController
     {
         private Repository repository;
 
-        public UsuarioController()
+        public BLUsuarioController()
         {
             this.repository = new Repository();
         }
@@ -47,7 +47,7 @@ namespace BusinessLogic.Controllers
         {
             List<string> errores = new List<string>();
 
-            if (!this.repository.GetUsuarioRepository().ExisteUsuario(dto.Email))
+            if (!this.repository.GetUsuarioRepository().ExisteUsuario(dto.email))
             {
                 errores.Add("El usuario no existe");
             }

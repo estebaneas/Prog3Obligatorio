@@ -46,7 +46,7 @@
     <Compile Include="Controllers\CuadrillaController.cs" />
     <Compile Include="Controllers\ReclamoController.cs" />
     <Compile Include="Controllers\BLZonaController.cs" />
-    <Compile Include="Controllers\UsuarioController.cs" />
+    <Compile Include="Controllers\BLUsuarioController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

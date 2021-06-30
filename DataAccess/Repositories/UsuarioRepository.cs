@@ -74,16 +74,16 @@ namespace DataAccess.Repositories
                 {
                     try
                     {
-                        usuario currUsuario = context.usuario.FirstOrDefault(f => f.email == dto.Email);
+                        usuario currUsuario = context.usuario.FirstOrDefault(f => f.email == dto.email);
 
                         if (currUsuario != null)
                         {
-                            currUsuario.nombre = dto.Nombre;
-                            currUsuario.apellido = dto.Apellido;
-                            currUsuario.nombreDeUsuario = dto.Usario;
-                            currUsuario.contraseña = dto.Contraseña;
-                            currUsuario.telefono = dto.Telefono;
-                            currUsuario.funcionario = dto.Funcionario;
+                            currUsuario.nombre = dto.nombre;
+                            currUsuario.apellido = dto.apellido;
+                            currUsuario.nombreDeUsuario = dto.usario;
+                            currUsuario.contraseña = dto.contrasena;
+                            currUsuario.telefono = dto.telefono;
+                            currUsuario.funcionario = dto.funcionario;
 
                             context.SaveChanges();
                             trann.Commit();

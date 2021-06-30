@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,22 +10,27 @@ namespace Common.DTOs
 {
     public class DtoUsuario
     {
-        public string email;
-        public string nombre;
-        public string apellido;
-        public string usario;
-        public string contraseña;
-        public string telefono;
-        public Nullable<bool> funcionario;
-        public List<DtoReclamo> colDtoReclamo;
+        [Required]
+        [DisplayName("Email: ")]
+        public string email { get; set; }
+        [Required]
+        public string nombre { get; set; }
+        [Required]
+        public string apellido { get; set; }
+        [Required]
+        public string usario { get; set; }
+        [Required]
+        public string contrasena { get; set; }
+        [Required]
+        public string telefono { get; set; }
 
-        public string Email { get => email; set => email = value; }
-        public string Nombre { get => nombre; set => nombre = value; }
-        public string Apellido { get => apellido; set => apellido = value; }
-        public string Usario { get => usario; set => usario = value; }
-        public string Contraseña { get => contraseña; set => contraseña = value; }
-        public string Telefono { get => telefono; set => telefono = value; }
-        public bool? Funcionario { get => funcionario; set => funcionario = value; }
-        public List<DtoReclamo> ColDtoReclamo { get => colDtoReclamo; set => colDtoReclamo = value; }
+        public Nullable<bool> funcionario; 
+
+
+
+        /*
+       
+        public List<DtoReclamo> colDtoReclamo;*/
+
     }
 }

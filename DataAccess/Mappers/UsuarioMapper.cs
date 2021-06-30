@@ -13,28 +13,26 @@ namespace DataAccess.Mappers
         public DtoUsuario mapToDto(usuario _usuario)
         {
             DtoUsuario dto = new DtoUsuario();
-            dto.Email = _usuario.email;
-            dto.Nombre = _usuario.nombre;
-            dto.Apellido = _usuario.apellido;
-            dto.Usario = _usuario.nombreDeUsuario;
-            dto.Contraseña = _usuario.contraseña;
-            dto.Telefono = _usuario.telefono;
-            dto.Funcionario = _usuario.funcionario;
-            
-
+            dto.email = _usuario.email;
+            dto.nombre = _usuario.nombre;
+            dto.apellido = _usuario.apellido;
+            dto.usario = _usuario.nombreDeUsuario;
+            dto.contrasena = _usuario.contraseña;
+            dto.telefono = _usuario.telefono;
+            dto.funcionario = _usuario.funcionario;
             return dto;
         }
 
         public usuario mapToEntity(DtoUsuario dto)
         {
             usuario _usuario = new usuario();
-            _usuario.email = dto.Email;
-            _usuario.nombre = dto.Nombre;
-            _usuario.apellido = dto.Apellido;
-            _usuario.nombreDeUsuario = dto.Usario;
-            _usuario.contraseña = dto.Contraseña;
-            _usuario.telefono = dto.Telefono;
-            _usuario.funcionario = dto.Funcionario;
+            _usuario.email = dto.email;
+            _usuario.nombre = dto.nombre;
+            _usuario.apellido = dto.apellido;
+            _usuario.nombreDeUsuario = dto.usario;
+            _usuario.contraseña = dto.contrasena;
+            _usuario.telefono = dto.telefono;
+            _usuario.funcionario = dto.funcionario;
            
 
             return _usuario;

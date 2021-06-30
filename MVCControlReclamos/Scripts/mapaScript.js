@@ -83,7 +83,7 @@ function initMap() {
                 clickable: true,
                 path: colDtoPuntoToLatLng(zonas[i].colDtoPunto),
                 map: map,
-                id: i + 1
+                id: i
             });
 
             google.maps.event.addListener(zonap, 'click', function (event) {
@@ -91,7 +91,15 @@ function initMap() {
                 try {
                     cargarZonaSeleccionada(this.id);
                 }
-                catch (error) {}
+                catch (error) {
+                    console.error(error);
+                }
+                try {
+                    cargarIdyNombreDeZonaSeleccionada(this.id)
+                }
+                catch (error) {
+                    console.error(error);
+                }
             });
         }
     }
@@ -171,6 +179,15 @@ function initMap() {
          var latLongTest = document.getElementById("latlong")
          latLongTest.textContent = "Latitud= " + lat + " Longitud= " + long;
      } catch (error) {
+         console.error(error);
+     }
+     try {
+         var latHTML = document.getElementById("latitud");
+         var lonHtml = document.getElementById("longitud");
+         latHTML.value = lat;
+         lonHtml.value = long;
+     }
+     catch (error) {
          console.error(error);
      }
 
@@ -613,6 +630,7 @@ function borrarPoligono(poligono)
 
 function colocarMarcador(posicion, map, marcador) {
     if (cliente) {
+       marcador.setIcon(null);
        marcador.setPosition(posicion)
        marcador.setMap(map)
        estaMarcado = true;
@@ -676,7 +694,26 @@ function exportarJsonPunto() {
     return exportar;
 }
 
+function cargarIdyNombreDeZonaSeleccionada(numeroZona) {
+    try {
+        let numeroZonaHTML = document.getElementById("numeroZona");
+        numeroZonaHTML.value = zonas[numeroZona].numero;
+        try {
+            let nombreZonaHTML = document.getElementById("nombreZona");
+            nombreZonaHTML.innerText = zonas[numeroZona].nombre;
+        } catch (error){
+            console.error(error);
+        }
+    }catch(error)    {
+        console.error(error);
+    }
+}
+
 function setIdsLatLong(idNombre, idNumero) {
     idLabelNombre = idNombre;
     idLabelNumero = idNumero;
+}
+
+function setCliente() {
+    cliente = true;
 }
