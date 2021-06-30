@@ -45,8 +45,8 @@
     <Compile Include="Controllers\BLTipoDeReclamoController.cs" />
     <Compile Include="Controllers\BLCuadrillaController.cs" />
     <Compile Include="Controllers\BLReclamoController.cs" />
-    <Compile Include="Controllers\ZonaController.cs" />
-    <Compile Include="Controllers\UsuarioController.cs" />
+    <Compile Include="Controllers\BLZonaController.cs" />
+    <Compile Include="Controllers\BLUsuarioController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

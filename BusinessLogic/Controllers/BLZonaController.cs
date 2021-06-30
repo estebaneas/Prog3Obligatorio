@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic.Controllers
 {
-    class ZonaController
+    public class BLZonaController
     {
         private Repository _Repository;
 
-        public ZonaController()
+        public BLZonaController()
         {
             this._Repository = new Repository();
         }
@@ -64,18 +64,22 @@ namespace BusinessLogic.Controllers
         {
             List<string> colErrores = new List<string>();
 
-            if(dtoZona.Nombre==null)
+            if(dtoZona.nombre ==null)
             {
                 colErrores.Add("El nombre de la zona no puede estar vacio");
             }
-            if(dtoZona.Color==null)
+            if(dtoZona.color==null)
             {
                 colErrores.Add("La zona debe tener un color asignado");
             }
-            if(!this._Repository.GetZonaRepository().existeZona(dtoZona.Numero))
+            if(modificacion)
             {
-                colErrores.Add("La zona no existe");
+                if (!this._Repository.GetZonaRepository().existeZona(dtoZona.numero))
+                {
+                    colErrores.Add("La zona no existe");
+                }
             }
+            
 
 
             return colErrores;

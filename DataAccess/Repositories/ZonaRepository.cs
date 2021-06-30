@@ -73,9 +73,9 @@ namespace DataAccess.Repositories
                 {
                     try
                     {
-                        modZona = context.zona.FirstOrDefault(z => z.numero == dtoZona.Numero);
-                        modZona.color = dtoZona.Color;
-                        modZona.nombre = dtoZona.Nombre;
+                        modZona = context.zona.FirstOrDefault(z => z.numero == dtoZona.numero);
+                        modZona.color = dtoZona.color;
+                        modZona.nombre = dtoZona.nombre;
                         context.SaveChanges();
                         trans.Commit();
                     }
