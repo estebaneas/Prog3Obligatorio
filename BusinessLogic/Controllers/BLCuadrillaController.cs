@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic.Controllers
 {
-    public class CuadrillaController
+    public class BLCuadrillaController
     {
         private Repository _Repository;
 
-        public CuadrillaController()
+        public BLCuadrillaController()
         {
             this._Repository = new Repository();
         }
@@ -34,32 +34,32 @@ namespace BusinessLogic.Controllers
         {
             List<string> errores = new List<string>();
 
-            if (dto.Nombre == null)
+            if (dto.nombre == null)
             {
                 errores.Add("Debe de asignarle un nombre a la cuadrilla");
             }
-            else if (dto.Nombre.Length > 25)
+            else if (dto.nombre.Length > 25)
             {
                 errores.Add("El nombre de la cuadrilla no debe superar los 25 caracteres");
             }
 
-            if(dto.Encargado == null)
+            if(dto.encargado == null)
             {
                 errores.Add("Se debe asignar un encargado a la cuadrilla");
             }
-            else if (dto.Encargado.Length > 25)
+            else if (dto.encargado.Length > 25)
             {
                 errores.Add("No debe superar los 25 carcteres para encargados");
             }
 
-            if (dto.CantidadPeones == null)
+            if (dto.cantidadPeones == null)
             {
                 errores.Add("Debe de de asignar una cantidad de peones para la cuadrilla");
             }
 
             if (Modificable == true)
             {
-                if (!this.ExisteCuadrilla(dto.Numero))
+                if (!this.ExisteCuadrilla(dto.numero))
                 {
                     errores.Add("El número de cuadrilla no existe");
                 }

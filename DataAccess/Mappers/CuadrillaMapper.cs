@@ -13,10 +13,10 @@ namespace DataAccess.Mappers
         public DtoCuadrilla mapToDto(cuadrilla _cuadrilla)
         {
             DtoCuadrilla dto = new DtoCuadrilla();
-            dto.Numero = _cuadrilla.numero;
-            dto.Nombre = _cuadrilla.nombre;
-            dto.Encargado = _cuadrilla.encargado;
-            dto.CantidadPeones = _cuadrilla.cantidadPeones;
+            dto.numero = _cuadrilla.numero;
+            dto.nombre = _cuadrilla.nombre;
+            dto.encargado = _cuadrilla.encargado;
+            dto.cantidadPeones = _cuadrilla.cantidadPeones;
             
             return dto;
         }
@@ -25,10 +25,10 @@ namespace DataAccess.Mappers
         public cuadrilla mapToEntity(DtoCuadrilla dto)
         {
             cuadrilla _cuadrilla = new cuadrilla();
-            _cuadrilla.numero = dto.Numero;
-            _cuadrilla.nombre = dto.Nombre;
-            _cuadrilla.encargado = dto.Encargado;
-            _cuadrilla.cantidadPeones = dto.CantidadPeones;
+            _cuadrilla.numero = dto.numero;
+            _cuadrilla.nombre = dto.nombre;
+            _cuadrilla.encargado = dto.encargado;
+            _cuadrilla.cantidadPeones = dto.cantidadPeones;
             
             return _cuadrilla;
         }

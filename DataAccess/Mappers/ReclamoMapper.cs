@@ -19,16 +19,11 @@ namespace DataAccess.Mappers
             if (entity != null)
             {
                 dto = new DtoReclamo();
-                dto.Numero = entity.numero;
-                dto.Estado = entity.estado;
-                dto.FechaIngreso = entity.fechaIngreso;
-                dto.Observaciones = entity.observaciones;
-                dto.Latitud = entity.latitud;
-                dto.Longitud = entity.longitud;
-                dto.EmailUsuario = entity.emailUsuario;
-                dto.NumTipoReclamo = entity.numeroTipoReclamo;
-                dto.NumeroCuadrilla = entity.numeroCuadrilla;
-                dto.NumeroZona = entity.numeroZona;
+               
+                dto.observaciones = entity.observaciones;
+                dto.latitud = entity.latitud;
+                dto.longitud = entity.longitud;
+                
 
             }
             return dto;
@@ -37,17 +32,10 @@ namespace DataAccess.Mappers
         public reclamo mapToEntity(DtoReclamo dto)
         {
             reclamo _reclamo = new reclamo();
-            _reclamo.numero = dto.Numero;
-            _reclamo.estado = dto.Estado;
-            _reclamo.fechaIngreso = dto.FechaIngreso;
-            _reclamo.observaciones = dto.Observaciones;
-            _reclamo.latitud = dto.Latitud;
-            _reclamo.longitud = dto.Longitud;
-            _reclamo.emailUsuario = dto.EmailUsuario;
-            _reclamo.numeroTipoReclamo = dto.NumTipoReclamo;
-            _reclamo.numeroCuadrilla = dto.NumeroCuadrilla;
-            _reclamo.numeroZona = dto.NumeroZona;
-
+            
+            _reclamo.observaciones = dto.observaciones;
+            _reclamo.latitud = dto.latitud;
+            _reclamo.longitud = dto.longitud;
            
 
             return _reclamo;

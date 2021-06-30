@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic.Controllers
 {
-    public class ReclamoController
+    public class BLReclamoController
     {
         private Repository _Repository;
 
-        public ReclamoController()
+        public BLReclamoController()
         {
             this._Repository = new Repository();
         }
@@ -33,32 +33,32 @@ namespace BusinessLogic.Controllers
         {
             List<string> errores = new List<string>();
 
-            if (dto.Observaciones == null)
+            if (dto.observaciones == null)
             {
                 errores.Add("Las observaciones son requeridas");
             }
             else
             {
-                if (dto.Observaciones.Length > 150)
+                if (dto.observaciones.Length > 150)
                 {
                     errores.Add("La descripcion no debe superar los 150 caracteres");
                 }
 
             }
-            if (dto.DtoTipoReclamo == null)
+           /* if (dto.DtoTipoReclamo == null)
             {
                 errores.Add("El tipo de reclamo es requerido");
-            }
+            }*/
 
-            //ERROR -PRUEBA 
-            if (dto.Latitud == null && dto.Longitud == null)
+            
+            if (dto.latitud == null && dto.longitud == null)
             {
                 errores.Add("La ubicación es requerida");
             }
 
             if (modificable == true)
             {
-                if (!this.ExisteReclamo(dto.Numero))
+                if (!this.ExisteReclamo(dto.numero))
                 {
                     errores.Add("El número de reclamo no existe");
                 }
