@@ -13,10 +13,10 @@ namespace DataAccess.Mappers
         public DtoPunto mapToDto(punto _punto)
         {
             DtoPunto dto = new DtoPunto();
-            dto.Numero = _punto.numero;
-            dto.NumeroZona = _punto.numeroZona;
-            dto.Latitud = _punto.latitud;
-            dto.Longitud = _punto.longitud;
+            dto.numero = _punto.numero;
+            dto.numeroZona = _punto.numeroZona;
+            dto.latitud = _punto.latitud;
+            dto.longitud = _punto.longitud;
             
 
             return dto;
@@ -34,13 +34,23 @@ namespace DataAccess.Mappers
         public punto mapToEntity(DtoPunto dto)
         {
             punto _punto = new punto();
-            _punto.numero = dto.Numero;
-            _punto.numeroZona = dto.NumeroZona;
-            _punto.latitud = dto.Latitud;
-            _punto.longitud = dto.Longitud;
+            _punto.numero = dto.numero;
+            _punto.numeroZona = dto.numeroZona;
+            _punto.latitud = dto.latitud;
+            _punto.longitud = dto.longitud;
+
             
 
             return _punto;
+        }
+        public List<punto> mapToEntity(List<DtoPunto> colDto)
+        {
+            List<punto> colPunto = new List<punto>();
+            foreach(DtoPunto item in colDto)
+            {
+                colPunto.Add(this.mapToEntity(item));
+            }
+            return colPunto;
         }
     }
 }

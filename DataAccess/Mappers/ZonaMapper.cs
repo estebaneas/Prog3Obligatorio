@@ -10,14 +10,18 @@ namespace DataAccess.Mappers
 {
     public class ZonaMapper
     {
+        PuntoMapper _puntoMapper;
+        public ZonaMapper()
+        {
+            this._puntoMapper = new PuntoMapper();
+        }
         public DtoZona mapToDto(zona _zona)
         {
             DtoZona dto = new DtoZona();
-            dto.Numero = _zona.numero;
-            dto.Nombre = _zona.nombre;
-            dto.Color = _zona.color;
-            
-
+            dto.numero = _zona.numero;
+            dto.nombre = _zona.nombre;
+            dto.color = _zona.color;
+            dto.colDtoPunto = _puntoMapper.mapToDto(_zona.punto.ToList());
             return dto;
         }
 
@@ -37,10 +41,21 @@ namespace DataAccess.Mappers
         public zona mapToEntity(DtoZona dto)
         {
             zona _zona = new zona();
-            _zona.numero = dto.Numero;
-            _zona.nombre = dto.Nombre;
-            _zona.color = dto.Color;
+            _zona.numero = dto.numero;
+            _zona.nombre = dto.nombre;
+            _zona.color = dto.color;
+            _zona.punto = this._puntoMapper.mapToEntity(dto.colDtoPunto);
             return _zona;
+        }
+
+        public List<zona> mapToEntity(List<DtoZona> colDto)
+        {
+            List<zona> colZonas = new List<zona>();
+            foreach(DtoZona item in colDto)
+            {
+                colZonas.Add(this.mapToEntity(item));
+            }
+            return colZonas;
         }
     }
 }
