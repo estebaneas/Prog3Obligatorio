@@ -5,20 +5,20 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="4c58684c88524d63a0654257d962d03d" Name="Diagram1">
-        <EntityTypeShape EntityType="ReclamosModel.cuadrilla" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ReclamosModel.historialDeCambios" Width="1.5" PointX="7.5" PointY="3.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ReclamosModel.reclamo" Width="1.5" PointX="5.25" PointY="3" IsExpanded="true" />
-        <EntityTypeShape EntityType="ReclamosModel.zona" Width="1.5" PointX="3" PointY="8.5" IsExpanded="true" />
-        <AssociationConnector Association="ReclamosModel.FK_Reclamo_Tipo" ManuallyRouted="false" />
-        <AssociationConnector Association="ReclamosModel.FK_Historail_Reclamo" ManuallyRouted="false" />
-        <AssociationConnector Association="ReclamosModel.FK_Reclamo_Cuadrilla" ManuallyRouted="false" />
-        <AssociationConnector Association="ReclamosModel.asignar" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="ReclamosModel.punto" Width="1.5" PointX="5.25" PointY="8.625" />
+        <EntityTypeShape EntityType="ReclamosModel.cuadrilla" Width="1.5" PointX="0.75" PointY="4.625" />
+        <EntityTypeShape EntityType="ReclamosModel.punto" Width="1.5" PointX="5.25" PointY="9.375" />
+        <EntityTypeShape EntityType="ReclamosModel.tipoReclamo" Width="1.5" PointX="3" PointY="0.75" />
+        <EntityTypeShape EntityType="ReclamosModel.usuario" Width="1.5" PointX="3" PointY="3.5" />
+        <EntityTypeShape EntityType="ReclamosModel.zona" Width="1.5" PointX="3" PointY="9.25" />
         <AssociationConnector Association="ReclamosModel.FK_Punto_Zona" />
-        <EntityTypeShape EntityType="ReclamosModel.usuario" Width="1.5" PointX="2.875" PointY="5.375" />
-        <AssociationConnector Association="ReclamosModel.FK_Reclamo_Zona" />
-        <EntityTypeShape EntityType="ReclamosModel.tipoReclamo" Width="1.5" PointX="2.875" PointY="2.375" />
-        <AssociationConnector Association="ReclamosModel.FK_Reclamo_Usuario" />
+        <AssociationConnector Association="ReclamosModel.asignar" />
+        <EntityTypeShape EntityType="ReclamosModel.historialDeCambios" Width="1.5" PointX="7.5" PointY="4.625" />
+        <EntityTypeShape EntityType="ReclamosModel.reclamo" Width="1.5" PointX="5.25" PointY="4" />
+        <AssociationConnector Association="ReclamosModel.FK_reclamo_cuadrilla" />
+        <AssociationConnector Association="ReclamosModel.FK_historialDeCambios_reclamo" />
+        <AssociationConnector Association="ReclamosModel.FK_reclamo_tipoReclamo" />
+        <AssociationConnector Association="ReclamosModel.FK_reclamo_usuario" />
+        <AssociationConnector Association="ReclamosModel.FK_reclamo_zona" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

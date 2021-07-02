@@ -17,8 +17,8 @@ namespace DataAccess.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public cuadrilla()
         {
-            this.reclamo = new HashSet<reclamo>();
             this.zona = new HashSet<zona>();
+            this.reclamo = new HashSet<reclamo>();
         }
     
         public int numero { get; set; }
@@ -27,8 +27,8 @@ namespace DataAccess.Model
         public int cantidadPeones { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<reclamo> reclamo { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<zona> zona { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<reclamo> reclamo { get; set; }
     }
 }

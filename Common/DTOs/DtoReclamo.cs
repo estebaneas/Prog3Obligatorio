@@ -11,7 +11,7 @@ namespace Common.DTOs
     public class DtoReclamo
     {
         public int numero;
-        public string estado;
+        public string estado { get; set; }
         public DateTime fechaIngreso;
 
         [DisplayName("Observaciones: ")]
@@ -26,20 +26,21 @@ namespace Common.DTOs
 
         [DisplayName("Longitud: ")]
         [Required(ErrorMessage = "La ubicación es requerida")]
-       
-        /*
+        public decimal longitud { get; set; }
+
         [DisplayName("Tipo de reclamo: ")]
         [Required(ErrorMessage = "El tipo de reclamo es requerido")]
-        public DtoTipoReclamo dtoTipoReclamo { get; set; }
-        */
-        public decimal longitud { get; set; }
-        public string emailUsuario;
-        public int numTipoReclamo;
-        public int numeroCuadrilla;
-        public int numeroZona;
+
+        public int numTipoReclamo { get; set; }
+
+
+        public string emailUsuario { get; set; }
+        public int numeroCuadrilla { get; set; }
+        public int numeroZona { get; set; }
         public DtoCuadrilla dtoCuadrilla;
         public List<DtoHistorialCambios> colDtoHistorialCambios;
         public DtoUsuario dtoUsuario;
         public DtoZona dtoZona;
+        
     }
 }

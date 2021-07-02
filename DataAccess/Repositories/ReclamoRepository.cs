@@ -26,7 +26,13 @@ namespace DataAccess.Repositories
                 {
                     try
                     {
+                        
                         reclamo reclamoEntity = this.reclamoMapper.mapToEntity(dto);
+                        reclamoEntity.fechaIngreso = dto.fechaIngreso;
+                        reclamoEntity.estado = dto.estado;
+                        reclamoEntity.numeroTipoReclamo = dto.numTipoReclamo;
+                        reclamoEntity.numeroZona = dto.numeroZona;
+                        reclamoEntity.emailUsuario = dto.emailUsuario;
                         context.reclamo.Add(reclamoEntity);
                         context.SaveChanges();
                         trann.Commit();
