@@ -129,6 +129,7 @@
     <Compile Include="Controllers\CuadrillaController.cs" />
     <Compile Include="Controllers\HistorialCambiosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ReclamoController.cs" />
     <Compile Include="Controllers\TipoReclamoController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
@@ -136,6 +137,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\UserAuthentication.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -221,6 +223,7 @@
     <Content Include="Views\Zona\NuevaZona.cshtml" />
     <Content Include="Views\Usuario\AgregarUsuario.cshtml" />
     <Content Include="Views\HistorialCambios\ListarCambios.cshtml" />
+    <Content Include="Views\Login\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

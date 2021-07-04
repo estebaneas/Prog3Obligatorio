@@ -42,8 +42,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constantes\CLogin.cs" />
     <Compile Include="DTOs\DtoCuadrilla.cs" />
     <Compile Include="DTOs\DtoHistorialCambios.cs" />
+    <Compile Include="DTOs\DtoLogin.cs" />
     <Compile Include="DTOs\DtoPunto.cs" />
     <Compile Include="DTOs\DtoReclamo.cs" />
     <Compile Include="DTOs\DtoTipoReclamo.cs" />
