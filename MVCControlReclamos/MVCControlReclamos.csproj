@@ -127,6 +127,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CuadrillaController.cs" />
+    <Compile Include="Controllers\HistorialCambiosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ReclamoController.cs" />
     <Compile Include="Controllers\TipoReclamoController.cs" />
@@ -220,6 +221,7 @@
     <Content Include="Views\Zona\View.cshtml" />
     <Content Include="Views\Zona\NuevaZona.cshtml" />
     <Content Include="Views\Usuario\AgregarUsuario.cshtml" />
+    <Content Include="Views\HistorialCambios\ListarCambios.cshtml" />
     <Content Include="Views\Zona\puntoEnZonaPrueba.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
