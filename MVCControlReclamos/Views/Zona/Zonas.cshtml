@@ -1,10 +1,7 @@
-﻿@model IEnumerable<Common.DTOs.DtoZona>
-
-@{
+﻿@{
     ViewBag.Title = "Zonas";
 }
-@Html.ActionLink("Agregar Nuevo", "NuevaZona", "Zona", new { @class = "btn btn-default" })
-
+@Html.ActionLink("Agregar Nuevo", "NuevaZona", "Zona",null, new { @class = "btn btn-default" })
 <h3>
     <label>Numero: </label><label class="label label-default"></label>
     <input type="text" id="numeroZona" />
@@ -13,12 +10,7 @@
     <input type="text" id="latitud" />
     <input type="text" id="longitud" />
 
-
 </h3>
-
-<script>
-    var modelo = @Html.Raw(Json.Encode(ViewBag.colZonas));
-</script>
 @Html.Partial("_Mapa")
 <script>
 </script>
