@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,38 +11,36 @@ namespace Common.DTOs
     public class DtoReclamo
     {
         public int numero;
-        public string estado;
+        public string estado { get; set; }
         public DateTime fechaIngreso;
-        public string observaciones;
+
+        [DisplayName("Observaciones: ")]
+        [Required(ErrorMessage = "La descripción es requerida")]
+        [StringLength(100, ErrorMessage = "La descripción no debe superar los {1} caracteres")]
+        public string observaciones { get; set; }
         public string comentario;
-        public decimal latitud;
-        public decimal longitud;
-        public string emailUsuario;
-        public int numTipoReclamo;
-        public int numeroCuadrilla;
-        public int numeroZona;
+
+        [DisplayName("Latitud: ")]
+        [Required(ErrorMessage = "La ubicación es requerida")]
+        public decimal latitud { get; set; }
+
+        [DisplayName("Longitud: ")]
+        [Required(ErrorMessage = "La ubicación es requerida")]
+        public decimal longitud { get; set; }
+
+        [DisplayName("Tipo de reclamo: ")]
+        [Required(ErrorMessage = "El tipo de reclamo es requerido")]
+
+        public int numTipoReclamo { get; set; }
+
+
+        public string emailUsuario { get; set; }
+        public int numeroCuadrilla { get; set; }
+        public int numeroZona { get; set; }
         public DtoCuadrilla dtoCuadrilla;
         public List<DtoHistorialCambios> colDtoHistorialCambios;
         public DtoUsuario dtoUsuario;
         public DtoZona dtoZona;
-        public DtoTipoReclamo dtoTipoReclamo;
-
-        public int Numero { get => numero; set => numero = value; }
-        public string Estado { get => estado; set => estado = value; }
-        public DateTime FechaIngreso { get => fechaIngreso; set => fechaIngreso = value; }
-    
-        public string Observaciones { get => observaciones; set => observaciones = value; }
-        public string Comentario { get => comentario; set => comentario = value; }
-        public decimal Latitud { get => latitud; set => latitud = value; }
-        public decimal Longitud { get => longitud; set => longitud = value; }
-        public string EmailUsuario { get => emailUsuario; set => emailUsuario = value; }
-        public int NumTipoReclamo { get => numTipoReclamo; set => numTipoReclamo = value; }
-        public int NumeroCuadrilla { get => numeroCuadrilla; set => numeroCuadrilla = value; }
-        public int NumeroZona { get => numeroZona; set => numeroZona = value; }
-        public DtoCuadrilla DtoCuadrilla { get => dtoCuadrilla; set => dtoCuadrilla = value; }
-        public List<DtoHistorialCambios> ColDtoHistorialCambios { get => colDtoHistorialCambios; set => colDtoHistorialCambios = value; }
-        public DtoUsuario DtoUsuario { get => dtoUsuario; set => dtoUsuario = value; }
-        public DtoZona DtoZona { get => dtoZona; set => dtoZona = value; }
-        public DtoTipoReclamo DtoTipoReclamo { get => dtoTipoReclamo; set => dtoTipoReclamo = value; }
+        
     }
 }

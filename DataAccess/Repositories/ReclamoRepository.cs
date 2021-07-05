@@ -26,7 +26,13 @@ namespace DataAccess.Repositories
                 {
                     try
                     {
+                        
                         reclamo reclamoEntity = this.reclamoMapper.mapToEntity(dto);
+                        reclamoEntity.fechaIngreso = dto.fechaIngreso;
+                        reclamoEntity.estado = dto.estado;
+                        reclamoEntity.numeroTipoReclamo = dto.numTipoReclamo;
+                        reclamoEntity.numeroZona = dto.numeroZona;
+                        reclamoEntity.emailUsuario = dto.emailUsuario;
                         context.reclamo.Add(reclamoEntity);
                         context.SaveChanges();
                         trann.Commit();
@@ -58,19 +64,12 @@ namespace DataAccess.Repositories
                 {
                     try
                     {
-                        reclamo currReclamoEntity = context.reclamo.FirstOrDefault(f => f.numero == reclamo.Numero);
+                        reclamo currReclamoEntity = context.reclamo.FirstOrDefault(f => f.numero == reclamo.numero);
 
-                        currReclamoEntity.fechaIngreso = reclamo.FechaIngreso;
-                        currReclamoEntity.estado = reclamo.Estado;
-                        currReclamoEntity.observaciones = reclamo.Observaciones;
-                        currReclamoEntity.comentario = reclamo.Comentario;
-                        currReclamoEntity.latitud = reclamo.Latitud;
-                        currReclamoEntity.longitud = reclamo.Longitud;
-                        currReclamoEntity.emailUsuario = reclamo.EmailUsuario;
-                        currReclamoEntity.numeroCuadrilla = reclamo.NumeroCuadrilla;
-                        currReclamoEntity.numeroZona = reclamo.NumeroZona;
-                        currReclamoEntity.emailUsuario = reclamo.EmailUsuario;
-                        currReclamoEntity.numeroTipoReclamo = reclamo.NumTipoReclamo;
+                        
+                        currReclamoEntity.observaciones = reclamo.observaciones;
+                        currReclamoEntity.latitud = reclamo.latitud;
+                        currReclamoEntity.longitud = reclamo.longitud;
 
                         context.SaveChanges();
                         trann.Commit();
