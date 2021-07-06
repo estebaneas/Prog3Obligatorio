@@ -35,21 +35,13 @@ namespace MVCControlReclamos.Controllers
         {
             BLUsuarioController BLUsuario = new BLUsuarioController();
             //Ir a validar con la base de datos
-            if (BLUsuario.BuscarNombreUsuario(dto.username) && BLUsuario.BuscarPassword(dto.password))
+            if (BLUsuario.VerificarUsuarioPassword(dto.username, dto.password) && BLUsuario.EsFuncionario(dto.username))
             {
                 //Crea la Cookie para que el usuario sea autenticado
                 FormsAuthentication.SetAuthCookie(dto.username, false);
 
                 Session[CLogin.KEY_SESSION_USERNAME] = dto.username;
-                if (BLUsuario.EsFuncionario(dto.username))
-                {
-                    Session[CLogin.KEY_SESSION_TIPO_USER] = "1";
-                }
-                else
-                {
-                    Session[CLogin.KEY_SESSION_TIPO_USER] = "2";
-                }
-                
+                Session[CLogin.KEY_SESSION_TIPO_USER] = "1";
 
                 return Redirect("/Home");
             }

@@ -128,14 +128,19 @@ namespace DataAccess.Repositories
             return existe;
         }
 
-        public bool VerificarPassword(string password)
+        public bool VerificarUsuarioPassword(string nombreUsuario, string password)
         {
-            bool existe = false;
+            bool verificar = false;
             using (ControlDeReclamosEntities context = new ControlDeReclamosEntities())
             {
-                existe = context.usuario.AsNoTracking().Any(i => i.contraseña == password);
+                usuario currUsuario = context.usuario.FirstOrDefault(i => i.nombreDeUsuario == nombreUsuario);
+                if (currUsuario.nombreDeUsuario== nombreUsuario && currUsuario.contraseña == password)
+                {
+                    verificar = true;
+                }
+                
             }
-            return existe;
+            return verificar;
         }
 
         public bool? EsFuncionario(string nombreUsuario)

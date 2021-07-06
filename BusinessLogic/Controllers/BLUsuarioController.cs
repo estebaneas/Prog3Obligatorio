@@ -67,21 +67,10 @@ namespace BusinessLogic.Controllers
             return colErrores;
         }
 
-        public bool BuscarNombreUsuario(string _nombreUsuario)
+        public bool VerificarUsuarioPassword(string _nombreUsuario, string password)
         {
             bool existe = false;
-            if (this.repository.GetUsuarioRepository().ExisteNombreUsuario(_nombreUsuario))
-            {
-                existe = true;
-            }
-
-            return existe;
-        }
-
-        public bool BuscarPassword(string pass)
-        {
-            bool existe = false;
-            if (this.repository.GetUsuarioRepository().VerificarPassword(pass))
+            if (this.repository.GetUsuarioRepository().VerificarUsuarioPassword(_nombreUsuario, password))
             {
                 existe = true;
             }
