@@ -117,6 +117,37 @@ namespace DataAccess.Repositories
             }
             return existe;
         }
+
+        public bool ExisteNombreUsuario(string nombreUsuario)
+        {
+            bool existe = false;
+            using (ControlDeReclamosEntities context = new ControlDeReclamosEntities())
+            {
+                existe = context.usuario.AsNoTracking().Any(i => i.nombreDeUsuario == nombreUsuario);
+            }
+            return existe;
+        }
+
+        public bool VerificarPassword(string password)
+        {
+            bool existe = false;
+            using (ControlDeReclamosEntities context = new ControlDeReclamosEntities())
+            {
+                existe = context.usuario.AsNoTracking().Any(i => i.contraseña == password);
+            }
+            return existe;
+        }
+
+        public bool? EsFuncionario(string nombreUsuario)
+        {
+            bool? funcionario;
+            using (ControlDeReclamosEntities context = new ControlDeReclamosEntities())
+            {
+                usuario currUsuario = context.usuario.FirstOrDefault(i => i.nombreDeUsuario == nombreUsuario);
+                funcionario = currUsuario.funcionario;
+            }
+            return funcionario;
+        }
     }
 }
 

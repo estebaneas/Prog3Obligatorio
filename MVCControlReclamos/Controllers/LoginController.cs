@@ -1,4 +1,5 @@
-﻿using Common.Constantes;
+﻿using BusinessLogic.Controllers;
+using Common.Constantes;
 using Common.DTOs;
 using System;
 using System.Collections.Generic;
@@ -32,14 +33,23 @@ namespace MVCControlReclamos.Controllers
         [HttpPost]
         public ActionResult Login(DtoLogin dto)
         {
+            BLUsuarioController BLUsuario = new BLUsuarioController();
             //Ir a validar con la base de datos
-            if (dto.username == "facundo" && dto.password == "1234")
+            if (BLUsuario.BuscarNombreUsuario(dto.username) && BLUsuario.BuscarPassword(dto.password))
             {
                 //Crea la Cookie para que el usuario sea autenticado
                 FormsAuthentication.SetAuthCookie(dto.username, false);
 
                 Session[CLogin.KEY_SESSION_USERNAME] = dto.username;
-                Session[CLogin.KEY_SESSION_TIPO_USER] = "1";
+                if (BLUsuario.EsFuncionario(dto.username))
+                {
+                    Session[CLogin.KEY_SESSION_TIPO_USER] = "1";
+                }
+                else
+                {
+                    Session[CLogin.KEY_SESSION_TIPO_USER] = "2";
+                }
+                
 
                 return Redirect("/Home");
             }

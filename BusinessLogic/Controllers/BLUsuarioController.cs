@@ -66,6 +66,41 @@ namespace BusinessLogic.Controllers
 
             return colErrores;
         }
+
+        public bool BuscarNombreUsuario(string _nombreUsuario)
+        {
+            bool existe = false;
+            if (this.repository.GetUsuarioRepository().ExisteNombreUsuario(_nombreUsuario))
+            {
+                existe = true;
+            }
+
+            return existe;
+        }
+
+        public bool BuscarPassword(string pass)
+        {
+            bool existe = false;
+            if (this.repository.GetUsuarioRepository().VerificarPassword(pass))
+            {
+                existe = true;
+            }
+
+            return existe;
+        }
+
+        public bool EsFuncionario(string nombreUsuario)
+        {
+            if(this.repository.GetUsuarioRepository().EsFuncionario(nombreUsuario) == null)
+            {
+                return false;
+            }
+            else
+            {
+                return bool.Parse(this.repository.GetUsuarioRepository().EsFuncionario(nombreUsuario).ToString());
+            }
+            
+        }
     }
 }
 
