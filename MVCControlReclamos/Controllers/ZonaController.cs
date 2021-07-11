@@ -34,9 +34,9 @@ namespace MVCControlReclamos.Controllers
         {
             BLZonaController BLZ = new BLZonaController();
             List<DtoZona> colZonas = BLZ.listarZonas();
-            DtoPunto punto = new DtoPunto(39.863917m, -4.031825m);
-            bool esta=BLZ.puntoEnZonas(punto,colZonas);
-            ViewBag.Esta = esta;
+            DtoPunto punto = new DtoPunto(39.85296477829779, -4.040275768768988); 
+            int esta=BLZ.puntoEnZonas(punto,colZonas);
+            ViewBag.Esta = esta; 
             return View();
         }
 
@@ -64,6 +64,8 @@ namespace MVCControlReclamos.Controllers
 
         }
 
+
+
         public JsonResult ValidarPoligono(string puntos)
         {
             BLZonaController BLZ = new BLZonaController();
@@ -83,7 +85,7 @@ namespace MVCControlReclamos.Controllers
                 {
                     foreach(DtoPunto punto in zona.colDtoPunto)
                     {
-                        if (BLZ.puntoEnZona((double)punto.latitud, (double)punto.longitud, poligono))
+                        if (BLZ.puntoEnZona((double)punto.longitud, (double)punto.latitud, poligono))
                         {
                             pEnZona = true;
                         }

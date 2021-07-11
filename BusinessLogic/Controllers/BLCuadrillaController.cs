@@ -119,6 +119,20 @@ namespace BusinessLogic.Controllers
             return this._Repository.GetCuadrillaRepository().getColCuadrilla();
         }
 
+        public DtoCuadrilla getCuadrilla(int numCuadrilla)
+        {
+            return this._Repository.GetCuadrillaRepository().getCuadrilla(numCuadrilla);
+        }
+        public List<DtoCuadrilla> getCuadrillasPorZona(int numZona)
+        {
+            return this._Repository.GetCuadrillaRepository().getCuadrillaPorZona(numZona);
+        }
+
+        public void asignarCuadrillaZona(DtoAsignarZonaCuadrilla asignacion)
+        {
+            this._Repository.GetCuadrillaRepository().asignarCuadrillaZona(asignacion);
+        }
+
 
     }
 }

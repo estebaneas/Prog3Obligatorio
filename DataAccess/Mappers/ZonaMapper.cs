@@ -10,10 +10,12 @@ namespace DataAccess.Mappers
 {
     public class ZonaMapper
     {
-        PuntoMapper _puntoMapper;
+        private PuntoMapper _puntoMapper;
+        private ReclamoMapper reclamoMapper;
         public ZonaMapper()
         {
             this._puntoMapper = new PuntoMapper();
+            this.reclamoMapper = new ReclamoMapper();
         }
         public DtoZona mapToDto(zona _zona)
         {
@@ -22,6 +24,7 @@ namespace DataAccess.Mappers
             dto.nombre = _zona.nombre;
             dto.color = _zona.color;
             dto.colDtoPunto = _puntoMapper.mapToDto(_zona.punto.ToList());
+            dto.colReclamos = reclamoMapper.MapToDto(_zona.reclamo.ToList());
             return dto;
         }
 

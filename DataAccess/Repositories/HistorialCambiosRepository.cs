@@ -76,20 +76,20 @@ namespace DataAccess.Repositories
                 {
                     try
                     {
-                        historialDeCambios currHistorial = context.historialDeCambios.FirstOrDefault(f => f.numero == dto.Numero);
+                        historialDeCambios currHistorial = context.historialDeCambios.FirstOrDefault(f => f.numero == dto.numero);
 
                         if (currHistorial != null)
                         {
-                            currHistorial.numero = dto.Numero;
-                            currHistorial.numeroReclamo = dto.NumeroReclamo;
-                            currHistorial.fechaCambio = dto.FechaCambio;
-                            currHistorial.fechaIngreso = dto.FechaIngreso;
-                            currHistorial.observaciones = dto.Observaciones;
-                            currHistorial.comentario = dto.Comentario;
-                            currHistorial.latitud = dto.Latitud;
-                            currHistorial.longitud = dto.Longitud;
-                            currHistorial.estado = dto.Estado;
-                            currHistorial.reclamo = this.reclamoMapper.mapToEntity(dto.DtoReclamo);
+                            currHistorial.numero = dto.numero;
+                            currHistorial.numeroReclamo = dto.numeroReclamo;
+                            currHistorial.fechaCambio = dto.fechaCambio;
+                            currHistorial.fechaIngreso = dto.fechaIngreso;
+                            currHistorial.observaciones = dto.observaciones;
+                            currHistorial.comentario = dto.comentario;
+                            currHistorial.latitud = dto.latitud;
+                            currHistorial.longitud = dto.longitud;
+                            currHistorial.estado = dto.estado;
+                            currHistorial.reclamo = this.reclamoMapper.mapToEntity(dto.dtoReclamo);
 
                             context.SaveChanges();
                             trann.Commit();

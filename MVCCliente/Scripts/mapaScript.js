@@ -49,7 +49,7 @@ function cargar() {
 
         $.ajax({
             contentType: "application/json",
-            url: 'cargarZonasBD',
+            url: '/Zona/cargarZonasBD',
             type: 'GET',
             success: function (result) {
                 zonas = result;
@@ -58,6 +58,7 @@ function cargar() {
             error: function (err) { console.log(err); }
 
         });
+   
 }
 
 //Funcionq ue inicia le mapa
@@ -106,7 +107,7 @@ function initMap() {
     function dibujarZonas() {
         for (let i = 0; i < zonas.length; i++) {
             var zonap = new google.maps.Polygon({
-                strokeColor: "#a3c6ff",
+                strokeColor: "#517fb0",
                 strokeOpacity: 0.8,
                 strokeWeight: 2,
                 fillColor: "#a3c6ff",
@@ -146,7 +147,6 @@ function initMap() {
         let posicion = new google.maps.LatLng(lat, long);
 
         colocarMarcador(posicion, map, marcador);
-
         //para probar muestra la long y lat en un label
         try {
             var latLongTest = document.getElementById("latlong")

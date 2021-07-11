@@ -11,13 +11,7 @@ namespace MVCCliente.Controllers
     public class UsuarioController : Controller
     {
         // GET: Usuario
-        [HttpGet]
-        public ActionResult cargarZonasBD()
-        {
-            BLZonaController BLZ = new BLZonaController();
-            List<DtoZona> colZonas = BLZ.listarZonas();
-            return Json(colZonas, JsonRequestBehavior.AllowGet);
-        }
+
 
 
        /*public ActionResult puntoEnZona (DtoPunto punto)

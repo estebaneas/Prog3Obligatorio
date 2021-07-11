@@ -1,0 +1,19 @@
+﻿body {
+
+}
+
+
+.bb {
+    text-align:center
+}
+
+.tt{
+    border:red solid 1px;
+}
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
