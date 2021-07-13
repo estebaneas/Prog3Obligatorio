@@ -13,11 +13,12 @@ namespace DataAccess.Repositories
 {
     public class UsuarioRepository
     {
+        private UsuarioMapper usuarioMapper;
+
         public UsuarioRepository()
         {
-
+            this.usuarioMapper = new UsuarioMapper();
         }
-        private UsuarioMapper usuarioMapper;
 
         public void AltaUsuario(DtoUsuario dto)
         {
@@ -27,6 +28,7 @@ namespace DataAccess.Repositories
                 {
                     try
                     {
+                        dto.funcionario = true;
                         usuario usuarioEntity = this.usuarioMapper.mapToEntity(dto);
                         context.usuario.Add(usuarioEntity);
                         context.SaveChanges();
@@ -116,6 +118,37 @@ namespace DataAccess.Repositories
                 existe = context.usuario.AsNoTracking().Any(i => i.email == email);
             }
             return existe;
+        }
+
+        public bool ExisteNombreUsuario(string nombreUsuario)
+        {
+            bool existe = false;
+            using (ControlDeReclamosEntities context = new ControlDeReclamosEntities())
+            {
+                existe = context.usuario.AsNoTracking().Any(i => i.nombreDeUsuario == nombreUsuario );
+            }
+            return existe;
+        }
+
+        public bool VerificarUsuarioPassword(string nombreUsuario, string password)
+        {
+            using (ControlDeReclamosEntities context = new ControlDeReclamosEntities())
+            {
+
+                return context.usuario.AsNoTracking().Any(i => i.nombreDeUsuario == nombreUsuario && i.contraseña == password);
+            }
+
+        }
+
+        public bool? EsFuncionario(string nombreUsuario)
+        {
+            bool? funcionario;
+            using (ControlDeReclamosEntities context = new ControlDeReclamosEntities())
+            {
+                usuario currUsuario = context.usuario.FirstOrDefault(i => i.nombreDeUsuario == nombreUsuario);
+                funcionario = currUsuario.funcionario;
+            }
+            return funcionario;
         }
     }
 }
