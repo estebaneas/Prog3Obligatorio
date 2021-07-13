@@ -29,10 +29,11 @@ namespace DataAccess.Repositories
                         
                         reclamo reclamoEntity = this.reclamoMapper.mapToEntity(dto);
                         reclamoEntity.fechaIngreso = dto.fechaIngreso;
-                        reclamoEntity.estado = dto.estado;
+                        reclamoEntity.estado = dto.estado.ToString();
                         reclamoEntity.numeroTipoReclamo = dto.numTipoReclamo;
                         reclamoEntity.numeroZona = dto.numeroZona;
                         reclamoEntity.emailUsuario = dto.emailUsuario;
+                        reclamoEntity.numeroCuadrilla = dto.numeroCuadrilla;
                         context.reclamo.Add(reclamoEntity);
                         context.SaveChanges();
                         trann.Commit();
@@ -120,5 +121,57 @@ namespace DataAccess.Repositories
 
             return colDtoReclamos;
         }
+
+
+
+        public List<DtoReclamo>recEnProcesoAsign()
+        {
+            using (ControlDeReclamosEntities context = new ControlDeReclamosEntities())
+            {
+                return this.reclamoMapper.MapToDto(context.reclamo.AsNoTracking().Where(r => r.estado == estadoReclamo.ASIGNADO.ToString() || r.estado == estadoReclamo.EN_PROCESO.ToString()).ToList());
+            }
+        }
+
+        public List<DtoReclamo> getReclamos()
+        {
+            using (ControlDeReclamosEntities context = new ControlDeReclamosEntities())
+            {
+                return this.reclamoMapper.MapToDto(context.reclamo.AsNoTracking().Select(s=>s).ToList());
+            }
+        }
+
+        public List<DtoReclamo> getReclamosPorFecha(DateTime? ini, DateTime? fin)
+        {
+            using (ControlDeReclamosEntities context = new ControlDeReclamosEntities())
+            {
+                return this.reclamoMapper.MapToDto(context.reclamo.AsNoTracking().Where(r=>r.fechaIngreso>=ini&&r.fechaIngreso<=fin).ToList());
+            }
+        }
+
+        public List<DtoReclamo> getReclamosPorCuadrilla(int? numCuadrilla)
+        {
+            using (ControlDeReclamosEntities context = new ControlDeReclamosEntities())
+            {
+                return this.reclamoMapper.MapToDto(context.reclamo.AsNoTracking().Where(r=>r.numeroCuadrilla==numCuadrilla).ToList());
+            }
+        }
+
+
+        public List<DtoReclamo> getReclamosPorZona(int? numZona)
+        {
+            using (ControlDeReclamosEntities context = new ControlDeReclamosEntities())
+            {
+                return this.reclamoMapper.MapToDto(context.reclamo.AsNoTracking().Where(r=>r.numeroZona==numZona).ToList());
+            }
+        }
+
+        public List<DtoReclamo> getReclamosPorEstado(string estado)
+        {
+            using (ControlDeReclamosEntities context = new ControlDeReclamosEntities())
+            {
+                return this.reclamoMapper.MapToDto(context.reclamo.AsNoTracking().Where(r=>r.estado==estado).ToList());
+            }
+        }
+
     }
 }

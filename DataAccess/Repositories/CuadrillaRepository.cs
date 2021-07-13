@@ -118,6 +118,43 @@ namespace DataAccess.Repositories
             
         }
 
+        public List<DtoCuadrilla> getCuadrillaPorZona(int numZona)
+        {
+            using (ControlDeReclamosEntities context = new ControlDeReclamosEntities())
+            {
+                return this.cuadrillaMapper.mapToDto(context.zona.AsNoTracking().FirstOrDefault(s => s.numero == numZona).cuadrilla.ToList());
+            }
+        }
+
+        public DtoCuadrilla getCuadrilla(int numCuadrilla)
+        {
+            using (ControlDeReclamosEntities context = new ControlDeReclamosEntities())
+            {
+                return this.cuadrillaMapper.mapToDto(context.cuadrilla.AsNoTracking().FirstOrDefault(c => c.numero == numCuadrilla));
+            }
+        }
+
+        public void asignarCuadrillaZona(DtoAsignarZonaCuadrilla asignacion)
+        {
+            using (ControlDeReclamosEntities context= new ControlDeReclamosEntities())
+            {
+                using (DbContextTransaction trans = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
+                {
+                    try
+                    {
+                        cuadrilla cuadrilla = context.cuadrilla.FirstOrDefault(c => c.numero == asignacion.numCuadrilla);
+                        zona zona = context.zona.FirstOrDefault(z => z.numero == asignacion.numeroZona);
+                        zona.cuadrilla.Add(cuadrilla);
+                        context.SaveChanges();
+                        trans.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        trans.Rollback();
+                    }
+                }
+            }
+        }
        
     }
 }

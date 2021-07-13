@@ -16,8 +16,8 @@ namespace DataAccess.Model
     {
         public int numero { get; set; }
         public int numeroZona { get; set; }
-        public decimal latitud { get; set; }
-        public decimal longitud { get; set; }
+        public double latitud { get; set; }
+        public double longitud { get; set; }
     
         public virtual zona zona { get; set; }
     }

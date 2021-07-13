@@ -1,0 +1,67 @@
+﻿@model Common.DTOs.DtoReclamo
+
+@{
+    ViewBag.Title = "Agregar Reclamo";
+}
+
+<h2>Agregar un reclamo</h2>
+
+
+@using (Html.BeginForm("AgregarReclamo", "Reclamo"))
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <h4>DtoReclamo</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.Partial("_Mapa")
+    <div class="form-group">
+        @Html.LabelFor(model => model.numTipoReclamo, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.numTipoReclamo, (List<SelectListItem>)ViewBag.listaDeTipos, "Tipos de reclamos", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.numTipoReclamo, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.observaciones, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.observaciones, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.observaciones, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.latitud, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.latitud, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.latitud, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.longitud, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.longitud, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.longitud, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+            <input type="button" value="Cancelar" class="btn btn-default" onclick="location.href='@Url.Action("ListarReclamos","Reclamos")'" />
+        </div>
+    </div>
+</div>
+}
+
+
+
+<div>
+    @Html.ActionLink("Back to List", "ListarReclamos")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -23,7 +23,7 @@ namespace MVCControlReclamos.Controllers
             return View(colZonas);
         }
 
-        public ActionResult NuevaZona()
+         public ActionResult NuevaZona()
         {
             BLZonaController BLZ = new BLZonaController();
             List<DtoZona> colZonas = BLZ.listarZonas();
@@ -32,7 +32,17 @@ namespace MVCControlReclamos.Controllers
             return View();
         }
 
+         public ActionResult puntoEnZonaPrueba()
+        {
+            BLZonaController BLZ = new BLZonaController();
+            List<DtoZona> colZonas = BLZ.listarZonas();
+            DtoPunto punto = new DtoPunto(39.85296477829779, -4.040275768768988); 
+            int esta=BLZ.puntoEnZonas(punto,colZonas);
+            ViewBag.Esta = esta; 
+            return View();
+        }
 
+        
         [HttpPost]
         public ActionResult AgregarZona(DtoZona nDtoZona)
         {
@@ -52,8 +62,69 @@ namespace MVCControlReclamos.Controllers
             }
             nDtoZona.colDtoPunto = puntos;
             BLZ.agregarZona(nDtoZona);
-            return RedirectToAction("Zonas");
+            return View("NuevaZona");
+
         }
+
+
+
+        public JsonResult ValidarPoligono(string puntos)
+        {
+            BLZonaController BLZ = new BLZonaController();
+            var resultado = new JsonResult()
+            {
+                Data = JsonConvert.DeserializeObject(puntos)
+            };
+            List<DtoZona> colZonas =  BLZ.listarZonas();
+            string jsonString = JsonConvert.SerializeObject(resultado);
+            JObject colPuntos = JObject.Parse(jsonString);
+            List<DtoPunto> poligono = colPuntos["Data"].ToObject<List<DtoPunto>>();
+            bool pEnZona = false;
+            bool superPuesto = false;
+            bool vacio = false;
+            if (!(poligono.Count()==0)) { 
+                foreach(DtoZona zona in colZonas)
+                {
+                    foreach(DtoPunto punto in zona.colDtoPunto)
+                    {
+                        if (BLZ.puntoEnZona((double)punto.longitud, (double)punto.latitud, poligono))
+                        {
+                            pEnZona = true;
+                        }
+                    }
+                }
+                superPuesto = BLZ.zonaSuperPuesta(poligono, colZonas);
+            }
+            else
+            {
+                vacio = true;
+            }
+
+
+            if (poligono.Count()<3||vacio)
+            {
+                return Json("• La zona requiere de al menos 3 puntos", JsonRequestBehavior.AllowGet);
+            }
+            else if(pEnZona||superPuesto)
+            {
+                return Json("• La zona no puede superponerse a otra", JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
+        [HttpGet]
+        public ActionResult cargarZonasBD()
+        {
+            BLZonaController BLZ = new BLZonaController();
+            List<DtoZona> colZonas = BLZ.listarZonas();
+            ViewBag.ColZonas = colZonas;
+            return Json(colZonas,JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult Preuba()
         {
             return View();

@@ -4,42 +4,22 @@
     ViewBag.Title = "Listar Reclamos";
 }
 
-<h2>ListarReclamo</h2>
+<h2>Reclamos</h2>
+<hr />
+<label>fecha</label><input type="date" />
+<label>estado</label>
+<label>cuadrilla</label>
+<label>zona</label>
+<label>Resultados por pagina</label>
+<select>
+    <option value="10">10</option>
+    <option value="10">20</option>
+    <option value="10">50</option>
+    <option value="10">100</option>
+</select>
+<input type="button" value="Filtrar" />
+<hr />
 
-<p>
-    @Html.ActionLink("Agregar Reclamo", "Agregar", "Reclamo")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.observaciones)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.latitud)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.longitud)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.observaciones)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.latitud)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.longitud)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
-}
-
-</table>
+<div id="target">
+    @Html.Partial("_ListarReclamosPartial")
+</div>
