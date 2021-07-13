@@ -219,6 +219,7 @@
     <Content Include="Views\Zona\View.cshtml" />
     <Content Include="Views\Zona\NuevaZona.cshtml" />
     <Content Include="Views\Usuario\AgregarUsuario.cshtml" />
+    <Content Include="Views\Reclamo\EditarReclamo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

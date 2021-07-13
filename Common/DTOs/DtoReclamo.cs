@@ -10,7 +10,9 @@ namespace Common.DTOs
 {
     public class DtoReclamo
     {
-        public int numero;
+        public int numero { get; set; }
+        [DisplayName("Estado: ")]
+        [Required(ErrorMessage ="El estado es requerido")]
         public string estado { get; set; }
         public DateTime fechaIngreso;
 

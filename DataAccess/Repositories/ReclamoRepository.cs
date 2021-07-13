@@ -56,6 +56,17 @@ namespace DataAccess.Repositories
             return result;
         }
 
+        public DtoReclamo getReclamo(int nroReclamo)
+        {
+            DtoReclamo result = null;
+            using (ControlDeReclamosEntities context = new ControlDeReclamosEntities())
+            {
+                result = this.reclamoMapper.MapToDto(context.reclamo.FirstOrDefault(a => a.numero == nroReclamo));
+            }
+
+            return result;
+        }
+
         public void modificarReclamo(DtoReclamo reclamo)
         {
             using (ControlDeReclamosEntities context = new ControlDeReclamosEntities())
@@ -67,9 +78,8 @@ namespace DataAccess.Repositories
                         reclamo currReclamoEntity = context.reclamo.FirstOrDefault(f => f.numero == reclamo.numero);
 
                         
-                        currReclamoEntity.observaciones = reclamo.observaciones;
-                        currReclamoEntity.latitud = reclamo.latitud;
-                        currReclamoEntity.longitud = reclamo.longitud;
+                        currReclamoEntity.comentario = reclamo.comentario;
+                        currReclamoEntity.estado = reclamo.estado;
 
                         context.SaveChanges();
                         trann.Commit();

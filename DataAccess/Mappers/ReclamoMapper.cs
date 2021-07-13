@@ -23,6 +23,14 @@ namespace DataAccess.Mappers
                 dto.observaciones = entity.observaciones;
                 dto.latitud = entity.latitud;
                 dto.longitud = entity.longitud;
+                dto.numero = entity.numero;
+                dto.numTipoReclamo = entity.numeroTipoReclamo;
+                dto.fechaIngreso = entity.fechaIngreso;
+                dto.estado = entity.estado;
+                dto.comentario = entity.comentario;
+                dto.emailUsuario = entity.emailUsuario;
+                dto.numeroCuadrilla = entity.numeroCuadrilla;
+                dto.numeroZona = entity.numeroZona;
                 
 
             }

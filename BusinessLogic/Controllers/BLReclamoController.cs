@@ -18,6 +18,13 @@ namespace BusinessLogic.Controllers
         }
 
 
+        public DtoReclamo GetById(int nroReclamo)
+        {
+
+            return this._Repository.GetReclamoRepository().getReclamo(nroReclamo);
+
+        }
+
         public List<string> agregarReclamo(DtoReclamo dto)
         {
             List<string> colErrores = this.ValidarReclamo(dto, false);
@@ -32,6 +39,7 @@ namespace BusinessLogic.Controllers
         public List<string> ValidarReclamo(DtoReclamo dto, bool modificable)
         {
             List<string> errores = new List<string>();
+
 
             if (dto.observaciones == null)
             {
