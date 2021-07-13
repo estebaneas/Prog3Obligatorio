@@ -7,9 +7,11 @@ using System.Web;
 using System.Web.Mvc;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using MVCControlReclamos.Helpers;
 
 namespace MVCControlReclamos.Controllers
 {
+    [UserAuthentication]
     public class ZonaController : Controller
     {
         // GET: Zona

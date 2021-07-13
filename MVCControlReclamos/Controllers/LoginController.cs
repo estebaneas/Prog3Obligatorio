@@ -35,15 +35,25 @@ namespace MVCControlReclamos.Controllers
         {
             BLUsuarioController BLUsuario = new BLUsuarioController();
             //Ir a validar con la base de datos
-            if (BLUsuario.VerificarUsuarioPassword(dto.username, dto.password) && BLUsuario.EsFuncionario(dto.username))
+            if (BLUsuario.VerificarUsuarioPassword(dto.username, dto.password)) {
+                if (BLUsuario.EsFuncionario(dto.username))
+                {
+                    //Crea la Cookie para que el usuario sea autenticado
+                    FormsAuthentication.SetAuthCookie(dto.username, false);
+
+                    Session[CLogin.KEY_SESSION_USERNAME] = dto.username;
+                    Session[CLogin.KEY_SESSION_TIPO_USER] = "1";
+                    
+                    return Redirect("/Home");
+                }
+                else
+                {
+                    ModelState.AddModelError("ErrorGeneral", "No registrado como funcionario.");
+                }
+            }
+            else
             {
-                //Crea la Cookie para que el usuario sea autenticado
-                FormsAuthentication.SetAuthCookie(dto.username, false);
-
-                Session[CLogin.KEY_SESSION_USERNAME] = dto.username;
-                Session[CLogin.KEY_SESSION_TIPO_USER] = "1";
-
-                return Redirect("/Home");
+                ModelState.AddModelError("ErrorGeneral", "Usuario o contraseña incorrectos");
             }
 
             return View();
