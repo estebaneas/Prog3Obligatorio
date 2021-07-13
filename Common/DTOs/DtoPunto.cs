@@ -8,6 +8,12 @@ namespace Common.DTOs
 {
     public class DtoPunto
     {
+        public DtoPunto() { }
+        public DtoPunto(decimal latitud, decimal longitud)
+        {
+            this.latitud = latitud;
+            this.longitud = longitud;
+        }
         public int numero;
         public int numeroZona;
         public decimal latitud;
