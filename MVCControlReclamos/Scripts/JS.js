@@ -26,11 +26,15 @@ function cargarReclamos(colRecjava, targetID, pagActual, cantPorPag, btnTarget, 
         }
     }
     else {
-        ini = document.getElementById("FechaRes").value;
-        estado = document.getElementById("EstadoRes").value;
-        tipo = document.getElementById("TipoReclamoRes").value;
-        numZona = document.getElementById("ZonaRes").value;
-        numCuadrilla = document.getElementById("CuadrillaRes").value;
+        try {
+            ini = document.getElementById("FechaRes").value;
+            estado = document.getElementById("EstadoRes").value;
+            tipo = document.getElementById("TipoReclamoRes").value;
+            numZona = document.getElementById("ZonaRes").value;
+            numCuadrilla = document.getElementById("CuadrillaRes").value;
+        } catch {
+
+        }
     }
 
     if (!buscador && cantPorPag==null) {

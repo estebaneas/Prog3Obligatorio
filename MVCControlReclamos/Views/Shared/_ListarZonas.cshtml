@@ -23,7 +23,7 @@
                 <div class="panel-body">
                     <div class="col-lg-12">
                         <div id="zona_@item.numero">
-                            @Html.Partial("_ListarReclamosPartial", item.colReclamos)
+                            @Html.Partial("_ListarReclamosPartial", item.colReclamos.Where(r=>r.numeroCuadrilla==ViewBag.NumCuadrilla))
                         </div>
                     </div>
                 </div>
