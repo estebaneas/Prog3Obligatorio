@@ -140,11 +140,11 @@ namespace DataAccess.Repositories
             }
         }
 
-        public List<DtoReclamo> getReclamosPorFecha(DateTime? ini, DateTime? fin)
+        public List<DtoReclamo> getReclamosPorFecha(DateTime? ini)
         {
             using (ControlDeReclamosEntities context = new ControlDeReclamosEntities())
             {
-                return this.reclamoMapper.MapToDto(context.reclamo.AsNoTracking().Where(r=>r.fechaIngreso>=ini&&r.fechaIngreso<=fin).ToList());
+                return this.reclamoMapper.MapToDto(context.reclamo.AsNoTracking().Where(r=>r.fechaIngreso.Year==ini.Value.Year).ToList());
             }
         }
 

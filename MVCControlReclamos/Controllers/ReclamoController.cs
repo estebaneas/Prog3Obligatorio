@@ -4,6 +4,7 @@ using DataAccess.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -21,7 +22,91 @@ namespace MVCControlReclamos.Controllers
             ViewBag.BtnTarget = "btnRec";
             ViewBag.Target = "target";
             ViewBag.ColReclamosVar = "null";
+            BLTipoDeReclamoController BLT = new BLTipoDeReclamoController();
+            BLZonaController BLZ = new BLZonaController();
+            BLCuadrillaController BLC = new BLCuadrillaController();
+            List<SelectListItem> listaTipo = new List<SelectListItem>();
+            List<SelectListItem> listaZona = new List<SelectListItem>();
+            List<SelectListItem> listaCuadrilla = new List<SelectListItem>();
+            List<SelectListItem> listaEstado = new List<SelectListItem>();
+            List<DtoTipoReclamo> colTipos = BLT.getTiposDeReclamos();
+            List<DtoZona> colZonas = BLZ.listarZonas();
+            List<DtoCuadrilla> colCuadrillas = BLC.getColCuadrilla();
+            
+
+            foreach(DtoTipoReclamo item in colTipos)
+            {
+                SelectListItem opcion = new SelectListItem();
+                opcion.Value = item.numero.ToString();
+                opcion.Text = item.nombre;
+                listaTipo.Add(opcion);
+            }
+
+            foreach (DtoZona item in colZonas)
+            {
+                SelectListItem opcion = new SelectListItem();
+                opcion.Value = item.numero.ToString();
+                opcion.Text = item.nombre;
+                listaZona.Add(opcion);
+            }
+
+            foreach (DtoCuadrilla item in colCuadrillas)
+            {
+                SelectListItem opcion = new SelectListItem();
+                opcion.Value = item.numero.ToString();
+                opcion.Text = item.nombre;
+                listaCuadrilla.Add(opcion);
+            }
+            List<String> test = new List<String>();
+            foreach (estadoReclamo estado in Enum.GetValues(typeof(estadoReclamo)))
+            {
+                SelectListItem opcion = new SelectListItem();
+                opcion.Value = estado.ToString();
+                opcion.Text = enumATexto(estado);
+                listaEstado.Add(opcion);
+            }
+
+            ViewBag.ListaTipos = listaTipo;
+            ViewBag.ListaZonas = listaZona;
+            ViewBag.ListaCuadrillas = listaCuadrilla;
+            ViewBag.ListaEstados = listaEstado;
+
             return View(colReclamos);
+        }
+   
+        public string enumATexto(estadoReclamo estadoEn)
+        {
+            string estado = estadoEn.ToString();
+            string arreglado = "";
+
+            StringBuilder sb = new StringBuilder(estado);
+            
+
+            for (int i = 0; i<estado.Length;i++)
+            {
+                if (i > 0)
+                {
+                    if (estado[i].Equals('_'))
+                    {
+                        arreglado += " ";
+                    }
+                    else if (estado[i - 1].Equals('_') && i > 0)
+                    {
+                        arreglado += char.ToUpper(estado[i]).ToString();
+                    }
+                    else
+                    {
+                        arreglado += char.ToLower(estado[i]).ToString();
+                    }
+                }
+                else
+                {
+                    arreglado += estado[i].ToString();
+                }
+
+            }
+
+            return arreglado;
         }
         public ActionResult Agregar()
         {
@@ -57,58 +142,62 @@ namespace MVCControlReclamos.Controllers
         {
             BLReclamoController BLR = new BLReclamoController();
             List<DtoReclamo> colreclamos = new List<DtoReclamo>();
-            DateTime? inicio;
-            DateTime? final;
             DateTime? ini;
-            DateTime? fin;
+            DateTime inicio;
             string targetID=filtro.targetID;
             int pagActual=filtro.paginaActual;
             int cantPorPag = filtro.cantPorPag;
             int? numZona;
             int? numCuadrilla;
             string estado;
-           
+            int? numTipo = filtro.tipo;
+            
+
             if (filtro.colReclamos[0]==null)
             {
+
                 ini = filtro.ini;
-                fin = filtro.fin;
-                numZona = filtro.numZona;
-                numCuadrilla = filtro.numCuadrilla;
-                estado = filtro.estado;
-                
-                colreclamos = BLR.getReclamos(numZona, numCuadrilla, estado, ini, fin);
-                if (ini != null)
+                if(ini!=null)
                 {
-                    inicio = ini;
+                    inicio = (DateTime)ini;
                 }
                 else
                 {
                     inicio = DateTime.MinValue;
                 }
-                if (fin != null)
-                {
-                    final = fin;
-                }
-                else
-                {
-                    final = DateTime.Now;
-                }
 
+                numZona = filtro.numZona;
+                numCuadrilla = filtro.numCuadrilla;
+                estado = filtro.estado;
+                ViewBag.ColReclamosVar = "null";
+
+                colreclamos = BLR.getReclamos(numZona, numCuadrilla, estado, ini);
+                
+                if (ini != null)
+                {
+                    colreclamos =colreclamos.Where(r=>r.fechaIngreso.Date==inicio).ToList();
+                }
+                if (numTipo != null)
+                {
+                    colreclamos = colreclamos.Where(r => r.numTipoReclamo == numTipo).ToList();
+                }
                 if (numZona != null)
                 {
                     colreclamos = colreclamos.Where(r => r.numeroZona == numZona).ToList();
                 }
-                if (numCuadrilla != null)
+                if (estado != null)
                 {
-                    colreclamos = colreclamos.Where(r => r.numeroCuadrilla == numCuadrilla).ToList();
+                    colreclamos = colreclamos.Where(r => r.estado.ToString()==estado).ToList();
                 }
-                colreclamos = colreclamos.Where(r => r.fechaIngreso >= inicio && r.fechaIngreso <= final).ToList();
+
+
             }
             else
             {
                 colreclamos = filtro.colReclamos;
+                ViewBag.ColReclamosVar = filtro.colRelJavVar;
             }
-            ViewBag.ColReclamosVar = filtro.colRelJavVar;
+            ViewBag.CantPorPag = filtro.cantPorPag;
             ViewBag.BtnTarget = filtro.BtnTarget;   
             ViewBag.ColReclamos = filtro.colReclamos;
             ViewBag.TotReclamos = colreclamos.Count();
@@ -117,10 +206,5 @@ namespace MVCControlReclamos.Controllers
             colreclamos = colreclamos.OrderByDescending(r => r.fechaIngreso).Skip(cantPorPag * (pagActual - 1)).Take(cantPorPag).ToList();
             return PartialView("_ListarReclamosPartial", colreclamos);
         }
-
-        /* public  ejecutar(int pagActual, int cantPorPag, int? numZona, int? numCuadrilla, string estado, DateTime? ini, DateTime? fin)
-         {
-            int = mostrarReclamos(pagActual, cantPorPag,  numZona,  numCuadrilla,  estado,  ini,  fin);
-         }*/
     }
 }
