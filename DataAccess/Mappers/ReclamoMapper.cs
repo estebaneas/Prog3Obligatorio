@@ -30,11 +30,12 @@ namespace DataAccess.Mappers
                 dto.comentario = entity.comentario;
                 dto.latitud = entity.latitud;
                 dto.longitud = entity.longitud;
-                dto.emailUsuario = entity.emailUsuario;
                 dto.numTipoReclamo = entity.numeroTipoReclamo;
+                dto.emailUsuario = entity.emailUsuario;
                 dto.numeroCuadrilla = entity.numeroCuadrilla;
                 dto.numeroZona = entity.numeroZona;
                 dto.tipoReclamo = this.tipoReclamoMapper.mapToDto(entity.tipoReclamo);
+
             }
             return dto;
         }
