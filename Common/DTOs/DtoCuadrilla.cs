@@ -25,8 +25,9 @@ namespace Common.DTOs
         [DisplayName("Cantidad de peones: ")]
         [Required(ErrorMessage = "La cantidad de peones es requerida")]
         public int cantidadPeones { get; set; }
-        //public List<DtoReclamo> colDtoReclamo;
-        //public List<DtoZona> colDtoZona;
+        
+        public List<DtoReclamo> colDtoReclamo;
+        public List<DtoZona> colDtoZona;
 
         
     }
