@@ -140,6 +140,42 @@ namespace MVCControlReclamos.Controllers
         }
 
         [HttpPost]
+        public ActionResult EditarReclamo (DtoReclamo dto)
+        {
+            BLReclamoController reclamoController = new BLReclamoController();
+            List<string> colErrores = reclamoController.modificarReclamo(dto);
+           
+
+            foreach (string error in colErrores)
+            {
+                ModelState.AddModelError("ErrorGeneral", error);
+            }
+
+           
+            return RedirectToAction("ListarReclamos");
+
+        }
+
+        public ActionResult IrEditar(int nroReclamo)
+        {
+            BLReclamoController reclamoController = new BLReclamoController();
+            DtoReclamo reclamo = reclamoController.GetById(nroReclamo);
+
+
+            List<SelectListItem> colEstadoReclamos = new List<SelectListItem>();
+            List<string> colEstados = new List<string>() {"EN PROCESO", "RESUELTO", "DESESTIMADO" };
+
+            for (int i = 0; i < colEstados.Count; i++)
+            {
+                SelectListItem option = new SelectListItem();
+                option.Value = colEstados[i];
+                option.Text = colEstados[i];
+                colEstadoReclamos.Add(option);
+            }
+            ViewBag.listaDeEstados = colEstadoReclamos;
+            return View("EditarReclamo",reclamo);
+        }
+
         public ActionResult mostrarReclamos(DtoFiltroReclamo filtro)
         {
             BLReclamoController BLR = new BLReclamoController();
@@ -208,5 +244,6 @@ namespace MVCControlReclamos.Controllers
             colreclamos = colreclamos.OrderByDescending(r => r.fechaIngreso).Skip(cantPorPag * (pagActual - 1)).Take(cantPorPag).ToList();
             return PartialView("_ListarReclamosPartial", colreclamos);
         }
+
     }
 }
