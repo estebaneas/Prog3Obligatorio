@@ -80,7 +80,7 @@ namespace DataAccess.Repositories
 
                         
                         currReclamoEntity.comentario = reclamo.comentario;
-                        currReclamoEntity.estado = reclamo.estado;
+                        currReclamoEntity.estado = reclamo.estado.ToString();
 
                         context.SaveChanges();
                         trann.Commit();
