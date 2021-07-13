@@ -47,7 +47,7 @@ namespace BusinessLogic.Controllers
         {
             List<string> errores = new List<string>();
 
-            if (esModificacion && !this.repository.GetUsuarioRepository().ExisteUsuario(dto.email))
+            if (!this.repository.GetUsuarioRepository().ExisteUsuario(dto.email))
             {
                 errores.Add("El usuario no existe");
             }
@@ -65,24 +65,6 @@ namespace BusinessLogic.Controllers
             }
 
             return colErrores;
-        }
-
-        public bool VerificarUsuarioPassword(string _nombreUsuario, string password)
-        {
-            return this.repository.GetUsuarioRepository().VerificarUsuarioPassword(_nombreUsuario, password);
-        }
-
-        public bool EsFuncionario(string nombreUsuario)
-        {
-            if(this.repository.GetUsuarioRepository().EsFuncionario(nombreUsuario) == null)
-            {
-                return false;
-            }
-            else
-            {
-                return bool.Parse(this.repository.GetUsuarioRepository().EsFuncionario(nombreUsuario).ToString());
-            }
-            
         }
     }
 }
