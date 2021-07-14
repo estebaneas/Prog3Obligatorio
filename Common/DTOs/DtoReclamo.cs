@@ -5,42 +5,39 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace Common.DTOs
 {
     public class DtoReclamo
     {
-        public int numero;
-        public string estado { get; set; }
-        public DateTime fechaIngreso;
-
+        public int numero { get; set; }
+        public estadoReclamo estado { get; set; }
+        public DateTime fechaIngreso { get; set; }
         [DisplayName("Observaciones: ")]
         [Required(ErrorMessage = "La descripción es requerida")]
         [StringLength(100, ErrorMessage = "La descripción no debe superar los {1} caracteres")]
         public string observaciones { get; set; }
         public string comentario;
 
-        [DisplayName("Latitud: ")]
-        [Required(ErrorMessage = "La ubicación es requerida")]
-        public decimal latitud { get; set; }
-
-        [DisplayName("Longitud: ")]
-        [Required(ErrorMessage = "La ubicación es requerida")]
-        public decimal longitud { get; set; }
+        [Required]
+        [Remote("ValidarPunto", "Reclamo", AdditionalFields = "longitud", ErrorMessage = "El punto seleccionado esta fuera de las zonas validas")]
+        public double latitud { get; set; }
+        [Required]
+        public double longitud { get; set; }
 
         [DisplayName("Tipo de reclamo: ")]
         [Required(ErrorMessage = "El tipo de reclamo es requerido")]
 
         public int numTipoReclamo { get; set; }
-
-
         public string emailUsuario { get; set; }
         public int numeroCuadrilla { get; set; }
         public int numeroZona { get; set; }
+
+        public DtoTipoReclamo tipoReclamo { get; set; }
         public DtoCuadrilla dtoCuadrilla;
         public List<DtoHistorialCambios> colDtoHistorialCambios;
         public DtoUsuario dtoUsuario;
         public DtoZona dtoZona;
-        
     }
 }

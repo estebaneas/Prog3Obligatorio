@@ -20,7 +20,8 @@ namespace Common.DTOs
         [Required(ErrorMessage = "• No ha dibujado una zona")]
         [Remote("ValidarPoligono", "Zona")]
         public string Puntos { get; set; }
-        
+
+        public List<DtoReclamo> colReclamos { get; set; }
         public List<DtoPunto> colDtoPunto { get; set; }
 
     }

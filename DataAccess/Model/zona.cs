@@ -18,8 +18,8 @@ namespace DataAccess.Model
         public zona()
         {
             this.punto = new HashSet<punto>();
-            this.cuadrilla = new HashSet<cuadrilla>();
             this.reclamo = new HashSet<reclamo>();
+            this.cuadrilla = new HashSet<cuadrilla>();
         }
     
         public int numero { get; set; }
@@ -29,8 +29,8 @@ namespace DataAccess.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<punto> punto { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<cuadrilla> cuadrilla { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<reclamo> reclamo { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<cuadrilla> cuadrilla { get; set; }
     }
 }

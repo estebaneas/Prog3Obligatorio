@@ -10,6 +10,13 @@ namespace DataAccess.Mappers
 {
     public class CuadrillaMapper
     {
+        private ZonaMapper zonamapper;
+        private ReclamoMapper reclamoMapper;
+       
+        public CuadrillaMapper() {
+            this.reclamoMapper = new ReclamoMapper();
+            this.zonamapper = new ZonaMapper();
+        }
         public DtoCuadrilla mapToDto(cuadrilla _cuadrilla)
         {
             DtoCuadrilla dto = new DtoCuadrilla();
@@ -17,6 +24,8 @@ namespace DataAccess.Mappers
             dto.nombre = _cuadrilla.nombre;
             dto.encargado = _cuadrilla.encargado;
             dto.cantidadPeones = _cuadrilla.cantidadPeones;
+            dto.colDtoReclamo = this.reclamoMapper.MapToDto(_cuadrilla.reclamo.ToList());
+            dto.colDtoZona = this.zonamapper.mapToDto(_cuadrilla.zona.ToList());
             
             return dto;
         }
@@ -25,7 +34,6 @@ namespace DataAccess.Mappers
         public cuadrilla mapToEntity(DtoCuadrilla dto)
         {
             cuadrilla _cuadrilla = new cuadrilla();
-            _cuadrilla.numero = dto.numero;
             _cuadrilla.nombre = dto.nombre;
             _cuadrilla.encargado = dto.encargado;
             _cuadrilla.cantidadPeones = dto.cantidadPeones;

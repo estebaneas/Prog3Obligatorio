@@ -64,7 +64,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constantes\CLogin.cs" />
+    <Compile Include="DTOs\DtoAsignarZonaCuadrilla.cs" />
     <Compile Include="DTOs\DtoCuadrilla.cs" />
+    <Compile Include="DTOs\DtoFiltroReclamo.cs" />
     <Compile Include="DTOs\DtoHistorialCambios.cs" />
     <Compile Include="DTOs\DtoLogin.cs" />
     <Compile Include="DTOs\DtoPunto.cs" />
@@ -72,6 +74,7 @@
     <Compile Include="DTOs\DtoTipoReclamo.cs" />
     <Compile Include="DTOs\DtoUsuario.cs" />
     <Compile Include="DTOs\DtoZona.cs" />
+    <Compile Include="DTOs\Enums.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

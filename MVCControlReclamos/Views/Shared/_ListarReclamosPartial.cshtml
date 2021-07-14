@@ -1,0 +1,137 @@
+﻿@model IEnumerable<Common.DTOs.DtoReclamo>
+@Styles.Render("~/Content/estilos")
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.numero)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tipoReclamo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.emailUsuario)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fechaIngreso)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.estado)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @{
+        List<Common.DTOs.DtoReclamo> colReclamos = Model.ToList();
+        int totalReclamos;
+        int CantPorPag;
+        int paginaActual;
+        if (ViewBag.PagActual != null)
+        {
+            paginaActual = ViewBag.PagActual;
+        }
+        else
+        {
+            paginaActual = 1;
+        }
+        if (ViewBag.TotReclamos != null)
+        {
+            totalReclamos = ViewBag.TotReclamos;
+        }
+        else
+        {
+            totalReclamos = Model.Count();
+        }
+        if (ViewBag.CantPorPag != null)
+        {
+            CantPorPag = ViewBag.CantPorPag;
+        }
+        else
+        {
+            CantPorPag = 10;
+        }
+
+        int totalPaginas = (totalReclamos / 10) + 1;
+
+        colReclamos = colReclamos.Take(CantPorPag).ToList();
+        List<string> siguiente = new List<string>() { "", "" };
+        List<string> anterior = new List<string>() { "", "" };
+    }
+    @foreach (var item in colReclamos)
+    {
+        string estado;
+        if (item.estado == Common.DTOs.estadoReclamo.ASIGNADO)
+        {
+            estado = "primary";
+        }
+        else if (item.estado == Common.DTOs.estadoReclamo.EN_PROCESO)
+        {
+            estado = "warning";
+        }
+        else if (item.estado == Common.DTOs.estadoReclamo.DESESTIMADO)
+        {
+            estado = "secondary";
+        }
+        else if (item.estado == Common.DTOs.estadoReclamo.RESUELTO)
+        {
+            estado = "success";
+        }
+        else
+        {
+            estado = "danger";
+        }
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.numero)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tipoReclamo.nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.emailUsuario)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fechaIngreso)
+            </td>
+            <td>
+                <label class="label label-@estado"> @item.estado</label>
+            </td>
+            <td>
+                @Html.ActionLink("Detalles", "DetallesReclamo", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+    }
+</table>
+<div class="row bb">
+    <div class="row">
+
+        <dib class="text-right col-xs-4">
+          
+        </dib>
+        <div class="col-xs-4 ">
+            <div class="row ">
+                <div class="text-right col-xs-4  ">
+                    @if (paginaActual > 1)
+                    {
+                        <input id="@ViewBag.BtnTarget" type="button" value="Anterior" class="btn-xs btn-info btn" onclick='cargarReclamos(@ViewBag.ColReclamosVar, "@ViewBag.Target", @paginaActual-1,@CantPorPag,"@ViewBag.BtnTarget","@ViewBag.ColReclamosVar")' />
+                    }
+                </div>
+                <div class="col-xs-4 "><label>@paginaActual de @totalPaginas</label></div>
+                <div class="text-left col-xs-4">
+                    @if (paginaActual < totalPaginas)
+                    {
+                        <input id="@ViewBag.BtnTarget" type="button" value="Siguiente" class="btn-xs btn-info btn" onclick='cargarReclamos(@ViewBag.ColReclamosVar, "@ViewBag.Target", @paginaActual+1,@CantPorPag,"@ViewBag.BtnTarget","@ViewBag.ColReclamosVar")' />
+                    }
+                </div>
+                
+            </div>
+        </div>
+        <dib class="text-left col-xs-4">
+           
+            </dib>
+
+    </div>
+</div>
+
+<script src="~/Scripts/JS.js"></script>

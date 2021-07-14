@@ -113,5 +113,47 @@ namespace BusinessLogic.Controllers
         {
             return this._Repository.GetReclamoRepository().ReclamosOrdenCronologico();
         }
+
+
+        public List<DtoReclamo> reclamosSinTerminar()
+        {
+            return this._Repository.GetReclamoRepository().recEnProcesoAsign();
+        }
+
+
+        public List<DtoReclamo> getReclamos(int? numZona,int? numCuadrilla,string estado,DateTime? ini,DateTime? fin)
+        {
+            List<DtoReclamo> colReclamos = new List<DtoReclamo>();
+         
+            if (numCuadrilla!=null)
+            {
+                colReclamos = this._Repository.GetReclamoRepository().getReclamosPorCuadrilla(numCuadrilla);
+            }
+            else if(numZona!=null)
+            {
+                colReclamos = this._Repository.GetReclamoRepository().getReclamosPorZona(numZona);
+            }
+            else if (estado != null)
+            {
+                colReclamos = this._Repository.GetReclamoRepository().getReclamosPorEstado(estado);
+            }
+            else if(ini!=null)
+            {
+                colReclamos = this._Repository.GetReclamoRepository().getReclamosPorFecha(ini,DateTime.Now);
+            }
+            else if (fin != null)
+            {
+                colReclamos = this._Repository.GetReclamoRepository().getReclamosPorFecha(DateTime.MinValue, fin);
+            }
+            else if(ini!=null&&fin!=null)
+            {
+                colReclamos = this._Repository.GetReclamoRepository().getReclamosPorFecha(ini, fin);
+            }
+            else
+            {
+                colReclamos = this._Repository.GetReclamoRepository().getReclamos();
+            }
+            return colReclamos;
+        }
     }
 }

@@ -58,7 +58,7 @@ function cargar() {
 
         $.ajax({
             contentType: "application/json",
-            url: 'cargarZonasBD',
+            url: '/Zona/cargarZonasBD',
             type: 'GET',
             success: function (result) {
                 zonas = result;
@@ -125,6 +125,9 @@ function initMap() {
 
     if (editor || cliente) {
         clickeable = false;
+    }
+    else if (administrador) {
+        clickeable = true;
     }
 
     function dibujarZonas() {
@@ -764,17 +767,18 @@ function exportarJsonPunto() {
 
 function cargarIdyNombreDeZonaSeleccionada(numeroZona) {
     try {
-        let numeroZonaHTML = document.getElementById("numeroZona");
-        numeroZonaHTML.value = zonas[numeroZona].numero;
-        try {
             let nombreZonaHTML = document.getElementById("nombreZona");
-            nombreZonaHTML.innerText = zonas[numeroZona].nombre;
+            nombreZonaHTML.value = zonas[numeroZona].nombre;
+        try {
+            let numeroZonaHTML = document.getElementById("numeroZona");
+            numeroZonaHTML.value = zonas[numeroZona].numero;
         } catch (error) {
             console.error(error);
         }
     } catch (error) {
         console.error(error);
     }
+    
 }
 
 function setIdsLatLong(idNombre, idNumero) {

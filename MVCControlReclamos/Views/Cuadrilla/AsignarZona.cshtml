@@ -1,0 +1,49 @@
+﻿@model Common.DTOs.DtoAsignarZonaCuadrilla
+
+
+@using (Html.BeginForm("Asignar","Cuadrilla")) 
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <h4>DtoCuadrilla</h4>
+    <hr />
+
+    @Html.Partial("_Mapa")
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        <label class="control-label col-md-2">Zona: </label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.nombreZona, new { htmlAttributes = new { @class = "form-control", @placeholder = "Zona", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.numeroZona, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2">Cuadrilla: </label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.nombreCuadrilla, new { htmlAttributes = new { @class = "form-control", @placeholder = "Cuadrilla", @readonly = "readonly" } })
+        </div>
+    </div>
+    @Html.EditorFor(model => model.numCuadrilla, new { htmlAttributes = new { @class = "form-control", @placeholder = "numero", @style = "visibility:hidden;" } })
+    @Html.EditorFor(model => model.numeroZona, new { htmlAttributes = new { @class = "form-control", @placeholder = "numero", @style = "visibility:hidden;" } })
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Asignar" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<script>
+    administrador = true;
+</script>
+
+<div>
+    @Html.ActionLink("Back to List", "ListarCuadrillas")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
