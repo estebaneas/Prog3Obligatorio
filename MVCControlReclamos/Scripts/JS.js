@@ -1,10 +1,12 @@
 ﻿
 
+var reclamos = [];
+
 function setColRecJava(item) {
     setColRecJava = item;
 }
 
-function cargarReclamos(colRecjava, targetID, pagActual, cantPorPag, btnTarget, colRecJavVar, numZona, numCuadrilla, ini, estado,tipo,buscador) {
+function cargarReclamos(colRecjava, targetID, pagActual, cantPorPag, btnTarget, colRecJavVar, numZona, numCuadrilla, ini, estado,tipo,buscador,atrazo ) {
 
     if (buscador) {
         try {
@@ -65,6 +67,27 @@ function cargarReclamos(colRecjava, targetID, pagActual, cantPorPag, btnTarget, 
         success: function (result) {
             document.getElementById(targetID).innerHTML = result;
            
+        },
+        error: function (err) { console.log(err); }
+
+    });
+
+}
+
+
+function listarAtrazados() {
+
+
+
+    $.ajax({
+        url: '/Reclamo/Atrazados',
+        type: 'GET',
+        success: function (result) {
+            reclamos = result;
+            for (i = 0; i < reclamos.length; i++) {
+                reclamos[i].fechaIngreso = reclamos[i].fechaString;
+            }
+            setTimeout(function () { cargarReclamos(reclamos, "target", 1,"","btnRec","reclamos","","","","","",true,true); }, 50);
         },
         error: function (err) { console.log(err); }
 

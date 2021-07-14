@@ -6,7 +6,9 @@
 
 <h2>Reclamos</h2>
 <hr />
-
+@{ 
+    ViewBag.Principal = true;
+}
 <div class="row rowc ">
     <div class="col-lg-2 ">
         <label class="control-label pull-right">Fecha Ingresado</label>  
@@ -62,7 +64,8 @@
 
 <div class="row rowc ">
     <div class="col-lg-12 text-center">
-        <input id="btnFiltrar" type="button" value="Filtrar" class="btn btn-info" onclick="cargarReclamos(null,'target',1,'','btnRec','','','','','','',true)"/>
+        <input id="btnFiltrar" type="button" value="Filtrar" class="btn btn-info" onclick="cargarReclamos(null,'target',1,'','btnRec','','','','','','',true)" />
+        <input id="btnFiltrar" type="button" value="Atrazados" class="btn btn-warning" onclick="listarAtrazados()" />
     </div>
 </div>
 

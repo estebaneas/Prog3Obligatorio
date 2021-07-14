@@ -22,9 +22,13 @@
 }
 
 
-.hidden{
-    display:none;
+
+
+
+#dlDetRec dd {
+    margin-bottom: 6px;
 }
+
 
 
 

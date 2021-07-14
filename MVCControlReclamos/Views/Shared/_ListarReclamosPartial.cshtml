@@ -87,26 +87,26 @@
             estado = "danger";
         }
 
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.numero)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.tipoReclamo.nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.emailUsuario)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.fechaIngreso)
-            </td>
-            <td>
-                <label class="label label-@estado"> @item.estado</label>
-            </td>
-            <td>
-                @Html.ActionLink("Detalles", "DetallesReclamo", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.numero)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.tipoReclamo.nombre)  
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.emailUsuario)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.fechaIngreso)
+    </td>
+    <td>
+        <label class="label label-@estado"> @item.estado</label>
+    </td>
+    <td>
+        @Html.ActionLink("Detalles", "Detalle", new {  numReclamo=item.numero })
+    </td>
+</tr>
     }
 </table>
 <div class="row bb">
@@ -139,5 +139,7 @@
 
     </div>
 </div>
+
+
 
 <script src="~/Scripts/JS.js"></script>

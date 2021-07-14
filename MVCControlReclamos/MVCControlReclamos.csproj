@@ -233,6 +233,7 @@
     <Content Include="Views\Shared\_ListarZonas.cshtml" />
     <Content Include="Views\Cuadrilla\DetalleCuadrilla.cshtml" />
     <Content Include="Views\Shared\_ListarReclamosPartial.cshtml" />
+    <Content Include="Views\Reclamo\Detalle.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

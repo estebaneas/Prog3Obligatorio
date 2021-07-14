@@ -15,7 +15,6 @@ var nuevaForma = [];
 var zonaDibujada;
 var model = [];
 var zonas = [];
-var zona;
 var zonaSeleccionada = {};
 var coloresZona = ["#d900ff", "#d900ff", "#d900ff", "#d900ff", "#d900ff", "#d900ff", "#d900ff"];
 
@@ -64,7 +63,7 @@ function cargar() {
                 zonas = result;
                 initMap();
             },
-            error: function (err) { console.log(err); }
+            error: function (err) { console.error(err); }
 
         });
 }
@@ -113,6 +112,9 @@ function initMap() {
         map: null,
     });
 
+
+    
+
     document.getElementById("ocultar").addEventListener("click", () => {
         map.setOptions({ styles: styles["hide"] });
     });
@@ -128,6 +130,40 @@ function initMap() {
     }
     else if (administrador) {
         clickeable = true;
+    }
+    var numZona;
+    try {
+        numZona = document.getElementById("numZona").value
+    } catch {
+        numZona = null;
+    }
+
+    function buscarZona() {
+        for (i = 0; i < zonas.length; i++) {
+            if (zonas[i].numero == numZona) {
+                return zonas[i];
+            }
+        }
+    }
+
+    if (numZona != null) {
+
+        var zona = buscarZona();
+
+        var zonap = new google.maps.Polygon({
+            strokeColor: '#737373',
+            strokeOpacity: 0.8,
+            strokeWeight: 4,
+            fillColor: '#737373',
+            fillOpacity: 0.35,
+            editable: false,
+            clickable: false,
+            path: colDtoPuntoToLatLng(zona.colDtoPunto),
+            map: map,
+        });
+    }
+    else {
+        dibujarZonas();
     }
 
     function dibujarZonas() {
@@ -164,7 +200,7 @@ function initMap() {
     }
 
 
-    dibujarZonas();
+    
     // modo editor
     if (editor) {
         hayQueDibujar = true;
@@ -241,6 +277,77 @@ function initMap() {
         /*document.getElementById("").addEventListener("click",()=>{
         mostrarZonas(map);
       })*/
+    }
+
+    const contentString =
+        '<div id="content">' +
+        '<div id="siteNotice">' +
+        "</div>" +
+        '<h1 id="firstHeading" class="firstHeading">Uluru</h1>' +
+        '<div id="bodyContent">' +
+        "<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large " +
+        "sandstone rock formation in the southern part of the " +
+        "Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) " +
+        "south west of the nearest large town, Alice Springs; 450&#160;km " +
+        "(280&#160;mi) by road. Kata Tjuta and Uluru are the two major " +
+        "features of the Uluru - Kata Tjuta National Park. Uluru is " +
+        "sacred to the Pitjantjatjara and Yankunytjatjara, the " +
+        "Aboriginal people of the area. It has many springs, waterholes, " +
+        "rock caves and ancient paintings. Uluru is listed as a World " +
+        "Heritage Site.</p>" +
+        '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">' +
+        "https://en.wikipedia.org/w/index.php?title=Uluru</a> " +
+        "(last visited June 22, 2009).</p>" +
+        "</div>" +
+        "</div>";
+    const infowindow = new google.maps.InfoWindow({
+        content: contentString,
+    });
+
+
+
+    try {
+        let latReclamo = document.getElementById("lat").innerHTML;
+        let lngReclamo = document.getElementById("lng").innerHTML;
+        var reclamoLtLn = new google.maps.LatLng(latReclamo, lngReclamo);
+
+        var azul = "#0059ff";
+        var azulO = "#00328f";
+        var rojo = "#ff3300";
+        var rojoO = "#991f00";
+        var amarillo = "#ffdd00";
+        var amarilloO = "#948000";
+        var verde = "#91ff00";
+        var verdeO = "#508c01";
+
+
+        const svgMarker = {
+            path: "m 14.943832,11.49484 c -3.561759,0 -6.4500663,2.88704 -6.4500663,6.448802 0,3.272544 1.5882903,5.140247 3.1821223,6.734071 3.212825,3.212823 2.168969,5.341817 3.267944,5.341817 1.098976,0 0.05376,-2.17054 3.225034,-5.341817 2.488228,-2.488228 3.22377,-4.95319 3.22377,-6.734071 0,-3.561762 -2.887042,-6.448802 -6.448804,-6.448802 z m 2.711301,6.448802 c 1.71e-4,1.497684 -1.213616,2.712038 -2.711301,2.712563 -1.498177,1.71e-4 -2.712731,-1.214385 -2.71256,-2.712563 4.32e-4,-1.485931 1.196427,-2.694869 2.703088,-2.70282 1.506663,-0.0081 2.720245,1.205631 2.720773,2.70282 z",
+            fillColor: azul,
+            fillOpacity: 1,
+            strokeWeight: 2,
+            strokeOpacity: 1,
+            strokeColor: azulO,
+            rotation: 0,
+            scale: 2,
+            anchor: new google.maps.Point(15, 30),
+        };
+
+        marcador.setIcon(svgMarker);
+        marcador.setPosition(reclamoLtLn);
+        marcador.setMap(map);
+        map.setCenter(reclamoLtLn);
+
+        marcador.addListener("click", () => {
+            infowindow.open({
+                anchor: marcador,
+                map,
+                shouldFocus: false,
+            });
+        });
+            
+    } catch {
+
     }
 
     // funcion encargada de tomar la long y la lati del mapa y de colocar un marcador
@@ -703,6 +810,7 @@ function borrarPoligono(poligono) {
     nuevaForma = [];
     poligono.setPath(nuevaForma);
 }
+
 
 function colocarMarcador(posicion, map, marcador) {
     if (cliente) {

@@ -20,7 +20,7 @@ namespace Common.DTOs
         [Required(ErrorMessage = "La descripción es requerida")]
         [StringLength(100, ErrorMessage = "La descripción no debe superar los {1} caracteres")]
         public string observaciones { get; set; }
-        public string comentario;
+        public string comentario { get; set; }
 
         [Required]
         [Remote("ValidarPunto", "Reclamo", AdditionalFields = "longitud", ErrorMessage = "El punto seleccionado esta fuera de las zonas validas")]
@@ -36,6 +36,8 @@ namespace Common.DTOs
         public int numeroCuadrilla { get; set; }
         public int numeroZona { get; set; }
 
+
+        public string fechaString;
         public DtoTipoReclamo tipoReclamo { get; set; }
         public DtoCuadrilla dtoCuadrilla;
         public List<DtoHistorialCambios> colDtoHistorialCambios;

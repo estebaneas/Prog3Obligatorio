@@ -163,19 +163,35 @@ namespace MVCControlReclamos.Controllers
 
 
             List<SelectListItem> colEstadoReclamos = new List<SelectListItem>();
-            List<string> colEstados = new List<string>() {"EN PROCESO", "RESUELTO", "DESESTIMADO" };
 
-            for (int i = 0; i < colEstados.Count; i++)
+            foreach (estadoReclamo estado in Enum.GetValues(typeof(estadoReclamo)))
             {
-                SelectListItem option = new SelectListItem();
-                option.Value = colEstados[i];
-                option.Text = colEstados[i];
-                colEstadoReclamos.Add(option);
+                SelectListItem opcion = new SelectListItem();
+                opcion.Value = estado.ToString();
+                opcion.Text = enumATexto(estado);
+                colEstadoReclamos.Add(opcion);
             }
             ViewBag.listaDeEstados = colEstadoReclamos;
             return View("EditarReclamo",reclamo);
         }
 
+        [HttpGet]
+        public JsonResult Atrazados()
+        {
+            BLReclamoController BLR = new BLReclamoController();
+            List<DtoReclamo> sinResolver=BLR.reclamosSinTerminar();
+            foreach (DtoReclamo item in sinResolver)
+            {
+                item.fechaString = item.fechaIngreso.ToString();
+            }
+            sinResolver = sinResolver.OrderByDescending(r => r.fechaIngreso).Reverse().ToList();
+    
+
+            return Json(sinResolver, JsonRequestBehavior.AllowGet);
+        }
+
+
+        [HttpPost]
         public ActionResult mostrarReclamos(DtoFiltroReclamo filtro)
         {
             BLReclamoController BLR = new BLReclamoController();
@@ -227,7 +243,7 @@ namespace MVCControlReclamos.Controllers
                 {
                     colreclamos = colreclamos.Where(r => r.estado.ToString()==estado).ToList();
                 }
-
+                colreclamos=colreclamos.OrderByDescending(r=>r.fechaIngreso).ToList();
 
             }
             else
@@ -241,8 +257,26 @@ namespace MVCControlReclamos.Controllers
             ViewBag.TotReclamos = colreclamos.Count();
             ViewBag.PagActual = pagActual;
             ViewBag.Target = targetID;
-            colreclamos = colreclamos.OrderByDescending(r => r.fechaIngreso).Skip(cantPorPag * (pagActual - 1)).Take(cantPorPag).ToList();
+
+            colreclamos = colreclamos.Skip(cantPorPag * (pagActual - 1)).Take(cantPorPag).ToList();
             return PartialView("_ListarReclamosPartial", colreclamos);
+        }
+
+        public ActionResult Detalle(int numReclamo)
+        {
+            BLReclamoController BLR = new BLReclamoController();
+            BLCuadrillaController BLC = new BLCuadrillaController();
+            BLZonaController BLZ = new BLZonaController();
+            DtoReclamo reclamo = BLR.GetById(numReclamo);
+            DtoCuadrilla cuadrilla = BLC.getCuadrilla(reclamo.numeroCuadrilla);
+            DtoZona zona = BLZ.darZona(reclamo.numeroZona);
+
+            ViewBag.Zona = zona;
+            ViewBag.Cuadrilla = cuadrilla.nombre;
+            ViewBag.TipoReclamo = reclamo.tipoReclamo.nombre;
+            ViewBag.Estado = enumATexto(reclamo.estado);
+
+            return View(reclamo);
         }
 
     }
