@@ -12,8 +12,6 @@ namespace MVCCliente.Controllers
     {
         // GET: Reclamo
 
-        [HttpGet]
- 
         public ActionResult Agregar()
         {
             BLTipoDeReclamoController BLTipoReclamo = new BLTipoDeReclamoController();

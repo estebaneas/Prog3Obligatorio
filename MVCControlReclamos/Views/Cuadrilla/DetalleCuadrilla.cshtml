@@ -33,6 +33,9 @@
     </dl>
 </div>
 <hr />
+@{
+    ViewBag.NumCuadrilla = Model.numero;
+}
 <div id="Zonas">
     <h4>Zonas: </h4>
     @Html.Partial("_ListarZonas", Model.colDtoZona)

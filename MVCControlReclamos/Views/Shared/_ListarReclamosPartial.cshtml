@@ -51,7 +51,13 @@
             CantPorPag = 10;
         }
 
-        int totalPaginas = (totalReclamos / 10) + 1;
+        int totalPaginas = (totalReclamos / CantPorPag);
+        float paginas = ((float)totalReclamos /(float) CantPorPag);
+
+        if (!(paginas % 2 == 0))
+        {
+            totalPaginas += 1;
+        }
 
         colReclamos = colReclamos.Take(CantPorPag).ToList();
         List<string> siguiente = new List<string>() { "", "" };
@@ -121,7 +127,7 @@
                 <div class="text-left col-xs-4">
                     @if (paginaActual < totalPaginas)
                     {
-                        <input id="@ViewBag.BtnTarget" type="button" value="Siguiente" class="btn-xs btn-info btn" onclick='cargarReclamos(@ViewBag.ColReclamosVar, "@ViewBag.Target", @paginaActual+1,@CantPorPag,"@ViewBag.BtnTarget","@ViewBag.ColReclamosVar")' />
+                        <input id="@ViewBag.BtnTarget" type="button" value="Siguiente" class="btn-xs btn-info btn" onclick='cargarReclamos(@ViewBag.ColReclamosVar, "@ViewBag.Target", @paginaActual+1,@CantPorPag,"@ViewBag.BtnTarget","@ViewBag.ColReclamosVar","","","","","","","",false)' />
                     }
                 </div>
                 

@@ -4,37 +4,43 @@ function setColRecJava(item) {
     setColRecJava = item;
 }
 
+function cargarReclamos(colRecjava, targetID, pagActual, cantPorPag, btnTarget, colRecJavVar, numZona, numCuadrilla, ini, estado,tipo,buscador) {
 
-/*function cargarReclamos(colRecjava,targetID, pagActual, cantPorPag, numZona, numCuadrilla, ini, fin, estado) {
+    if (buscador) {
+        try {
+            ini = document.getElementById("fecha").value;
+            estado = document.getElementById("Estado").value;
+            numZona = document.getElementById("Zona").value;
+            numCuadrilla = document.getElementById("Cuadrilla").value;
+            tipo= document.getElementById("TipoReclamo").value;
+            cantPorPag = document.getElementById("paginas").value;
 
-    var filtro = [{
-        "estado": estado,
-        "paginaActual": pagActual,
-        "cantPorPag": cantPorPag,
-        "numZona": numZona,
-        "numCuadrilla": numCuadrilla,
-        "ini": ini,
-        "fin": fin,
-        "targetID": targetID,
-        "colReclamos": colRecjava
-    }];
-    
+            document.getElementById("PaginasRes").value = document.getElementById("paginas").value;
+            document.getElementById("FechaRes").value = document.getElementById("fecha").value;
+            document.getElementById("EstadoRes").value = document.getElementById("Estado").value;
+            document.getElementById("TipoReclamoRes").value = document.getElementById("TipoReclamo").value;
+            document.getElementById("ZonaRes").value = document.getElementById("Zona").value;
+            document.getElementById("CuadrillaRes").value = document.getElementById("Cuadrilla").value;
+        } catch {
 
+        }
+    }
+    else {
+        try {
+            ini = document.getElementById("FechaRes").value;
+            estado = document.getElementById("EstadoRes").value;
+            tipo = document.getElementById("TipoReclamoRes").value;
+            numZona = document.getElementById("ZonaRes").value;
+            numCuadrilla = document.getElementById("CuadrillaRes").value;
+        } catch {
 
-    $.ajax({
-        url: '/Reclamo/mostrarReclamos?targetID=' + targetID + '&pagActual=' + pagActual + '&cantPorPag=' + cantPorPag + '&numZona=' + numZona + '&numCuadrilla=' + numCuadrilla + '&ini=' + ini + '&fin=' + fin + '&estado=' + estado,
-        type: 'GET',
-        success: function (result) {
-            document.getElementById(targetID).innerHTML = result;
-        },
-        error: function (err) { console.log(err); }
+        }
+    }
 
-    });
+    if (!buscador && cantPorPag==null) {
+        cantPorPag = document.getElementById("PaginasRes").value;
+    }
 
-}
-*/
-
-function cargarReclamos(colRecjava, targetID, pagActual, cantPorPag, btnTarget, colRecJavVar, numZona, numCuadrilla, ini, fin, estado) {
 
     var filtro = {
         estado: estado,
@@ -43,11 +49,11 @@ function cargarReclamos(colRecjava, targetID, pagActual, cantPorPag, btnTarget, 
         numZona: numZona,
         numCuadrilla: numCuadrilla,
         ini: ini,
-        fin: fin,
         targetID: targetID,
         colReclamos: colRecjava,
         colRelJavVar: colRecJavVar,
         BtnTarget: btnTarget,
+        tipo: tipo
     };
 
 
@@ -58,6 +64,7 @@ function cargarReclamos(colRecjava, targetID, pagActual, cantPorPag, btnTarget, 
         data: filtro,
         success: function (result) {
             document.getElementById(targetID).innerHTML = result;
+           
         },
         error: function (err) { console.log(err); }
 
