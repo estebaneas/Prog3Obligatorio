@@ -229,11 +229,11 @@
     <Content Include="Views\Reclamo\Agregar.cshtml" />
     <Content Include="Views\Reclamo\ListarReclamos.cshtml" />
     <Content Include="Views\Shared\_Mapa.cshtml" />
+    <Content Include="Views\Usuario\AgregarUsuario.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\Usuario\" />
     <Folder Include="Views\Zona\" />
   </ItemGroup>
   <ItemGroup>

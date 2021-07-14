@@ -22,6 +22,7 @@ namespace MVCControlReclamos.Controllers
         public ActionResult AgregarUsuario(DtoUsuario dtoUsuario)
         {
             BLUsuarioController BLUsuario = new BLUsuarioController();
+            dtoUsuario.funcionario = true;
             BLUsuario.altaUsuario(dtoUsuario);
             return RedirectToAction("AgregarUsuario");
         }

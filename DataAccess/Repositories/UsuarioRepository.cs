@@ -28,7 +28,6 @@ namespace DataAccess.Repositories
                 {
                     try
                     {
-                        dto.funcionario = true;
                         usuario usuarioEntity = this.usuarioMapper.mapToEntity(dto);
                         context.usuario.Add(usuarioEntity);
                         context.SaveChanges();

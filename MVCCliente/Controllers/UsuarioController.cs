@@ -14,18 +14,27 @@ namespace MVCCliente.Controllers
 
 
 
-       /*public ActionResult puntoEnZona (DtoPunto punto)
-        {
-            BLZonaController BLZ = new BLZonaController();
-            List<DtoZona> colZonas = BLZ.listarZonas();
-            bool puntoEnZ = BLZ.puntoEnZonas(punto, colZonas);
+        /*public ActionResult puntoEnZona (DtoPunto punto)
+         {
+             BLZonaController BLZ = new BLZonaController();
+             List<DtoZona> colZonas = BLZ.listarZonas();
+             bool puntoEnZ = BLZ.puntoEnZonas(punto, colZonas);
 
-            return Json()
-        }*/
+             return Json()
+         }*/
 
-        public ActionResult Prueba()
+        public ActionResult AgregarUsuario()
         {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult AgregarUsuario(DtoUsuario dtoUsuario)
+        {
+            BLUsuarioController BLUsuario = new BLUsuarioController();
+            dtoUsuario.funcionario = false;
+            BLUsuario.altaUsuario(dtoUsuario);
+            return RedirectToAction("AgregarUsuario");
         }
     }
 }
