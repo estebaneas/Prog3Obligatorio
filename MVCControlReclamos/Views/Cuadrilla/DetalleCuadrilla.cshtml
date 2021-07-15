@@ -1,0 +1,47 @@
+﻿@model Common.DTOs.DtoCuadrilla
+
+
+
+<div>
+    <h3>Detalle Cuadrilla</h3>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.encargado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.encargado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cantidadPeones)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cantidadPeones)
+        </dd>
+
+    </dl>
+</div>
+<hr />
+@{
+    ViewBag.NumCuadrilla = Model.numero;
+}
+<div id="Zonas">
+    <h4>Zonas: </h4>
+    @Html.Partial("_ListarZonas", Model.colDtoZona)
+</div>
+<hr />
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "ListarCuadrillas")
+</p>

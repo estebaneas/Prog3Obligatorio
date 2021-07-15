@@ -1,4 +1,6 @@
-﻿using Common.DTOs;
+﻿using BusinessLogic.Controllers;
+using Common.DTOs;
+using MVCControlReclamos.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +9,7 @@ using System.Web.Mvc;
 
 namespace MVCControlReclamos.Controllers
 {
+    [UserAuthentication]
     public class UsuarioController : Controller
     {
        
@@ -15,12 +18,19 @@ namespace MVCControlReclamos.Controllers
             return View();
         }
 
-        // esta seria la accion que guarda el usuario en la base de datos
-        /*[HttpPost] 
-        public ActionResult GuardarUsuario(DtoUsuario nuevoUsuarioDto)
+        [HttpPost]
+        public ActionResult AgregarUsuario(DtoUsuario dtoUsuario)
         {
+            BLUsuarioController BLUsuario = new BLUsuarioController();
+            BLUsuario.altaUsuario(dtoUsuario);
+            return RedirectToAction("AgregarUsuario");
+        }
 
-            return RedirectToAction();
+       /* public ActionResult ListarUsuarios()
+        {
+            BLUsuarioController BLUsuario = new BLUsuarioController();
+            List<DtoUsuario> colUsuarios = BLUsuario.l();
+            return View(colUsuarios);
         }*/
 
 

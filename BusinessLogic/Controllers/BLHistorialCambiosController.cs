@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic.Controllers
 {
-    public class HistorialCambiosController
+    public class BLHistorialCambiosController
     {
         private Repository repository;
 
-        public HistorialCambiosController()
+        public BLHistorialCambiosController()
         {
             this.repository = new Repository();
         }
@@ -45,7 +45,7 @@ namespace BusinessLogic.Controllers
         {
             List<string> errores = new List<string>();
 
-            if (!this.repository.GetCambiosRepository().ExisteCambio(dto.Numero))
+            if (!this.repository.GetCambiosRepository().ExisteCambio(dto.numero))
             {
                 errores.Add("El historial de cambios que busca no existe");
             }

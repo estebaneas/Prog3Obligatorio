@@ -25,18 +25,18 @@ namespace DataAccess.Model
         public System.DateTime fechaIngreso { get; set; }
         public string observaciones { get; set; }
         public string comentario { get; set; }
-        public decimal latitud { get; set; }
-        public decimal longitud { get; set; }
+        public double latitud { get; set; }
+        public double longitud { get; set; }
         public string emailUsuario { get; set; }
         public int numeroTipoReclamo { get; set; }
         public int numeroCuadrilla { get; set; }
         public int numeroZona { get; set; }
     
-        public virtual cuadrilla cuadrilla { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<historialDeCambios> historialDeCambios { get; set; }
         public virtual tipoReclamo tipoReclamo { get; set; }
         public virtual usuario usuario { get; set; }
         public virtual zona zona { get; set; }
+        public virtual cuadrilla cuadrilla { get; set; }
     }
 }

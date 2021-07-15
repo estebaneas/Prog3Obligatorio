@@ -1,0 +1,13 @@
+﻿@Styles.Render("~/Content/mapa")
+<div id="contenedorMapa">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script src="~/Scripts/mapaScript.js"></script>
+    <div id="map"></div>
+    <div id="izq">
+        <div><img id="mostrar" class="icono" src="~/Img/mostrar.svg" alt=""></div>
+        <div class="linh"></div>
+        <div><img id="ocultar" class="icono" src="~/Img/ocultar.svg" alt=""></div>
+    </div>
+    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCivABarU0Y-yPySojqjaL_glEdTIE2GaU&callback=cargarMapa&libraries=&v=weekly" async></script>
+</div>

@@ -13,15 +13,15 @@ namespace DataAccess.Mappers
         public DtoHistorialCambios mapToDto(historialDeCambios _historialCambios)
         {
             DtoHistorialCambios dto = new DtoHistorialCambios();
-            dto.Numero = _historialCambios.numero;
-            dto.NumeroReclamo = _historialCambios.numeroReclamo;
-            dto.FechaCambio = _historialCambios.fechaCambio;
-            dto.FechaIngreso = _historialCambios.fechaIngreso;
-            dto.Latitud = _historialCambios.latitud;
-            dto.Longitud = _historialCambios.longitud;
-            dto.Observaciones = _historialCambios.observaciones;
-            dto.Comentario = _historialCambios.comentario;
-            dto.Estado = _historialCambios.estado;
+            dto.numero = _historialCambios.numero;
+            dto.numeroReclamo = _historialCambios.numeroReclamo;
+            dto.fechaCambio = _historialCambios.fechaCambio;
+            dto.fechaIngreso = _historialCambios.fechaIngreso;
+            dto.latitud = _historialCambios.latitud;
+            dto.longitud = _historialCambios.longitud;
+            dto.observaciones = _historialCambios.observaciones;
+            dto.comentario = _historialCambios.comentario;
+            dto.estado = _historialCambios.estado;
             
 
             return dto;
@@ -30,15 +30,15 @@ namespace DataAccess.Mappers
         public historialDeCambios mapToEntity(DtoHistorialCambios dto)
         {
             historialDeCambios _historialCambios = new historialDeCambios();
-            _historialCambios.numero = dto.Numero;
-            _historialCambios.numeroReclamo = dto.NumeroReclamo;
-            _historialCambios.fechaCambio = dto.FechaCambio;
-            _historialCambios.fechaIngreso = dto.FechaIngreso;
-            _historialCambios.latitud = dto.Latitud;
-            _historialCambios.longitud = dto.Longitud;
-            _historialCambios.observaciones = dto.Observaciones;
-            _historialCambios.comentario = dto.Comentario;
-            _historialCambios.estado = dto.Estado;
+            _historialCambios.numero = dto.numero;
+            _historialCambios.numeroReclamo = dto.numeroReclamo;
+            _historialCambios.fechaCambio = dto.fechaCambio;
+            _historialCambios.fechaIngreso = dto.fechaIngreso;
+            _historialCambios.latitud = dto.latitud;
+            _historialCambios.longitud = dto.longitud;
+            _historialCambios.observaciones = dto.observaciones;
+            _historialCambios.comentario = dto.comentario;
+            _historialCambios.estado = dto.estado;
 
 
             return _historialCambios;
