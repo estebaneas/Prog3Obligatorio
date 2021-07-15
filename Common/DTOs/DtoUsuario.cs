@@ -5,23 +5,32 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace Common.DTOs
 {
     public class DtoUsuario
     {
-        [Required]
+        [Required(ErrorMessage = "Ingrese una dirección email")]
         [DisplayName("Email: ")]
+        [EmailAddress]
         public string email { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Ingrese un nombre")]
+        [DisplayName("Nombre: ")]
         public string nombre { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Ingrese un apellido")]
+        [DisplayName("Apellido: ")]
         public string apellido { get; set; }
-        [Required]
+
+        [Remote("ValidarUsuario", "Usuario", ErrorMessage = "Este nombre de usuario ya está en uso")]
+        [Required(ErrorMessage = "Ingrese un nombre de Usuario")]
+        [DisplayName("Nombre de usuario: ")]
         public string usario { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Ingrese una contraseña")]
+        [DisplayName("Contraseña: ")]
         public string contrasena { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Ingrese un teléfono")]
+        [DisplayName("Teléfono: ")]
         public string telefono { get; set; }
 
         public Nullable<bool> funcionario; 

@@ -13,15 +13,16 @@ namespace DataAccess.Repositories
 {
     public class HistorialCambiosRepository
     {
-        public HistorialCambiosRepository()
-        {
-
-        }
-
         private HistorialCambiosMapper cambiosMapper;
         private ReclamoMapper reclamoMapper;
 
-        public void AltaCambiosHistorial(DtoHistorialCambios dto)
+        public HistorialCambiosRepository()
+        {
+            this.cambiosMapper = new HistorialCambiosMapper();
+            this.reclamoMapper = new ReclamoMapper();
+        }
+
+        public void AltaCambiosHistorial(DtoReclamo dtoReclamo)
         {
             using (ControlDeReclamosEntities context = new ControlDeReclamosEntities())
             {
@@ -29,7 +30,8 @@ namespace DataAccess.Repositories
                 {
                     try
                     {
-                        historialDeCambios historialEntity = this.cambiosMapper.mapToEntity(dto);
+                        historialDeCambios historialEntity = this.cambiosMapper.mapToEntity(dtoReclamo);
+                        historialEntity.fechaCambio = DateTime.Now;
                         context.historialDeCambios.Add(historialEntity);
                         context.SaveChanges();
                         trann.Commit();

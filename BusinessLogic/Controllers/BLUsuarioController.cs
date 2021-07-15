@@ -43,6 +43,11 @@ namespace BusinessLogic.Controllers
             return colErrores;
         }
 
+        public bool ExisteNombreUsuario(string nomUsuario)
+        {
+            return this.repository.GetUsuarioRepository().ExisteNombreUsuario(nomUsuario);
+        }
+
         public List<string> ValidarUsuario(DtoUsuario dto, bool esModificacion)
         {
             List<string> errores = new List<string>();

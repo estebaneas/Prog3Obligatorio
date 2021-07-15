@@ -1,5 +1,6 @@
 ﻿using BusinessLogic.Controllers;
 using Common.DTOs;
+using MVCCliente.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ using System.Web.Mvc;
 
 namespace MVCCliente.Controllers
 {
+    [UserAuthentication]
     public class ZonaController : Controller
     {
         // GET: Zona

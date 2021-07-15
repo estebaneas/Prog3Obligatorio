@@ -17,16 +17,9 @@ namespace BusinessLogic.Controllers
             this.repository = new Repository();
         }
 
-        public List<string> altaHistorialCambios(DtoHistorialCambios dto)
+        public void altaHistorialCambios(DtoReclamo dto)
         {
-            List<string> colErrores = this.ValidarHistorialCambios(dto, false);
-
-            if (colErrores.Count == 0)
-            {
-                this.repository.GetCambiosRepository().AltaCambiosHistorial(dto);
-            }
-
-            return colErrores;
+            this.repository.GetCambiosRepository().AltaCambiosHistorial(dto);
         }
 
         public List<string> bajaHistorialCambios(int _numero)

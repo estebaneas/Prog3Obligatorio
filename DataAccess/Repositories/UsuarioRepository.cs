@@ -124,7 +124,7 @@ namespace DataAccess.Repositories
             bool existe = false;
             using (ControlDeReclamosEntities context = new ControlDeReclamosEntities())
             {
-                existe = context.usuario.AsNoTracking().Any(i => i.nombreDeUsuario == nombreUsuario );
+                existe = context.usuario.Any(i => i.nombreDeUsuario == nombreUsuario );
             }
             return existe;
         }

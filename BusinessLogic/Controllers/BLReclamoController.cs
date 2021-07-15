@@ -87,6 +87,7 @@ namespace BusinessLogic.Controllers
             if (colErrores.Count == 0)
             {
                 this._Repository.GetReclamoRepository().modificarReclamo(dto);
+                this._Repository.GetCambiosRepository().AltaCambiosHistorial(dto);
             }
 
 
