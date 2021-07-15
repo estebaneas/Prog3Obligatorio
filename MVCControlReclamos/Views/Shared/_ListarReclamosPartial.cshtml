@@ -17,13 +17,17 @@
         </th>
 
 
-        @if (ViewBag.Atrazado)
+        @try
         {
+            if (ViewBag.Atrazado)
+            {
 
             <th class="text-center">
                 Horas desde ingreso
             </th>
+            }
         }
+            catch { }
 
         <th>
             @Html.DisplayNameFor(model => model.estado)
@@ -116,14 +120,18 @@
 
         int totalHoras = (int)retraso.TotalHours;
 
-        if (ViewBag.Atrazado)
+        try
         {
+            if (ViewBag.Atrazado)
+            {
 
-            <td>
-                @totalHoras
+                <td>
+                    @totalHoras
 
-            </td>
+                </td>
+            }
         }
+        catch { }
     }
     <td>
         <label class="label label-@estado"> @item.estado</label>

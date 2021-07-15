@@ -237,6 +237,7 @@
     <Content Include="Views\Reclamo\Detalle.cshtml" />
     <Content Include="Views\Reclamo\Vizor.cshtml" />
     <Content Include="Views\Shared\_DetalleReclamo.cshtml" />
+    <Content Include="Views\Reclamo\MapaTermico.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

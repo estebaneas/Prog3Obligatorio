@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Common.DTOs.DtoReclamo>
+<hr />
+<script>
+
+
+   var termico = true;
+   var reclamos = @Html.Raw(Json.Encode(@Model));
+
+</script>
+
+
+<div>
+    <div class="row text-center">
+        <div class="col-lg-3">
+            <label class="control-label">Fecha inicial:</label> <input id="fini" type="date" />
+        </div>
+        <div class="col-lg-3">
+            <label class="control-label">Fecha final:</label> <input id="ffin" type="date" />
+        </div>
+        <div class="col-lg-1 ">
+            <input id="btnTerm" type="button" class="btn btn-sm btn-info " value="Buscar" onclick="mapaTermico(true)"  />
+        </div>
+
+    </div>
+
+</div>
+<div class="mb-5" id="mapaTerm">
+    @Html.Partial("_Mapa")
+</div>
+
+<script>
+    //ViewBag.Ini
+   //ViewBag.Fin
+
+
+</script>
+@Styles.Render("~/Content/estilos")
+@Html.ActionLink("Volver", "ListarReclamos", new { /* id=item.PrimaryKey */ })
+
+
+
+

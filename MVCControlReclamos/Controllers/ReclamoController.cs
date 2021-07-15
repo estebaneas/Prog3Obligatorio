@@ -227,7 +227,7 @@ namespace MVCControlReclamos.Controllers
                 estado = filtro.estado;
                 ViewBag.ColReclamosVar = "null";
 
-                colreclamos = BLR.getReclamos(numZona, numCuadrilla, estado, ini);
+                colreclamos = BLR.getReclamos(numZona, numCuadrilla, estado, ini, null);
                 
                 if (ini != null)
                 {
@@ -307,6 +307,30 @@ namespace MVCControlReclamos.Controllers
             DtoReclamo reclamo = BLR.GetById(numReclamo);
             ViewBag.Estado = enumATexto(reclamo.estado);
             return PartialView("_DetalleReclamo",reclamo);
+        }
+
+
+        public ActionResult MapaTermico()
+        {
+            BLReclamoController BLR = new BLReclamoController();
+           List<DtoReclamo> reclamos =  BLR.getReclamos(null, null, null, null, null);
+            ViewBag.ModoCalorico = true;
+            return View(reclamos);
+        }
+
+        [HttpGet]
+        public JsonResult CargarTermico(DateTime? ini, DateTime? fin)
+        {
+            BLReclamoController BLR = new BLReclamoController();
+            List<DtoReclamo> colreclamos = BLR.getReclamos(null, null, null, ini, fin);
+            colreclamos = colreclamos.Where(r => r.fechaIngreso >= ini&&r.fechaIngreso<= fin).ToList();
+            return Json(colreclamos,JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult RefrescarMapa(DateTime? ini, DateTime? fin)
+        {
+            return PartialView("_Mapa");
         }
 
     }

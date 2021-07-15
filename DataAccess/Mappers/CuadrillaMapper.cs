@@ -25,7 +25,7 @@ namespace DataAccess.Mappers
             dto.encargado = _cuadrilla.encargado;
             dto.cantidadPeones = _cuadrilla.cantidadPeones;
             dto.colDtoReclamo = this.reclamoMapper.MapToDto(_cuadrilla.reclamo.ToList());
-            dto.colDtoZona = this.zonamapper.mapToDto(_cuadrilla.zona.ToList());
+            //dto.colDtoZona = this.zonamapper.mapToDto(_cuadrilla.zona.ToList());
             
             return dto;
         }

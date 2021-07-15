@@ -9,7 +9,24 @@
         <div><img id="ocultar" class="icono" src="~/Img/ocultar.svg" alt=""></div>
     </div>
     <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCivABarU0Y-yPySojqjaL_glEdTIE2GaU&callback=cargarMapa&libraries=&v=weekly" async></script>
+    @{
+        //visualization
+
+        try
+        {
+            if (ViewBag.ModoCalorico != null)
+            {
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCivABarU0Y-yPySojqjaL_glEdTIE2GaU&callback=cargarMapa&libraries=visualization&v=weekly" async></script>
+            }
+            else
+            {
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCivABarU0Y-yPySojqjaL_glEdTIE2GaU&callback=cargarMapa&libraries=&v=weekly" async></script>
+
+            }
+        }
+        catch { }
+    }
+
 </div>
 
 

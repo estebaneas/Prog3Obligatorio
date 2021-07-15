@@ -129,7 +129,7 @@ namespace BusinessLogic.Controllers
         }
 
 
-        public List<DtoReclamo> getReclamos(int? numZona,int? numCuadrilla,string estado,DateTime? ini)
+        public List<DtoReclamo> getReclamos(int? numZona,int? numCuadrilla,string estado,DateTime? ini,DateTime? fin)
         {
             List<DtoReclamo> colReclamos = new List<DtoReclamo>();
          
@@ -148,6 +148,10 @@ namespace BusinessLogic.Controllers
             else if(ini!=null)
             {
                 colReclamos = this._Repository.GetReclamoRepository().getReclamosPorFecha(ini);
+            }
+            else if(ini!=null && fin!=null)
+            {
+                colReclamos = this._Repository.GetReclamoRepository().getReclamosEntreFechas(ini, fin);
             }
             else
             {

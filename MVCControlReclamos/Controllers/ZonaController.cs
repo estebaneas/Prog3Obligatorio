@@ -126,6 +126,7 @@ namespace MVCControlReclamos.Controllers
 
         }
 
+
         public ActionResult Preuba()
         {
             return View();

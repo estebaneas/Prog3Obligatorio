@@ -7,6 +7,10 @@ function cargarModel() {
         zonas.push(modelo[i])
     }*/
 }
+
+var puntosClientes = [];
+
+var esTermico = false
 var lat;
 var long;
 var estaMarcado = false;
@@ -38,10 +42,17 @@ var administrador = false;
 
 //Ajax
 
-function cargarMapa() {
-    setTimeout(cargar, 10);
+function cargarMapa(nuevo) {
+   // setTimeout(cargar, 10);
 
+    setTimeout(function () {
+        cargar(nuevo);
+    }, 10);
 }
+
+
+
+
 
 function cargar() {
     try {
@@ -85,7 +96,7 @@ function initMap() {
 
     const map = new google.maps.Map(document.getElementById('map'), {
         center: centroMapa,
-        zoom: 15,
+        zoom: 14,
         scaleControl: false,
         streetViewControl: false,
         rotateControl: false,
@@ -168,24 +179,99 @@ function initMap() {
     }
 
 
+
     
+    function cargarTermico(nuevo) {
+        puntosClientes = [];
+        try {
+            let radio = 0;
+            for (i = 0; i < reclamos.length; i++) {
+
+                let peso = 0;
+                
+                let fecha = new Date();
+
+                let fechaIgreso = reclamos[i].fechaIngreso.replace('Date', '').replace('(', '').replace(')', '').replace('/', '').replace('/', '');
+
+                let tothoras = parseInt(Math.abs(fechaIgreso - fecha) / 36e5);
+
+                var heatLtLn = new google.maps.LatLng(reclamos[i].latitud, reclamos[i].longitud);
+
+                if (tothoras < 24) {
+                    peso = 1
+                    radio=10
+                }
+                else if (tothoras >= 24&&tothoras<50) {
+                    peso = 2
+                    radio = 15
+                    }
+                else if (tothoras >= 100 && tothoras<=250) {
+                    peso = 5
+                    radio = 20
+                }
+                else if (tothoras >= 250 && tothoras<=500) {
+                    peso = 10
+                    radio = 25
+                }
+                else if (tothoras > 500) {
+                    peso = 20
+                    radio = 30
+                }
+                else {
+                    peso: 40;
+                    radio = 35
+
+                }
+               
+                puntosClientes.push({ location: heatLtLn, weight: peso*1 })
+
+            }
+            if (nuevo) {
+                    heatmap.setMap(null);
+            }
+            try {
+                var heatmap = new google.maps.visualization.HeatmapLayer({
+                    data: puntosClientes,
+                    radius: radio
+                });
+                heatmap.setMap(map);
+                heatmap.setProp;
+            } catch { }
+
+
+           
+        } catch { }
+
+    }
+
+    cargarTermico();
+   
 
     function dibujarZonas() {
 
         let color;
         let vizor = false;
+        
         try {
-            if (reclamos.length > 0) {
+            if (termico) {
+                esTermico = true;
+
+            }
+
+        } catch {}
+
+        
+        try {
+            if (reclamos.length > 0 && !esTermico) {
                 vizor = true;
             }
         } catch { }
-
-       
 
         for (let i = 0; i < zonas.length; i++) {
             if (vizor) {
                 color = "#a7cacf";
             }
+            else if (esTermico) { color = "#dbdbdb";}
             else {
                 color = zonas[i].color;
             }
@@ -201,6 +287,9 @@ function initMap() {
                 map: map,
                 id: i
             });
+
+            if (esTermico) {
+                zonap.setOptions({ fillOpacity: 0, strokeColor: "#5c5c5c", strokeWeight: 1, }) }
 
             google.maps.event.addListener(zonap, 'click', function (event) {
                 console.log(this.id);
@@ -376,7 +465,7 @@ function initMap() {
         let lngReclamo = document.getElementById("lng").innerHTML;
         var reclamoLtLn = new google.maps.LatLng(latReclamo, lngReclamo);
 
-      
+
 
         marcador.setIcon(azulIco);
         marcador.setPosition(reclamoLtLn);
@@ -390,14 +479,13 @@ function initMap() {
                 shouldFocus: false,
             });
         });
-            
-    } catch {
 
+    } catch { }
+
+    if (!esTermico) {
         try {
             if (reclamos.length > 0) {
-
-              
-
+             
                 for (i = 0; i < reclamos.length; i++) {
                     let iColor = 0;
                     let sColor = 0;
@@ -537,8 +625,8 @@ function initMap() {
                 }
             }
         } catch { }
-
-    }
+        }
+    
 
     // funcion encargada de tomar la long y la lati del mapa y de colocar un marcador
     google.maps.event.addListener(map, 'click', function (e) {
@@ -1044,7 +1132,7 @@ function colDtoPuntoToLatLng(puntos) {
 }
 
 function cargarZonaSeleccionada(numeroZona) {
-    zonaSeleccionada = zonas[numeroZona - 1]
+    zonaSeleccionada = zonas[numeroZona]
     let numeroZ = document.getElementById(idLabelNumero);
     let nombreZ = document.getElementById(idLabelNombre);
     numeroZ.innerHTML = zonaSeleccionada.numero;
@@ -1116,3 +1204,34 @@ function mostrarErrores() {
 
 
 
+function mapaTermico(nuevo) {
+
+    if (nuevo) {
+        var ini = document.getElementById("fini").value;
+        var fin = document.getElementById("ffin").value
+        $.ajax({
+            url: '/Reclamo/CargarTermico?ini=' + ini + '&fin=' + fin,
+            type: 'GET',
+            success: function (result) {
+                reclamos = result;
+                refrescarMapa();
+            },
+            error: function (err) { console.log(err); }
+
+        });
+    }
+}
+
+
+function refrescarMapa() {
+    $.ajax({
+        url: '/Reclamo/RefrescarMapa',
+        type: 'GET',
+        success: function (result) {
+            document.getElementById("mapaTerm").innerHTML = result;
+            cargarMapa(false);
+        },
+        error: function (err) { console.log(err); }
+
+    });
+}

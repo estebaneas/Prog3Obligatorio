@@ -1,16 +1,16 @@
 ﻿@{
     ViewBag.Title = "Zonas";
 }
-@Html.ActionLink("Agregar Nuevo", "NuevaZona", "Zona",null, new { @class = "btn btn-default" })
+@Html.ActionLink("Agregar Nuevo", "NuevaZona", "Zona", null, new { @class = "btn btn-default" })
 <h3>
     <label>Numero: </label><label class="label label-default"></label>
     <input type="text" id="numeroZona" />
     <label>Nombre: </label><label class="label label-default"></label>
-    <label id="nombreZona"></label>
-    <input type="text" id="latitud" />
-    <input type="text" id="longitud" />
+    <input type="text" id="nombreZona" />
 
 </h3>
 @Html.Partial("_Mapa")
+
+<input type="button" id="btnTermic" value="Mapa Térmico" onclick="" class="btn btn-default"/>
 <script>
 </script>

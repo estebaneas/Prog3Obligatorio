@@ -96,8 +96,6 @@ function listarAtrazados() {
             }
             try {
                 setTimeout(function () { cargarReclamos(reclamos, "target", 1, "", "btnRec", "reclamos", "", "", "", "", "", true, true); }, 50);
-  
-               s                                                       ", " ", "",   "   ", ""        ", "", "", "", "", "", false,@ViewBag.AtrazadoStr)' />
 
             }
             catch { }
