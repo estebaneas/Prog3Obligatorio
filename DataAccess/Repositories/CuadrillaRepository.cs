@@ -57,17 +57,18 @@ namespace DataAccess.Repositories
         // Modificacion de cuadrilla
         public void modificarCuadrilla(DtoCuadrilla cuadrilla)
         {
+            cuadrilla modCuadrilla = new cuadrilla();
             using (ControlDeReclamosEntities context = new ControlDeReclamosEntities())
             {
                 using (DbContextTransaction trann = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
                 {
                     try
                     {
-                        cuadrilla currCuadrillaEntity = context.cuadrilla.FirstOrDefault(f => f.numero == cuadrilla.numero);
+                        modCuadrilla = context.cuadrilla.FirstOrDefault(f => f.numero == cuadrilla.numero);
 
-                        currCuadrillaEntity.nombre = cuadrilla.nombre;
-                        currCuadrillaEntity.encargado = cuadrilla.encargado;
-                        currCuadrillaEntity.cantidadPeones = cuadrilla.cantidadPeones;
+                        modCuadrilla.nombre = cuadrilla.nombre;
+                        modCuadrilla.encargado = cuadrilla.encargado;
+                        modCuadrilla.cantidadPeones = cuadrilla.cantidadPeones;
 
                         context.SaveChanges();
                         trann.Commit();
