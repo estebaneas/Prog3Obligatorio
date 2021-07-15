@@ -19,6 +19,9 @@ namespace Common.DTOs
         public string colRelJavVar { get; set; }
         public string BtnTarget { get; set; }
         public int? tipo { get; set; }
+
+        public bool  atrazado { get; set; }
+
         // "colRecJava_" + item.numero;
     }
 }

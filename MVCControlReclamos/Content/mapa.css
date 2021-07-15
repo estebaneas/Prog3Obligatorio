@@ -5,10 +5,8 @@
     width: 100%;
     margin-bottom: 20px;
     z-index:1;
-    outline:solid red 1px;
+    outline:solid grey 1px;
 }
-
-
 
 #txt {
     outline: solid red 1px;
@@ -18,8 +16,7 @@
     border: solid grey 1px;
     height: 450px;
     width: 100%;
-    margin-top: 10px;
-    margin-bottom: 10px;
+
 }
 
 

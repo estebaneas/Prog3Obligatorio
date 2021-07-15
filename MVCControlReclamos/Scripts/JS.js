@@ -1,10 +1,20 @@
 ﻿
 
+var reclamos = [];
+
 function setColRecJava(item) {
     setColRecJava = item;
 }
 
-function cargarReclamos(colRecjava, targetID, pagActual, cantPorPag, btnTarget, colRecJavVar, numZona, numCuadrilla, ini, estado,tipo,buscador) {
+function cargarReclamos(colRecjava, targetID, pagActual, cantPorPag, btnTarget, colRecJavVar, numZona, numCuadrilla, ini, estado,tipo,buscador,atrazo ) {
+
+    var t;
+    if (atrazo) {
+        t = "True"
+    }
+    else {
+        t="false"
+    }
 
     if (buscador) {
         try {
@@ -53,7 +63,8 @@ function cargarReclamos(colRecjava, targetID, pagActual, cantPorPag, btnTarget, 
         colReclamos: colRecjava,
         colRelJavVar: colRecJavVar,
         BtnTarget: btnTarget,
-        tipo: tipo
+        tipo: tipo,
+        atrazado: t
     };
 
 
@@ -70,4 +81,40 @@ function cargarReclamos(colRecjava, targetID, pagActual, cantPorPag, btnTarget, 
 
     });
 
+}
+
+
+function listarAtrazados() {
+
+    $.ajax({
+        url: '/Reclamo/Atrazados',
+        type: 'GET',
+        success: function (result) {
+            reclamos = result;
+            for (i = 0; i < reclamos.length; i++) {
+                reclamos[i].fechaIngreso = reclamos[i].fechaString;
+            }
+            try {
+                setTimeout(function () { cargarReclamos(reclamos, "target", 1, "", "btnRec", "reclamos", "", "", "", "", "", true, true); }, 50);
+
+            }
+            catch { }
+        },
+        error: function (err) { console.log(err); }
+
+    });
+
+}
+
+function datosVizor(numReclamo) {
+    $.ajax({
+        url: '/Reclamo/cargarVizor?numReclamo=' + numReclamo,
+        type: 'GET',
+        success: function (result) {
+            document.getElementById("target").innerHTML = result;
+          
+        },
+        error: function (err) { console.log(err); }
+
+    });
 }

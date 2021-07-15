@@ -1,0 +1,16 @@
+﻿@model Common.DTOs.DtoReclamo
+<hr />
+
+<h2>Detalles de reclamo</h2>
+<div class="row ">
+    <div class="col-lg-6 ">
+        @Html.Partial("_Mapa")
+    </div>
+    <div class="col-lg-6">
+        @Html.Partial("_DetalleReclamo")
+    </div>
+</div>
+<hr />
+<p>@Html.ActionLink("Volver", "ListarReclamos")   </p>
+
+

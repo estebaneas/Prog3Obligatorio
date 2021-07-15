@@ -7,6 +7,10 @@ function cargarModel() {
         zonas.push(modelo[i])
     }*/
 }
+
+var puntosClientes = [];
+
+var esTermico = false
 var lat;
 var long;
 var estaMarcado = false;
@@ -15,7 +19,6 @@ var nuevaForma = [];
 var zonaDibujada;
 var model = [];
 var zonas = [];
-var zona;
 var zonaSeleccionada = {};
 var coloresZona = ["#d900ff", "#d900ff", "#d900ff", "#d900ff", "#d900ff", "#d900ff", "#d900ff"];
 
@@ -39,10 +42,17 @@ var administrador = false;
 
 //Ajax
 
-function cargarMapa() {
-    setTimeout(cargar, 10);
+function cargarMapa(nuevo) {
+   // setTimeout(cargar, 10);
 
+    setTimeout(function () {
+        cargar(nuevo);
+    }, 10);
 }
+
+
+
+
 
 function cargar() {
     try {
@@ -64,7 +74,7 @@ function cargar() {
                 zonas = result;
                 initMap();
             },
-            error: function (err) { console.log(err); }
+            error: function (err) { console.error(err); }
 
         });
 }
@@ -72,6 +82,7 @@ function cargar() {
 //Funcionq ue inicia le mapa
 function initMap() {
 
+    
     var centroMapa = new google.maps.LatLng(39.862754476055386, -4.027336522173998);
     var marcadorEditor = {
         path: "M-20,0a20,20 0 1,0 40,0a20,20 0 1,0 -40,0",
@@ -85,7 +96,7 @@ function initMap() {
 
     const map = new google.maps.Map(document.getElementById('map'), {
         center: centroMapa,
-        zoom: 15,
+        zoom: 14,
         scaleControl: false,
         streetViewControl: false,
         rotateControl: false,
@@ -113,6 +124,9 @@ function initMap() {
         map: null,
     });
 
+
+    
+
     document.getElementById("ocultar").addEventListener("click", () => {
         map.setOptions({ styles: styles["hide"] });
     });
@@ -129,14 +143,143 @@ function initMap() {
     else if (administrador) {
         clickeable = true;
     }
+    var numZona;
+    try {
+        numZona = document.getElementById("numZona").value
+    } catch {
+        numZona = null;
+    }
+
+    function buscarZona() {
+        for (i = 0; i < zonas.length; i++) {
+            if (zonas[i].numero == numZona) {
+                return zonas[i];
+            }
+        }
+    }
+
+    if (numZona != null) {
+
+        var zona = buscarZona();
+
+        var zonap = new google.maps.Polygon({
+            strokeColor: '#737373',
+            strokeOpacity: 0.8,
+            strokeWeight: 4,
+            fillColor: '#737373',
+            fillOpacity: 0.35,
+            editable: false,
+            clickable: false,
+            path: colDtoPuntoToLatLng(zona.colDtoPunto),
+            map: map,
+        });
+    }
+    else {
+        dibujarZonas();
+    }
+
+
+
+    
+    function cargarTermico(nuevo) {
+        puntosClientes = [];
+        try {
+            let radio = 0;
+            for (i = 0; i < reclamos.length; i++) {
+
+                let peso = 0;
+                
+                let fecha = new Date();
+
+                let fechaIgreso = reclamos[i].fechaIngreso.replace('Date', '').replace('(', '').replace(')', '').replace('/', '').replace('/', '');
+
+                let tothoras = parseInt(Math.abs(fechaIgreso - fecha) / 36e5);
+
+                var heatLtLn = new google.maps.LatLng(reclamos[i].latitud, reclamos[i].longitud);
+
+                if (tothoras < 24) {
+                    peso = 1
+                    radio=10
+                }
+                else if (tothoras >= 24&&tothoras<50) {
+                    peso = 2
+                    radio = 15
+                    }
+                else if (tothoras >= 100 && tothoras<=250) {
+                    peso = 5
+                    radio = 20
+                }
+                else if (tothoras >= 250 && tothoras<=500) {
+                    peso = 10
+                    radio = 25
+                }
+                else if (tothoras > 500) {
+                    peso = 20
+                    radio = 30
+                }
+                else {
+                    peso: 40;
+                    radio = 35
+
+                }
+               
+                puntosClientes.push({ location: heatLtLn, weight: peso*1 })
+
+            }
+            if (nuevo) {
+                    heatmap.setMap(null);
+            }
+            try {
+                var heatmap = new google.maps.visualization.HeatmapLayer({
+                    data: puntosClientes,
+                    radius: radio
+                });
+                heatmap.setMap(map);
+                heatmap.setProp;
+            } catch { }
+
+
+           
+        } catch { }
+
+    }
+
+    cargarTermico();
+   
 
     function dibujarZonas() {
+
+        let color;
+        let vizor = false;
+        
+        try {
+            if (termico) {
+                esTermico = true;
+
+            }
+
+        } catch {}
+
+        
+        try {
+            if (reclamos.length > 0 && !esTermico) {
+                vizor = true;
+            }
+        } catch { }
+
         for (let i = 0; i < zonas.length; i++) {
+            if (vizor) {
+                color = "#a7cacf";
+            }
+            else if (esTermico) { color = "#dbdbdb";}
+            else {
+                color = zonas[i].color;
+            }
             var zonap = new google.maps.Polygon({
-                strokeColor: zonas[i].color,
+                strokeColor: color,
                 strokeOpacity: 0.8,
                 strokeWeight: 2,
-                fillColor: zonas[i].color,
+                fillColor: color,
                 fillOpacity: 0.35,
                 editable: false,
                 clickable: clickeable,
@@ -144,6 +287,9 @@ function initMap() {
                 map: map,
                 id: i
             });
+
+            if (esTermico) {
+                zonap.setOptions({ fillOpacity: 0, strokeColor: "#5c5c5c", strokeWeight: 1, }) }
 
             google.maps.event.addListener(zonap, 'click', function (event) {
                 console.log(this.id);
@@ -164,7 +310,7 @@ function initMap() {
     }
 
 
-    dibujarZonas();
+    
     // modo editor
     if (editor) {
         hayQueDibujar = true;
@@ -242,6 +388,245 @@ function initMap() {
         mostrarZonas(map);
       })*/
     }
+    /*
+    const contentString =
+        '<div id="content">' +
+        '<div id="siteNotice">' +
+        "</div>" +
+        '<h1 id="firstHeading" class="firstHeading">Uluru</h1>' +
+        '<div id="bodyContent">' +
+        "<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large " +
+        "sandstone rock formation in the southern part of the " +
+        "Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) " +
+        "south west of the nearest large town, Alice Springs; 450&#160;km " +
+        "(280&#160;mi) by road. Kata Tjuta and Uluru are the two major " +
+        "features of the Uluru - Kata Tjuta National Park. Uluru is " +
+        "sacred to the Pitjantjatjara and Yankunytjatjara, the " +
+        "Aboriginal people of the area. It has many springs, waterholes, " +
+        "rock caves and ancient paintings. Uluru is listed as a World " +
+        "Heritage Site.</p>" +
+        '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">' +
+        "https://en.wikipedia.org/w/index.php?title=Uluru</a> " +
+        "(last visited June 22, 2009).</p>" +
+        "</div>" +
+        "</div>";
+    const infowindow = new google.maps.InfoWindow({
+        content: contentString,
+    });*/
+
+      var azul = "#0059ff";
+        var azulO = "#00328f";
+        var rojo = "#ff3300";
+        var rojoO = "#991f00";
+        var amarillo = "#ffdd00";
+        var amarilloO = "#948000";
+        var verde = "#91ff00";
+        var verdeO = "#508c01";
+
+    const rojoIco = {
+        path: "m 14.943832,11.49484 c -3.561759,0 -6.4500663,2.88704 -6.4500663,6.448802 0,3.272544 1.5882903,5.140247 3.1821223,6.734071 3.212825,3.212823 2.168969,5.341817 3.267944,5.341817 1.098976,0 0.05376,-2.17054 3.225034,-5.341817 2.488228,-2.488228 3.22377,-4.95319 3.22377,-6.734071 0,-3.561762 -2.887042,-6.448802 -6.448804,-6.448802 z m 2.711301,6.448802 c 1.71e-4,1.497684 -1.213616,2.712038 -2.711301,2.712563 -1.498177,1.71e-4 -2.712731,-1.214385 -2.71256,-2.712563 4.32e-4,-1.485931 1.196427,-2.694869 2.703088,-2.70282 1.506663,-0.0081 2.720245,1.205631 2.720773,2.70282 z",
+        fillColor: rojo,
+        fillOpacity: 1,
+        strokeWeight: 2,
+        strokeOpacity: 1,
+        strokeColor: rojoO,
+        rotation: 0,
+        scale: 2,
+        anchor: new google.maps.Point(15, 30),
+    };
+
+    const azulIco = {
+        path: "m 14.943832,11.49484 c -3.561759,0 -6.4500663,2.88704 -6.4500663,6.448802 0,3.272544 1.5882903,5.140247 3.1821223,6.734071 3.212825,3.212823 2.168969,5.341817 3.267944,5.341817 1.098976,0 0.05376,-2.17054 3.225034,-5.341817 2.488228,-2.488228 3.22377,-4.95319 3.22377,-6.734071 0,-3.561762 -2.887042,-6.448802 -6.448804,-6.448802 z m 2.711301,6.448802 c 1.71e-4,1.497684 -1.213616,2.712038 -2.711301,2.712563 -1.498177,1.71e-4 -2.712731,-1.214385 -2.71256,-2.712563 4.32e-4,-1.485931 1.196427,-2.694869 2.703088,-2.70282 1.506663,-0.0081 2.720245,1.205631 2.720773,2.70282 z",
+        fillColor: azul,
+        fillOpacity: 1,
+        strokeWeight: 2,
+        strokeOpacity: 1,
+        strokeColor: azulO,
+        rotation: 0,
+        scale: 2,
+        anchor: new google.maps.Point(15, 30),
+    };
+
+    const amarilloIco = {
+        path: "m 14.943832,11.49484 c -3.561759,0 -6.4500663,2.88704 -6.4500663,6.448802 0,3.272544 1.5882903,5.140247 3.1821223,6.734071 3.212825,3.212823 2.168969,5.341817 3.267944,5.341817 1.098976,0 0.05376,-2.17054 3.225034,-5.341817 2.488228,-2.488228 3.22377,-4.95319 3.22377,-6.734071 0,-3.561762 -2.887042,-6.448802 -6.448804,-6.448802 z m 2.711301,6.448802 c 1.71e-4,1.497684 -1.213616,2.712038 -2.711301,2.712563 -1.498177,1.71e-4 -2.712731,-1.214385 -2.71256,-2.712563 4.32e-4,-1.485931 1.196427,-2.694869 2.703088,-2.70282 1.506663,-0.0081 2.720245,1.205631 2.720773,2.70282 z",
+        fillColor: amarillo,
+        fillOpacity: 1,
+        strokeWeight: 2,
+        strokeOpacity: 1,
+        strokeColor: amarilloO,
+        rotation: 0,
+        scale: 2,
+        anchor: new google.maps.Point(15, 30),
+    };
+
+
+    try {
+        let latReclamo = document.getElementById("lat").innerHTML;
+        let lngReclamo = document.getElementById("lng").innerHTML;
+        var reclamoLtLn = new google.maps.LatLng(latReclamo, lngReclamo);
+
+
+
+        marcador.setIcon(azulIco);
+        marcador.setPosition(reclamoLtLn);
+        marcador.setMap(map);
+        map.setCenter(reclamoLtLn);
+
+        marcador.addListener("click", () => {
+            infowindow.open({
+                anchor: marcador,
+                map,
+                shouldFocus: false,
+            });
+        });
+
+    } catch { }
+
+    if (!esTermico) {
+        try {
+            if (reclamos.length > 0) {
+             
+                for (i = 0; i < reclamos.length; i++) {
+                    let iColor = 0;
+                    let sColor = 0;
+                    let escala = 200;
+                    inicio = 1;
+                    fin = 360;
+                    medio = fin - inicio;
+
+                    let estado = reclamos[i].estado;
+                    let icono;
+                    let fecha = new Date();
+                    let fechaIgreso = reclamos[i].fechaIngreso.replace('Date', '').replace('(', '').replace(')', '').replace('/', '').replace('/','');
+
+                    let tothoras = parseInt(Math.abs(fechaIgreso - fecha) / 36e5);
+
+                    let Y = reclamos[i]
+
+                    let R = 0;
+                    let G = 0;
+                    let B = 0;
+
+                    let RR = 0;
+                    let GG = 0;
+                    let BB = 0;
+
+                    /*if (tothoras < 100) {
+                        G = parseInt(tothoras * (255 / 100));
+                        B = 255;
+                    }
+                    else if (tothoras >= 100 && tothoras < 200) {
+                        B = parseInt(255 - ((tothoras - 100) * 2.55));
+                        G = 255;
+                    }
+                    else if (tothoras >= 200 && tothoras <= 300) {
+                        R = parseInt(tothoras * (255 / 100));
+                        G = 255;
+                    }
+                    else if (tothoras >= 300 && tothoras <= 400) {
+                        G = parseInt(255 - ((tothoras - 100) * 2.55));
+                        R = 255;
+                    }
+                    else {
+                        R = 255;
+                        G = 0;
+                        B=0;
+                    }*/
+                    // escala = 200     (escala/100)    medio escala/2   
+
+                    if (tothoras < medio) {
+                        R = parseInt((tothoras / (medio / 100)) * (255 / 100));
+                        G = 255;
+
+                    }
+                    else if (tothoras >= medio && tothoras < fin) {
+                        G = parseInt(255 - (((tothoras / (medio / 100)) - 100) * 2.55));
+                        R = 255;
+                    }
+                    else {
+                        R = 255;
+                        G = 0;
+                    }
+
+                    GG = parseInt(G * 0.5);
+                    RR = parseInt(R * 0.5);
+                    BB = parseInt(B * 0.5);
+
+                    R = R.toString(16);
+                    G = G.toString(16);
+                    B = B.toString(16);
+
+                    RR = RR.toString(16);
+                    GG = GG.toString(16);
+                    BB = BB.toString(16);
+
+                    if (R.length <2) {
+                        R = "0" + R;
+                        
+                    }
+
+                  
+                    if (G.length < 2) {
+                        G = "0" + G;
+                        
+                    }
+                    if (B.length < 2) {
+                        B = "0" + B;
+                      
+                    }
+                    if (RR.length < 2) {
+                        RR = "0" + RR;
+
+                    }
+
+
+                    if (GG.length < 2) {
+                        GG = "0" + GG;
+
+                    }
+                    if (BB.length < 2) {
+                        BB = "0" + BB;
+
+                    }
+                    
+                   
+                   
+                     iColor = "#" + R + G + B;
+                     sColor = "#" + RR + GG + BB;
+
+
+                    const Micon = {
+                        path: "m 14.943832,11.49484 c -3.561759,0 -6.4500663,2.88704 -6.4500663,6.448802 0,3.272544 1.5882903,5.140247 3.1821223,6.734071 3.212825,3.212823 2.168969,5.341817 3.267944,5.341817 1.098976,0 0.05376,-2.17054 3.225034,-5.341817 2.488228,-2.488228 3.22377,-4.95319 3.22377,-6.734071 0,-3.561762 -2.887042,-6.448802 -6.448804,-6.448802 z m 2.711301,6.448802 c 1.71e-4,1.497684 -1.213616,2.712038 -2.711301,2.712563 -1.498177,1.71e-4 -2.712731,-1.214385 -2.71256,-2.712563 4.32e-4,-1.485931 1.196427,-2.694869 2.703088,-2.70282 1.506663,-0.0081 2.720245,1.205631 2.720773,2.70282 z",
+                        fillColor: iColor,
+                        fillOpacity: 1,
+                        strokeWeight: 2,
+                        strokeOpacity: 1,
+                        strokeColor: sColor,
+                        rotation: 0,
+                        scale: 2,
+                        anchor: new google.maps.Point(15, 30),
+                    };
+
+                    var rec = new google.maps.Marker({
+                        position: { lat: reclamos[i].latitud, lng: reclamos[i].longitud },
+                        map: map,
+                        id: reclamos[i].numero,
+                        icon: Micon,
+                        lat: reclamos[i].latitud,
+                        lng: reclamos[i].longitud,
+                        
+                    })
+
+                    google.maps.event.addListener(rec, 'click', function (event) {
+                        datosVizor(this.id);
+                        map.panTo({ lat:this.lat , lng: this.lng });
+                    });
+
+                }
+            }
+        } catch { }
+        }
+    
 
     // funcion encargada de tomar la long y la lati del mapa y de colocar un marcador
     google.maps.event.addListener(map, 'click', function (e) {
@@ -704,6 +1089,7 @@ function borrarPoligono(poligono) {
     poligono.setPath(nuevaForma);
 }
 
+
 function colocarMarcador(posicion, map, marcador) {
     if (cliente) {
         marcador.setIcon(null);
@@ -746,7 +1132,7 @@ function colDtoPuntoToLatLng(puntos) {
 }
 
 function cargarZonaSeleccionada(numeroZona) {
-    zonaSeleccionada = zonas[numeroZona - 1]
+    zonaSeleccionada = zonas[numeroZona]
     let numeroZ = document.getElementById(idLabelNumero);
     let nombreZ = document.getElementById(idLabelNombre);
     numeroZ.innerHTML = zonaSeleccionada.numero;
@@ -818,3 +1204,34 @@ function mostrarErrores() {
 
 
 
+function mapaTermico(nuevo) {
+
+    if (nuevo) {
+        var ini = document.getElementById("fini").value;
+        var fin = document.getElementById("ffin").value
+        $.ajax({
+            url: '/Reclamo/CargarTermico?ini=' + ini + '&fin=' + fin,
+            type: 'GET',
+            success: function (result) {
+                reclamos = result;
+                refrescarMapa();
+            },
+            error: function (err) { console.log(err); }
+
+        });
+    }
+}
+
+
+function refrescarMapa() {
+    $.ajax({
+        url: '/Reclamo/RefrescarMapa',
+        type: 'GET',
+        success: function (result) {
+            document.getElementById("mapaTerm").innerHTML = result;
+            cargarMapa(false);
+        },
+        error: function (err) { console.log(err); }
+
+    });
+}

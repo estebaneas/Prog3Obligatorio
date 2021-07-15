@@ -1,19 +1,34 @@
 ﻿@model IEnumerable<Common.DTOs.DtoReclamo>
 @Styles.Render("~/Content/estilos")
-<table class="table">
+<table class="table text-center">
+
     <tr>
-        <th>
+        <th class="text-center">
             @Html.DisplayNameFor(model => model.numero)
         </th>
-        <th>
+        <th class="text-center">
             @Html.DisplayNameFor(model => model.tipoReclamo)
         </th>
-        <th>
+        <th class="text-center">
             @Html.DisplayNameFor(model => model.emailUsuario)
         </th>
-        <th>
+        <th class="text-center">
             @Html.DisplayNameFor(model => model.fechaIngreso)
         </th>
+
+
+        @try
+        {
+            if (ViewBag.Atrazado)
+            {
+
+            <th class="text-center">
+                Horas desde ingreso
+            </th>
+            }
+        }
+            catch { }
+
         <th>
             @Html.DisplayNameFor(model => model.estado)
         </th>
@@ -87,26 +102,44 @@
             estado = "danger";
         }
 
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.numero)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.tipoReclamo.nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.emailUsuario)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.fechaIngreso)
-            </td>
-            <td>
-                <label class="label label-@estado"> @item.estado</label>
-            </td>
-            <td>
-                @Html.ActionLink("Detalles", "DetallesReclamo", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.numero)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.tipoReclamo.nombre)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.emailUsuario)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.fechaIngreso)
+    </td>
+    @{
+        TimeSpan retraso = (DateTime.Now - item.fechaIngreso);
+
+        int totalHoras = (int)retraso.TotalHours;
+
+        try
+        {
+            if (ViewBag.Atrazado)
+            {
+
+                <td>
+                    @totalHoras
+
+                </td>
+            }
+        }
+        catch { }
+    }
+    <td>
+        <label class="label label-@estado"> @item.estado</label>
+    </td>
+    <td>
+        @Html.ActionLink("Detalles", "Detalle", new { numReclamo = item.numero })
+    </td>
+</tr>
     }
 </table>
 <div class="row bb">
@@ -120,14 +153,14 @@
                 <div class="text-right col-xs-4  ">
                     @if (paginaActual > 1)
                     {
-                        <input id="@ViewBag.BtnTarget" type="button" value="Anterior" class="btn-xs btn-info btn" onclick='cargarReclamos(@ViewBag.ColReclamosVar, "@ViewBag.Target", @paginaActual-1,@CantPorPag,"@ViewBag.BtnTarget","@ViewBag.ColReclamosVar")' />
+                        <input id="@ViewBag.BtnTarget" type="button" value="Anterior" class="btn-xs btn-info btn" onclick='cargarReclamos(@ViewBag.ColReclamosVar, "@ViewBag.Target", @paginaActual-1,@CantPorPag, "@ViewBag.BtnTarget", "@ViewBag.ColReclamosVar", "", "", "", "", "", false,@ViewBag.AtrazadoStr)' />
                     }
                 </div>
                 <div class="col-xs-4 "><label>@paginaActual de @totalPaginas</label></div>
                 <div class="text-left col-xs-4">
                     @if (paginaActual < totalPaginas)
                     {
-                        <input id="@ViewBag.BtnTarget" type="button" value="Siguiente" class="btn-xs btn-info btn" onclick='cargarReclamos(@ViewBag.ColReclamosVar, "@ViewBag.Target", @paginaActual+1,@CantPorPag,"@ViewBag.BtnTarget","@ViewBag.ColReclamosVar","","","","","","","",false)' />
+                        <input id="@ViewBag.BtnTarget" type="button" value="Siguiente" class="btn-xs btn-info btn" onclick='cargarReclamos(@ViewBag.ColReclamosVar, "@ViewBag.Target", @paginaActual+1,@CantPorPag, "@ViewBag.BtnTarget", "@ViewBag.ColReclamosVar", "", "", "", "", "", false,@ViewBag.AtrazadoStr)' />
                     }
                 </div>
                 
@@ -139,5 +172,7 @@
 
     </div>
 </div>
+
+
 
 <script src="~/Scripts/JS.js"></script>

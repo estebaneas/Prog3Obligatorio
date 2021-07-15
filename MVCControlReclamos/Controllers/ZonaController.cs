@@ -123,7 +123,9 @@ namespace MVCControlReclamos.Controllers
             List<DtoZona> colZonas = BLZ.listarZonas();
             ViewBag.ColZonas = colZonas;
             return Json(colZonas,JsonRequestBehavior.AllowGet);
+
         }
+
 
         public ActionResult Preuba()
         {

@@ -19,24 +19,22 @@ namespace DataAccess.Mappers
         }
         public DtoReclamo MapToDto(reclamo entity)
         {
-            DtoReclamo dto = null;
-            if (entity != null)
-            {
-                dto = new DtoReclamo();
-                dto.numero = entity.numero;
-                dto.estado = (estadoReclamo)Enum.Parse(typeof(estadoReclamo), entity.estado);
-                dto.fechaIngreso = entity.fechaIngreso;
-                dto.observaciones = entity.observaciones;
-                dto.comentario = entity.comentario;
-                dto.latitud = entity.latitud;
-                dto.longitud = entity.longitud;
-                dto.numTipoReclamo = entity.numeroTipoReclamo;
-                dto.emailUsuario = entity.emailUsuario;
-                dto.numeroCuadrilla = entity.numeroCuadrilla;
-                dto.numeroZona = entity.numeroZona;
-                dto.tipoReclamo = this.tipoReclamoMapper.mapToDto(entity.tipoReclamo);
+            DtoReclamo dto = new DtoReclamo();
+            dto = new DtoReclamo();
+            dto.numero = entity.numero;
+            dto.estado = (estadoReclamo)Enum.Parse(typeof(estadoReclamo), entity.estado);
+            dto.fechaIngreso = entity.fechaIngreso;
+            dto.observaciones = entity.observaciones;
+            dto.comentario = entity.comentario;
+            dto.latitud = entity.latitud;
+            dto.longitud = entity.longitud;
+            dto.numTipoReclamo = entity.numeroTipoReclamo;
+            dto.emailUsuario = entity.emailUsuario;
+            dto.numeroCuadrilla = entity.numeroCuadrilla;
+            dto.numeroZona = entity.numeroZona;
+            dto.tipoReclamo = this.tipoReclamoMapper.mapToDto(entity.tipoReclamo);
+            
 
-            }
             return dto;
         }
 

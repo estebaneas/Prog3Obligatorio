@@ -1,0 +1,161 @@
+﻿@model Common.DTOs.DtoReclamo
+
+<div class="">
+    @{
+        string estado;
+        if (Model.estado == Common.DTOs.estadoReclamo.ASIGNADO)
+        {
+            estado = "primary";
+        }
+        else if (Model.estado == Common.DTOs.estadoReclamo.EN_PROCESO)
+        {
+            estado = "warning";
+        }
+        else if (Model.estado == Common.DTOs.estadoReclamo.DESESTIMADO)
+        {
+            estado = "secondary";
+        }
+        else if (Model.estado == Common.DTOs.estadoReclamo.RESUELTO)
+        {
+            estado = "success";
+        }
+        else
+        {
+            estado = "danger";
+        }
+    }
+    <div class="row">
+
+        <div class="col-lg-6 ">
+            <dl id="dlDetRec">
+
+                <dd>
+                    @Html.ActionLink("Editar Estado", "IrEditar", new { nroReclamo = Model.numero }, new { @class = "btn btn-m btn-info" })
+                </dd>
+
+                <dt>
+                    Numero:
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.numero)
+                </dd>
+
+                <dt>
+                    Fecha ingresado:
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.fechaIngreso)
+                </dd>
+
+                <dt>
+                    Observaciones:
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.observaciones)
+                </dd>
+
+                <dt>
+                    Tipo de Reclamo:
+                </dt>
+
+                <dd>
+                    @ViewBag.TipoReclamo
+                </dd>
+
+                <dt>
+                    Usuario:
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.emailUsuario)
+                </dd>
+
+                <dt>
+                    Cuadrilla:
+                </dt>
+
+                <dd>
+                    @ViewBag.Cuadrilla
+                </dd>
+
+                <dt>
+                    Zona:
+                </dt>
+
+                <dd>
+                    @ViewBag.Zona
+                </dd>
+                <dt>
+                    Comentrios:
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.comentario)
+                </dd>
+                <dd class="col-lg-12">
+
+                </dd>
+            </dl>
+
+        </div>
+        <div class="col-lg-6" id="asignadoDetalle">
+            <dl>
+                <dt class="text-center">
+
+                    Estado:   <label class="label label-@estado">@ViewBag.Estado</label>
+
+                </dt>
+
+                <dd class="text-center ">
+                </dd>
+
+
+            </dl>
+
+        </div>
+    </div>
+</div>
+
+@{ try
+    {
+
+        string lat = Model.latitud.ToString();
+        string lng = Model.longitud.ToString();
+        string latPutno = "";
+        string lngPunto = "";
+
+        foreach (char letra in lat)
+        {
+            if (letra.Equals(','))
+            {
+                latPutno += ".";
+            }
+            else { latPutno += letra; }
+
+        }
+        foreach (char letra in lng)
+        {
+            if (letra.Equals(','))
+            {
+                lngPunto += ".";
+            }
+            else { lngPunto += letra; }
+
+        }
+
+        <input type="number" class="hidden" id="numZona" value="@ViewBag.Zona.numero" readonly="readonly" />
+        <label id="lat" class="hidden">@latPutno</label>
+        <label id="lng" class="hidden">@lngPunto</label>
+    }
+    catch { }
+
+
+}
+
+
+
+
+@Styles.Render("~/Content/estilos")

@@ -24,6 +24,8 @@ namespace MVCControlReclamos.Controllers
             ViewBag.BtnTarget = "btnRec";
             ViewBag.Target = "target";
             ViewBag.ColReclamosVar = "null";
+            ViewBag.Atrazado = false;
+            ViewBag.AtrazadoStr = "false";
             BLTipoDeReclamoController BLT = new BLTipoDeReclamoController();
             BLZonaController BLZ = new BLZonaController();
             BLCuadrillaController BLC = new BLCuadrillaController();
@@ -163,19 +165,35 @@ namespace MVCControlReclamos.Controllers
 
 
             List<SelectListItem> colEstadoReclamos = new List<SelectListItem>();
-            List<string> colEstados = new List<string>() {"EN PROCESO", "RESUELTO", "DESESTIMADO" };
 
-            for (int i = 0; i < colEstados.Count; i++)
+            foreach (estadoReclamo estado in Enum.GetValues(typeof(estadoReclamo)))
             {
-                SelectListItem option = new SelectListItem();
-                option.Value = colEstados[i];
-                option.Text = colEstados[i];
-                colEstadoReclamos.Add(option);
+                SelectListItem opcion = new SelectListItem();
+                opcion.Value = estado.ToString();
+                opcion.Text = enumATexto(estado);
+                colEstadoReclamos.Add(opcion);
             }
             ViewBag.listaDeEstados = colEstadoReclamos;
             return View("EditarReclamo",reclamo);
         }
 
+        [HttpGet]
+        public JsonResult Atrazados()
+        {
+            BLReclamoController BLR = new BLReclamoController();
+            List<DtoReclamo> sinResolver=BLR.reclamosSinTerminar();
+            foreach (DtoReclamo item in sinResolver)
+            {
+                item.fechaString = item.fechaIngreso.ToString();
+            }
+            sinResolver = sinResolver.OrderByDescending(r => r.fechaIngreso).Reverse().ToList();
+    
+
+            return Json(sinResolver, JsonRequestBehavior.AllowGet);
+        }
+
+
+        [HttpPost]
         public ActionResult mostrarReclamos(DtoFiltroReclamo filtro)
         {
             BLReclamoController BLR = new BLReclamoController();
@@ -209,7 +227,7 @@ namespace MVCControlReclamos.Controllers
                 estado = filtro.estado;
                 ViewBag.ColReclamosVar = "null";
 
-                colreclamos = BLR.getReclamos(numZona, numCuadrilla, estado, ini);
+                colreclamos = BLR.getReclamos(numZona, numCuadrilla, estado, ini, null);
                 
                 if (ini != null)
                 {
@@ -227,7 +245,7 @@ namespace MVCControlReclamos.Controllers
                 {
                     colreclamos = colreclamos.Where(r => r.estado.ToString()==estado).ToList();
                 }
-
+                colreclamos=colreclamos.OrderByDescending(r=>r.fechaIngreso).ToList();
 
             }
             else
@@ -235,14 +253,84 @@ namespace MVCControlReclamos.Controllers
                 colreclamos = filtro.colReclamos;
                 ViewBag.ColReclamosVar = filtro.colRelJavVar;
             }
+            ViewBag.AtrazadoStr = filtro.atrazado.ToString().ToLower();
+            ViewBag.Atrazado = filtro.atrazado;
             ViewBag.CantPorPag = filtro.cantPorPag;
             ViewBag.BtnTarget = filtro.BtnTarget;   
             ViewBag.ColReclamos = filtro.colReclamos;
             ViewBag.TotReclamos = colreclamos.Count();
             ViewBag.PagActual = pagActual;
             ViewBag.Target = targetID;
-            colreclamos = colreclamos.OrderByDescending(r => r.fechaIngreso).Skip(cantPorPag * (pagActual - 1)).Take(cantPorPag).ToList();
+
+            colreclamos = colreclamos.Skip(cantPorPag * (pagActual - 1)).Take(cantPorPag).ToList();
             return PartialView("_ListarReclamosPartial", colreclamos);
+        }
+
+        public ActionResult Detalle(int numReclamo)
+        {
+            BLReclamoController BLR = new BLReclamoController();
+            BLCuadrillaController BLC = new BLCuadrillaController();
+            BLZonaController BLZ = new BLZonaController();
+            DtoReclamo reclamo = BLR.GetById(numReclamo);
+            DtoCuadrilla cuadrilla = BLC.getCuadrilla(reclamo.numeroCuadrilla);
+            DtoZona zona = BLZ.darZona(reclamo.numeroZona);
+
+            ViewBag.Zona = zona;
+            ViewBag.Cuadrilla = cuadrilla.nombre;
+            ViewBag.TipoReclamo = reclamo.tipoReclamo.nombre;
+            ViewBag.Estado = enumATexto(reclamo.estado);
+
+            return View(reclamo);
+        }
+
+        [HttpGet]
+        public ActionResult Vizor()
+        {
+            BLReclamoController BLR = new BLReclamoController();
+            List<DtoReclamo> reclamos = BLR.reclamosSinTerminar();
+            DtoCuadrilla dummy = new DtoCuadrilla();
+
+
+            foreach(DtoReclamo item in reclamos)
+            {
+                item.fechaString = item.fechaIngreso.ToString();
+            }
+            ViewBag.Reclamos = reclamos;
+            return View(dummy);
+        }
+
+
+        [HttpGet]
+        public ActionResult cargarVizor(int numReclamo)
+        {
+            BLReclamoController BLR = new BLReclamoController();
+            DtoReclamo reclamo = BLR.GetById(numReclamo);
+            ViewBag.Estado = enumATexto(reclamo.estado);
+            return PartialView("_DetalleReclamo",reclamo);
+        }
+
+
+        public ActionResult MapaTermico()
+        {
+            BLReclamoController BLR = new BLReclamoController();
+           List<DtoReclamo> reclamos =  BLR.getReclamos(null, null, null, null, null);
+            ViewBag.ModoCalorico = true;
+            return View(reclamos);
+        }
+
+        [HttpGet]
+        public JsonResult CargarTermico(DateTime? ini, DateTime? fin)
+        {
+            BLReclamoController BLR = new BLReclamoController();
+            List<DtoReclamo> colreclamos = BLR.getReclamos(null, null, null, ini, fin);
+            colreclamos = colreclamos.Where(r => r.fechaIngreso >= ini&&r.fechaIngreso<= fin).ToList();
+            return Json(colreclamos,JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult RefrescarMapa(DateTime? ini, DateTime? fin)
+        {
+            return PartialView("_Mapa");
         }
 
     }

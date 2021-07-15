@@ -2,8 +2,49 @@
 
 <div class="panel-group" id="accordion">
 
+
+
     @foreach (var item in Model)
     {
+        bool existe;
+        if (item.colReclamos.Count() > 0)
+        {
+            existe = true;
+        }
+        else
+        {
+            existe = false;
+        }
+        var json = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(item.colReclamos);
+
+        string colreclamos = "[";
+        int contador = 1;
+        foreach (var reclamo in item.colReclamos)
+        {
+
+            colreclamos = colreclamos + "{\"numero\":" + reclamo.numero + ","
+                                   + "\"numCuadrilla\":" + reclamo.numeroCuadrilla + ","
+                                   + "\"numZona\":" + reclamo.numeroZona + ","
+                                   + "\"longitud\":\"" + reclamo.longitud + "\","
+                                   + "\"latitud\":\"" + reclamo.latitud + "\","
+                                   + "\"observaciones\":\"" + reclamo.observaciones + "\","
+                                   + "\"emailUsuario\":\"" + reclamo.emailUsuario + "\",";
+
+            colreclamos += "\"tipoReclamo\":{\"nombre\":\"" + reclamo.tipoReclamo.nombre + "\",\"numero\":" + reclamo.tipoReclamo.numero +
+                           ",\"descripcion\":\"" + reclamo.tipoReclamo.descripcion + "\"},";
+
+            colreclamos += "\"numTipoReclamo\":" + reclamo.numTipoReclamo + ","
+            + "\"fechaIngreso\":\"" + reclamo.fechaIngreso + "\","
+            + "\"estado\":\"" + reclamo.estado + "\"}";
+            if (item.colReclamos.Count() > contador)
+            {
+                colreclamos += ",";
+            }
+
+            contador++;
+        }
+
+        colreclamos += "];";
         ViewBag.ColReclamosVar = "colRecJava_" + item.numero;
         ViewBag.Target = "zona_" + item.numero;
         ViewBag.BtnTarget = "btnZona_" + item.numero;
@@ -16,6 +57,7 @@
                     </div>
                     <div class="col-xs-3">
                         <input data-toggle="collapse" data-parent="#accordion" href="#collapse_@item.numero" type="button" value="Ver Reclamos" class="btn btn-xs btn-info" />
+                       
                     </div>
                 </div>
             </div>
@@ -23,73 +65,21 @@
                 <div class="panel-body">
                     <div class="col-lg-12">
                         <div id="zona_@item.numero">
-                            @Html.Partial("_ListarReclamosPartial", item.colReclamos.Where(r=>r.numeroCuadrilla==ViewBag.NumCuadrilla))
+                            @Html.Partial("_ListarReclamosPartial", item.colReclamos.Where(r => r.numeroCuadrilla == ViewBag.NumCuadrilla))
+                           
+                            <div class="jss">
+                                <script type="text/javascript">
+                            var ff = new Date ()
+                            var existeJava = "@existe";
+                            var colRecJava_@item.numero = @Html.Raw(colreclamos)
+
+                                </script>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div><div class="JsScript">
-    @{
-        bool existe;
-        if (item.colReclamos.Count() > 0)
-        {
-            existe = true;
-        }
-        else
-        {
-            existe = false;
-        }
-        var json = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(item.colReclamos);
-
-        string colreclamos="[";
-        int contador = 1;
-        foreach (var reclamo in item.colReclamos)
-        {
-
-            colreclamos = colreclamos + "{\"numero\":" + reclamo.numero + ","
-                                   + "\"numCuadrilla\":" + reclamo.numeroCuadrilla + ","
-                                   + "\"numZona\":" + reclamo.numeroZona + ","
-                                   + "\"longitud\":" + reclamo.longitud + ","
-                                   + "\"latitud\":" + reclamo.latitud + ","
-                                   + "\"observaciones\":\"" + reclamo.observaciones + "\","
-                                   + "\"emailUsuario\":\"" + reclamo.emailUsuario + "\",";
-
-            colreclamos += "\"tipoReclamo\":{\"nombre\":\"" + reclamo.tipoReclamo.nombre + "\",\"numero\":" + reclamo.tipoReclamo.numero+
-                           ",\"descripcion\":\"" + reclamo.tipoReclamo.descripcion+ "\"},";
-
-            colreclamos +="\"numTipoReclamo\":" + reclamo.numTipoReclamo + ","
-            + "\"fechaIngreso\":\"" + reclamo.fechaIngreso + "\","
-            + "\"estado\":\"" + reclamo.estado + "\"}" ;
-            if(item.colReclamos.Count()>contador)
-            {
-                colreclamos += ",";
-            }
-            else
-            {
-                colreclamos += "]";
-            }
-
-            contador++;
-
-
-
-        }
-
-
-
-
-
-    }
-
-    <script type="text/javascript">
-                      var ff = new Date ()
-        var existeJava = "@existe";
-        var colRecJava_@item.numero = @Html.Raw(colreclamos)
-
-
-        
-    </script>
-</div>
+        </div>
 
 
     }
