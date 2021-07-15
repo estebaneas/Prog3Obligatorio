@@ -36,7 +36,8 @@ namespace Common.DTOs
         public int numeroCuadrilla { get; set; }
         public int numeroZona { get; set; }
 
-
+        public string latString;
+        public string lngString;
         public string fechaString;
         public DtoTipoReclamo tipoReclamo { get; set; }
         public DtoCuadrilla dtoCuadrilla;

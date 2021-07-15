@@ -24,6 +24,8 @@ namespace MVCControlReclamos.Controllers
             ViewBag.BtnTarget = "btnRec";
             ViewBag.Target = "target";
             ViewBag.ColReclamosVar = "null";
+            ViewBag.Atrazado = false;
+            ViewBag.AtrazadoStr = "false";
             BLTipoDeReclamoController BLT = new BLTipoDeReclamoController();
             BLZonaController BLZ = new BLZonaController();
             BLCuadrillaController BLC = new BLCuadrillaController();
@@ -251,6 +253,8 @@ namespace MVCControlReclamos.Controllers
                 colreclamos = filtro.colReclamos;
                 ViewBag.ColReclamosVar = filtro.colRelJavVar;
             }
+            ViewBag.AtrazadoStr = filtro.atrazado.ToString().ToLower();
+            ViewBag.Atrazado = filtro.atrazado;
             ViewBag.CantPorPag = filtro.cantPorPag;
             ViewBag.BtnTarget = filtro.BtnTarget;   
             ViewBag.ColReclamos = filtro.colReclamos;
@@ -277,6 +281,32 @@ namespace MVCControlReclamos.Controllers
             ViewBag.Estado = enumATexto(reclamo.estado);
 
             return View(reclamo);
+        }
+
+        [HttpGet]
+        public ActionResult Vizor()
+        {
+            BLReclamoController BLR = new BLReclamoController();
+            List<DtoReclamo> reclamos = BLR.reclamosSinTerminar();
+            DtoCuadrilla dummy = new DtoCuadrilla();
+
+
+            foreach(DtoReclamo item in reclamos)
+            {
+                item.fechaString = item.fechaIngreso.ToString();
+            }
+            ViewBag.Reclamos = reclamos;
+            return View(dummy);
+        }
+
+
+        [HttpGet]
+        public ActionResult cargarVizor(int numReclamo)
+        {
+            BLReclamoController BLR = new BLReclamoController();
+            DtoReclamo reclamo = BLR.GetById(numReclamo);
+            ViewBag.Estado = enumATexto(reclamo.estado);
+            return PartialView("_DetalleReclamo",reclamo);
         }
 
     }

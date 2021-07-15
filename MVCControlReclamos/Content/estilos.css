@@ -11,6 +11,10 @@
     border:red solid 1px;
 }
 
+.tt div{
+    border: red solid 1px;
+}
+
 .vcenter {
     display: inline-block;
     vertical-align: middle;
@@ -22,13 +26,31 @@
 }
 
 
-
+.thCentro{
+    text-align:center;
+}
 
 
 #dlDetRec dd {
     margin-bottom: 6px;
 }
 
+
+
+#asignadoDetalle label {
+font-size:22px;
+}
+
+#asignadoDetalle {
+    margin-bottom: 6px;
+    font-size: 18px;
+}
+
+
+
+.txtL{
+    text-align: right;
+}
 
 
 

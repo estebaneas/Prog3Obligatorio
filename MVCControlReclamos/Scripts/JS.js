@@ -8,6 +8,14 @@ function setColRecJava(item) {
 
 function cargarReclamos(colRecjava, targetID, pagActual, cantPorPag, btnTarget, colRecJavVar, numZona, numCuadrilla, ini, estado,tipo,buscador,atrazo ) {
 
+    var t;
+    if (atrazo) {
+        t = "True"
+    }
+    else {
+        t="false"
+    }
+
     if (buscador) {
         try {
             ini = document.getElementById("fecha").value;
@@ -55,7 +63,8 @@ function cargarReclamos(colRecjava, targetID, pagActual, cantPorPag, btnTarget, 
         colReclamos: colRecjava,
         colRelJavVar: colRecJavVar,
         BtnTarget: btnTarget,
-        tipo: tipo
+        tipo: tipo,
+        atrazado: t
     };
 
 
@@ -77,8 +86,6 @@ function cargarReclamos(colRecjava, targetID, pagActual, cantPorPag, btnTarget, 
 
 function listarAtrazados() {
 
-
-
     $.ajax({
         url: '/Reclamo/Atrazados',
         type: 'GET',
@@ -87,10 +94,29 @@ function listarAtrazados() {
             for (i = 0; i < reclamos.length; i++) {
                 reclamos[i].fechaIngreso = reclamos[i].fechaString;
             }
-            setTimeout(function () { cargarReclamos(reclamos, "target", 1,"","btnRec","reclamos","","","","","",true,true); }, 50);
+            try {
+                setTimeout(function () { cargarReclamos(reclamos, "target", 1, "", "btnRec", "reclamos", "", "", "", "", "", true, true); }, 50);
+  
+               s                                                       ", " ", "",   "   ", ""        ", "", "", "", "", "", false,@ViewBag.AtrazadoStr)' />
+
+            }
+            catch { }
         },
         error: function (err) { console.log(err); }
 
     });
 
+}
+
+function datosVizor(numReclamo) {
+    $.ajax({
+        url: '/Reclamo/cargarVizor?numReclamo=' + numReclamo,
+        type: 'GET',
+        success: function (result) {
+            document.getElementById("target").innerHTML = result;
+          
+        },
+        error: function (err) { console.log(err); }
+
+    });
 }

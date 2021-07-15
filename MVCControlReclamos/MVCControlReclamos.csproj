@@ -235,6 +235,8 @@
     <Content Include="Views\Cuadrilla\DetalleCuadrilla.cshtml" />
     <Content Include="Views\Shared\_ListarReclamosPartial.cshtml" />
     <Content Include="Views\Reclamo\Detalle.cshtml" />
+    <Content Include="Views\Reclamo\Vizor.cshtml" />
+    <Content Include="Views\Shared\_DetalleReclamo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -33,6 +33,7 @@ namespace DataAccess.Mappers
             dto.numeroCuadrilla = entity.numeroCuadrilla;
             dto.numeroZona = entity.numeroZona;
             dto.tipoReclamo = this.tipoReclamoMapper.mapToDto(entity.tipoReclamo);
+            
 
             return dto;
         }
