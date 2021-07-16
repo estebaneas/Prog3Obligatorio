@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ReclamosModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="ControlDeReclamosModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="asignar">
           <Key>
             <PropertyRef Name="numeroCuadrilla" />
@@ -88,7 +88,7 @@
           <Key>
             <PropertyRef Name="numero" />
           </Key>
-          <Property Name="numero" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="numero" Type="int" Nullable="false" />
           <Property Name="nombre" Type="varchar" MaxLength="25" Nullable="false" />
           <Property Name="color" Type="varchar" MaxLength="7" Nullable="false" />
         </EntityType>
@@ -188,7 +188,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="ReclamosModelStoreContainer">
+        <EntityContainer Name="ControlDeReclamosModelStoreContainer">
           <EntitySet Name="asignar" EntityType="Self.asignar" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="cuadrilla" EntityType="Self.cuadrilla" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="historialDeCambios" EntityType="Self.historialDeCambios" Schema="dbo" store:Type="Tables" />
@@ -230,101 +230,38 @@
             <End Role="reclamo" EntitySet="reclamo" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="ReclamosModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="ControlDeReclamosEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="tipoReclamo" EntityType="ReclamosModel.tipoReclamo" />
-          <EntitySet Name="usuario" EntityType="ReclamosModel.usuario" />
-
-          <EntitySet Name="zona" EntityType="ReclamosModel.zona" />
-
-          <EntitySet Name="historialDeCambios" EntityType="ReclamosModel.historialDeCambios" />
-
-          <EntitySet Name="punto" EntityType="ReclamosModel.punto" />
-          <EntitySet Name="reclamo" EntityType="ReclamosModel.reclamo" />
-          <AssociationSet Name="FK_reclamo_tipoReclamo" Association="ReclamosModel.FK_reclamo_tipoReclamo">
-            <End Role="tipoReclamo" EntitySet="tipoReclamo" />
-            <End Role="reclamo" EntitySet="reclamo" />
-          </AssociationSet>
-          <AssociationSet Name="FK_reclamo_usuario" Association="ReclamosModel.FK_reclamo_usuario">
-            <End Role="usuario" EntitySet="usuario" />
-            <End Role="reclamo" EntitySet="reclamo" />
-          </AssociationSet>
-          <EntitySet Name="cuadrilla" EntityType="ReclamosModel.cuadrilla" />
-          <AssociationSet Name="FK_reclamo_cuadrilla" Association="ReclamosModel.FK_reclamo_cuadrilla">
-            <End Role="cuadrilla" EntitySet="cuadrilla" />
-            <End Role="reclamo" EntitySet="reclamo" />
-          </AssociationSet>
-          <EntitySet Name="zona" EntityType="ReclamosModel.zona" />
-          <AssociationSet Name="FK_Punto_Zona" Association="ReclamosModel.FK_Punto_Zona">
-            <End Role="zona" EntitySet="zona" />
-            <End Role="punto" EntitySet="punto" />
-          </AssociationSet>
-          <AssociationSet Name="FK_reclamo_zona" Association="ReclamosModel.FK_reclamo_zona">
-            <End Role="zona" EntitySet="zona" />
-            <End Role="reclamo" EntitySet="reclamo" />
-          </AssociationSet>
-          <AssociationSet Name="asignar" Association="ReclamosModel.asignar">
-            <End Role="cuadrilla" EntitySet="cuadrilla" />
-            <End Role="zona" EntitySet="zona" />
-          </AssociationSet>
-          <EntitySet Name="historialDeCambios" EntityType="ReclamosModel.historialDeCambios" />
-          <AssociationSet Name="FK_historialDeCambios_reclamo" Association="ReclamosModel.FK_historialDeCambios_reclamo">
-            <End Role="reclamo" EntitySet="reclamo" />
-            <End Role="historialDeCambios" EntitySet="historialDeCambios" />
-          </AssociationSet>
-          </EntityContainer>
-        <EntityType Name="tipoReclamo">
+      <Schema Namespace="ControlDeReclamosModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="cuadrilla">
           <Key>
             <PropertyRef Name="numero" />
           </Key>
           <Property Name="numero" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombre" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="reclamo" Relationship="ReclamosModel.FK_reclamo_tipoReclamo" FromRole="tipoReclamo" ToRole="reclamo" />
+          <Property Name="nombre" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="encargado" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cantidadPeones" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="reclamo" Relationship="Self.FK_reclamo_cuadrilla" FromRole="cuadrilla" ToRole="reclamo" />
+          <NavigationProperty Name="zona" Relationship="Self.asignar" FromRole="cuadrilla" ToRole="zona" />
         </EntityType>
-        <EntityType Name="usuario">
-          <Key>
-            <PropertyRef Name="email" />
-          </Key>
-          <Property Name="email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="nombre" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="apellido" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="nombreDeUsuario" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="contraseña" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="false" />
-          <Property Name="telefono" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="funcionario" Type="Boolean" />
-          <NavigationProperty Name="reclamo" Relationship="ReclamosModel.FK_reclamo_usuario" FromRole="usuario" ToRole="reclamo" />
-        </EntityType>
-
-        <EntityType Name="zona">
-          <Key>
-            <PropertyRef Name="numero" />
-          </Key>
-          <Property Name="numero" Type="Int32" Nullable="false" />
-          <Property Name="nombre" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="color" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="punto" Relationship="ReclamosModel.FK_Punto_Zona" FromRole="zona" ToRole="punto" />
-          <NavigationProperty Name="reclamo" Relationship="ReclamosModel.FK_reclamo_zona" FromRole="zona" ToRole="reclamo" />
-          <NavigationProperty Name="cuadrilla" Relationship="ReclamosModel.asignar" FromRole="zona" ToRole="cuadrilla" />
-
         <EntityType Name="historialDeCambios">
           <Key>
             <PropertyRef Name="numero" />
           </Key>
           <Property Name="numero" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="estado" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="nombreFunc" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellidoFunc" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="estado" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="fechaIngreso" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="fechaCambio" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="observaciones" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="comentario" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="latitud" Type="Decimal" Nullable="false" Precision="9" Scale="6" />
-          <Property Name="longitud" Type="Decimal" Nullable="false" Precision="9" Scale="6" />
+          <Property Name="latitud" Type="Double" Nullable="false" />
+          <Property Name="longitud" Type="Double" Nullable="false" />
           <Property Name="numeroReclamo" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="reclamo" Relationship="ReclamosModel.FK_historialDeCambios_reclamo" FromRole="historialDeCambios" ToRole="reclamo" />
-
+          <NavigationProperty Name="reclamo" Relationship="Self.FK_historialDeCambios_reclamo" FromRole="historialDeCambios" ToRole="reclamo" />
         </EntityType>
         <EntityType Name="punto">
           <Key>
@@ -335,35 +272,101 @@
           <Property Name="numeroZona" Type="Int32" Nullable="false" />
           <Property Name="latitud" Type="Double" Nullable="false" />
           <Property Name="longitud" Type="Double" Nullable="false" />
-          <NavigationProperty Name="zona" Relationship="ReclamosModel.FK_Punto_Zona" FromRole="punto" ToRole="zona" />
+          <NavigationProperty Name="zona" Relationship="Self.FK_Punto_Zona" FromRole="punto" ToRole="zona" />
         </EntityType>
         <EntityType Name="reclamo">
           <Key>
             <PropertyRef Name="numero" />
           </Key>
           <Property Name="numero" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="estado" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="estado" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="fechaIngreso" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="observaciones" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="comentario" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="latitud" Type="Double" Nullable="false" />
           <Property Name="longitud" Type="Double" Nullable="false" />
-          <Property Name="emailUsuario" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="emailUsuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="numeroTipoReclamo" Type="Int32" Nullable="false" />
           <Property Name="numeroCuadrilla" Type="Int32" Nullable="false" />
           <Property Name="numeroZona" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="tipoReclamo" Relationship="ReclamosModel.FK_reclamo_tipoReclamo" FromRole="reclamo" ToRole="tipoReclamo" />
-          <NavigationProperty Name="usuario" Relationship="ReclamosModel.FK_reclamo_usuario" FromRole="reclamo" ToRole="usuario" />
-          <NavigationProperty Name="cuadrilla" Relationship="ReclamosModel.FK_reclamo_cuadrilla" FromRole="reclamo" ToRole="cuadrilla" />
-
-          <NavigationProperty Name="historialDeCambios" Relationship="ReclamosModel.FK_historialDeCambios_reclamo" FromRole="reclamo" ToRole="historialDeCambios" />
-
-          <NavigationProperty Name="zona" Relationship="ReclamosModel.FK_reclamo_zona" FromRole="reclamo" ToRole="zona" />
-
+          <NavigationProperty Name="cuadrilla" Relationship="Self.FK_reclamo_cuadrilla" FromRole="reclamo" ToRole="cuadrilla" />
+          <NavigationProperty Name="historialDeCambios" Relationship="Self.FK_historialDeCambios_reclamo" FromRole="reclamo" ToRole="historialDeCambios" />
+          <NavigationProperty Name="tipoReclamo" Relationship="Self.FK_reclamo_tipoReclamo" FromRole="reclamo" ToRole="tipoReclamo" />
+          <NavigationProperty Name="usuario" Relationship="Self.FK_reclamo_usuario" FromRole="reclamo" ToRole="usuario" />
+          <NavigationProperty Name="zona" Relationship="Self.FK_reclamo_zona" FromRole="reclamo" ToRole="zona" />
         </EntityType>
+        <EntityType Name="tipoReclamo">
+          <Key>
+            <PropertyRef Name="numero" />
+          </Key>
+          <Property Name="numero" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="descripcion" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="reclamo" Relationship="Self.FK_reclamo_tipoReclamo" FromRole="tipoReclamo" ToRole="reclamo" />
+        </EntityType>
+        <EntityType Name="usuario">
+          <Key>
+            <PropertyRef Name="email" />
+          </Key>
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellido" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombreDeUsuario" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="contraseña" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="funcionario" Type="Boolean" />
+          <Property Name="telefono" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="reclamo" Relationship="Self.FK_reclamo_usuario" FromRole="usuario" ToRole="reclamo" />
+        </EntityType>
+        <EntityType Name="zona">
+          <Key>
+            <PropertyRef Name="numero" />
+          </Key>
+          <Property Name="numero" Type="Int32" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="color" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="punto" Relationship="Self.FK_Punto_Zona" FromRole="zona" ToRole="punto" />
+          <NavigationProperty Name="reclamo" Relationship="Self.FK_reclamo_zona" FromRole="zona" ToRole="reclamo" />
+          <NavigationProperty Name="cuadrilla" Relationship="Self.asignar" FromRole="zona" ToRole="cuadrilla" />
+        </EntityType>
+        <Association Name="FK_reclamo_cuadrilla">
+          <End Role="cuadrilla" Type="Self.cuadrilla" Multiplicity="1" />
+          <End Role="reclamo" Type="Self.reclamo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cuadrilla">
+              <PropertyRef Name="numero" />
+            </Principal>
+            <Dependent Role="reclamo">
+              <PropertyRef Name="numeroCuadrilla" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_historialDeCambios_reclamo">
+          <End Role="reclamo" Type="Self.reclamo" Multiplicity="1" />
+          <End Role="historialDeCambios" Type="Self.historialDeCambios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="reclamo">
+              <PropertyRef Name="numero" />
+            </Principal>
+            <Dependent Role="historialDeCambios">
+              <PropertyRef Name="numeroReclamo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Punto_Zona">
+          <End Role="zona" Type="Self.zona" Multiplicity="1" />
+          <End Role="punto" Type="Self.punto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="zona">
+              <PropertyRef Name="numero" />
+            </Principal>
+            <Dependent Role="punto">
+              <PropertyRef Name="numeroZona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_reclamo_tipoReclamo">
-          <End Type="ReclamosModel.tipoReclamo" Role="tipoReclamo" Multiplicity="1" />
-          <End Type="ReclamosModel.reclamo" Role="reclamo" Multiplicity="*" />
+          <End Role="tipoReclamo" Type="Self.tipoReclamo" Multiplicity="1" />
+          <End Role="reclamo" Type="Self.reclamo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tipoReclamo">
               <PropertyRef Name="numero" />
@@ -374,8 +377,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_reclamo_usuario">
-          <End Type="ReclamosModel.usuario" Role="usuario" Multiplicity="1" />
-          <End Type="ReclamosModel.reclamo" Role="reclamo" Multiplicity="*" />
+          <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
+          <End Role="reclamo" Type="Self.reclamo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="usuario">
               <PropertyRef Name="email" />
@@ -385,55 +388,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="cuadrilla">
-          <Key>
-            <PropertyRef Name="numero" />
-          </Key>
-          <Property Name="numero" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombre" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="encargado" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="cantidadPeones" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="reclamo" Relationship="ReclamosModel.FK_reclamo_cuadrilla" FromRole="cuadrilla" ToRole="reclamo" />
-          <NavigationProperty Name="zona" Relationship="ReclamosModel.asignar" FromRole="cuadrilla" ToRole="zona" />
-        </EntityType>
-        <Association Name="FK_reclamo_cuadrilla">
-          <End Type="ReclamosModel.cuadrilla" Role="cuadrilla" Multiplicity="1" />
-          <End Type="ReclamosModel.reclamo" Role="reclamo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="cuadrilla">
-              <PropertyRef Name="numero" />
-            </Principal>
-            <Dependent Role="reclamo">
-              <PropertyRef Name="numeroCuadrilla" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="zona">
-          <Key>
-            <PropertyRef Name="numero" />
-          </Key>
-          <Property Name="numero" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombre" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="color" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="punto" Relationship="ReclamosModel.FK_Punto_Zona" FromRole="zona" ToRole="punto" />
-          <NavigationProperty Name="reclamo" Relationship="ReclamosModel.FK_reclamo_zona" FromRole="zona" ToRole="reclamo" />
-          <NavigationProperty Name="cuadrilla" Relationship="ReclamosModel.asignar" FromRole="zona" ToRole="cuadrilla" />
-        </EntityType>
-        <Association Name="FK_Punto_Zona">
-          <End Type="ReclamosModel.zona" Role="zona" Multiplicity="1" />
-          <End Type="ReclamosModel.punto" Role="punto" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="zona">
-              <PropertyRef Name="numero" />
-            </Principal>
-            <Dependent Role="punto">
-              <PropertyRef Name="numeroZona" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_reclamo_zona">
-          <End Type="ReclamosModel.zona" Role="zona" Multiplicity="1" />
-          <End Type="ReclamosModel.reclamo" Role="reclamo" Multiplicity="*" />
+          <End Role="zona" Type="Self.zona" Multiplicity="1" />
+          <End Role="reclamo" Type="Self.reclamo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="zona">
               <PropertyRef Name="numero" />
@@ -444,160 +401,145 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="asignar">
-          <End Type="ReclamosModel.cuadrilla" Role="cuadrilla" Multiplicity="*" />
-          <End Type="ReclamosModel.zona" Role="zona" Multiplicity="*" />
+          <End Role="cuadrilla" Type="Self.cuadrilla" Multiplicity="*" />
+          <End Role="zona" Type="Self.zona" Multiplicity="*" />
         </Association>
-        <EntityType Name="historialDeCambios">
-          <Key>
-            <PropertyRef Name="numero" />
-          </Key>
-          <Property Name="numero" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombreFunc" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="apellidoFunc" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="estado" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="fechaIngreso" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="fechaCambio" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="observaciones" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="comentario" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="latitud" Type="Double" Nullable="false" />
-          <Property Name="longitud" Type="Double" Nullable="false" />
-          <Property Name="numeroReclamo" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="reclamo" Relationship="ReclamosModel.FK_historialDeCambios_reclamo" FromRole="historialDeCambios" ToRole="reclamo" />
-        </EntityType>
-        <Association Name="FK_historialDeCambios_reclamo">
-          <End Type="ReclamosModel.reclamo" Role="reclamo" Multiplicity="1" />
-          <End Type="ReclamosModel.historialDeCambios" Role="historialDeCambios" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="reclamo">
-              <PropertyRef Name="numero" />
-            </Principal>
-            <Dependent Role="historialDeCambios">
-              <PropertyRef Name="numeroReclamo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        </Schema>
+        <EntityContainer Name="ControlDeReclamosEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="cuadrilla" EntityType="Self.cuadrilla" />
+          <EntitySet Name="historialDeCambios" EntityType="Self.historialDeCambios" />
+          <EntitySet Name="punto" EntityType="Self.punto" />
+          <EntitySet Name="reclamo" EntityType="Self.reclamo" />
+          <EntitySet Name="tipoReclamo" EntityType="Self.tipoReclamo" />
+          <EntitySet Name="usuario" EntityType="Self.usuario" />
+          <EntitySet Name="zona" EntityType="Self.zona" />
+          <AssociationSet Name="FK_reclamo_cuadrilla" Association="Self.FK_reclamo_cuadrilla">
+            <End Role="cuadrilla" EntitySet="cuadrilla" />
+            <End Role="reclamo" EntitySet="reclamo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_historialDeCambios_reclamo" Association="Self.FK_historialDeCambios_reclamo">
+            <End Role="reclamo" EntitySet="reclamo" />
+            <End Role="historialDeCambios" EntitySet="historialDeCambios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Punto_Zona" Association="Self.FK_Punto_Zona">
+            <End Role="zona" EntitySet="zona" />
+            <End Role="punto" EntitySet="punto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_reclamo_tipoReclamo" Association="Self.FK_reclamo_tipoReclamo">
+            <End Role="tipoReclamo" EntitySet="tipoReclamo" />
+            <End Role="reclamo" EntitySet="reclamo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_reclamo_usuario" Association="Self.FK_reclamo_usuario">
+            <End Role="usuario" EntitySet="usuario" />
+            <End Role="reclamo" EntitySet="reclamo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_reclamo_zona" Association="Self.FK_reclamo_zona">
+            <End Role="zona" EntitySet="zona" />
+            <End Role="reclamo" EntitySet="reclamo" />
+          </AssociationSet>
+          <AssociationSet Name="asignar" Association="Self.asignar">
+            <End Role="cuadrilla" EntitySet="cuadrilla" />
+            <End Role="zona" EntitySet="zona" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ReclamosModelStoreContainer" CdmEntityContainer="ControlDeReclamosEntities">
-          <EntitySetMapping Name="tipoReclamo">
-            <EntityTypeMapping TypeName="ReclamosModel.tipoReclamo">
-              <MappingFragment StoreEntitySet="tipoReclamo">
-                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
+        <EntityContainerMapping StorageEntityContainer="ControlDeReclamosModelStoreContainer" CdmEntityContainer="ControlDeReclamosEntities">
+          <EntitySetMapping Name="cuadrilla">
+            <EntityTypeMapping TypeName="ControlDeReclamosModel.cuadrilla">
+              <MappingFragment StoreEntitySet="cuadrilla">
                 <ScalarProperty Name="numero" ColumnName="numero" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="encargado" ColumnName="encargado" />
+                <ScalarProperty Name="cantidadPeones" ColumnName="cantidadPeones" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="usuario">
-            <EntityTypeMapping TypeName="ReclamosModel.usuario">
-              <MappingFragment StoreEntitySet="usuario">
-                <ScalarProperty Name="funcionario" ColumnName="funcionario" />
-                <ScalarProperty Name="telefono" ColumnName="telefono" />
-                <ScalarProperty Name="contraseña" ColumnName="contraseña" />
-                <ScalarProperty Name="nombreDeUsuario" ColumnName="nombreDeUsuario" />
-                <ScalarProperty Name="apellido" ColumnName="apellido" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="email" ColumnName="email" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-
-          <EntitySetMapping Name="zona">
-            <EntityTypeMapping TypeName="ReclamosModel.zona">
-              <MappingFragment StoreEntitySet="zona">
-                <ScalarProperty Name="color" ColumnName="color" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-
           <EntitySetMapping Name="historialDeCambios">
-            <EntityTypeMapping TypeName="ReclamosModel.historialDeCambios">
+            <EntityTypeMapping TypeName="ControlDeReclamosModel.historialDeCambios">
               <MappingFragment StoreEntitySet="historialDeCambios">
-                <ScalarProperty Name="numeroReclamo" ColumnName="numeroReclamo" />
-                <ScalarProperty Name="longitud" ColumnName="longitud" />
-                <ScalarProperty Name="latitud" ColumnName="latitud" />
-                <ScalarProperty Name="comentario" ColumnName="comentario" />
-                <ScalarProperty Name="observaciones" ColumnName="observaciones" />
-                <ScalarProperty Name="fechaCambio" ColumnName="fechaCambio" />
-                <ScalarProperty Name="fechaIngreso" ColumnName="fechaIngreso" />
-                <ScalarProperty Name="estado" ColumnName="estado" />
-
                 <ScalarProperty Name="numero" ColumnName="numero" />
+                <ScalarProperty Name="nombreFunc" ColumnName="nombreFunc" />
+                <ScalarProperty Name="apellidoFunc" ColumnName="apellidoFunc" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="fechaIngreso" ColumnName="fechaIngreso" />
+                <ScalarProperty Name="fechaCambio" ColumnName="fechaCambio" />
+                <ScalarProperty Name="observaciones" ColumnName="observaciones" />
+                <ScalarProperty Name="comentario" ColumnName="comentario" />
+                <ScalarProperty Name="latitud" ColumnName="latitud" />
+                <ScalarProperty Name="longitud" ColumnName="longitud" />
+                <ScalarProperty Name="numeroReclamo" ColumnName="numeroReclamo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="punto">
-            <EntityTypeMapping TypeName="ReclamosModel.punto">
+            <EntityTypeMapping TypeName="ControlDeReclamosModel.punto">
               <MappingFragment StoreEntitySet="punto">
-                <ScalarProperty Name="longitud" ColumnName="longitud" />
-                <ScalarProperty Name="latitud" ColumnName="latitud" />
-                <ScalarProperty Name="numeroZona" ColumnName="numeroZona" />
                 <ScalarProperty Name="numero" ColumnName="numero" />
+                <ScalarProperty Name="numeroZona" ColumnName="numeroZona" />
+                <ScalarProperty Name="latitud" ColumnName="latitud" />
+                <ScalarProperty Name="longitud" ColumnName="longitud" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="reclamo">
-            <EntityTypeMapping TypeName="ReclamosModel.reclamo">
+            <EntityTypeMapping TypeName="ControlDeReclamosModel.reclamo">
               <MappingFragment StoreEntitySet="reclamo">
-                <ScalarProperty Name="numeroZona" ColumnName="numeroZona" />
-                <ScalarProperty Name="numeroCuadrilla" ColumnName="numeroCuadrilla" />
-                <ScalarProperty Name="numeroTipoReclamo" ColumnName="numeroTipoReclamo" />
-                <ScalarProperty Name="emailUsuario" ColumnName="emailUsuario" />
-                <ScalarProperty Name="longitud" ColumnName="longitud" />
-                <ScalarProperty Name="latitud" ColumnName="latitud" />
-                <ScalarProperty Name="comentario" ColumnName="comentario" />
-                <ScalarProperty Name="observaciones" ColumnName="observaciones" />
-                <ScalarProperty Name="fechaIngreso" ColumnName="fechaIngreso" />
-                <ScalarProperty Name="estado" ColumnName="estado" />
                 <ScalarProperty Name="numero" ColumnName="numero" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="fechaIngreso" ColumnName="fechaIngreso" />
+                <ScalarProperty Name="observaciones" ColumnName="observaciones" />
+                <ScalarProperty Name="comentario" ColumnName="comentario" />
+                <ScalarProperty Name="latitud" ColumnName="latitud" />
+                <ScalarProperty Name="longitud" ColumnName="longitud" />
+                <ScalarProperty Name="emailUsuario" ColumnName="emailUsuario" />
+                <ScalarProperty Name="numeroTipoReclamo" ColumnName="numeroTipoReclamo" />
+                <ScalarProperty Name="numeroCuadrilla" ColumnName="numeroCuadrilla" />
+                <ScalarProperty Name="numeroZona" ColumnName="numeroZona" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="cuadrilla">
-            <EntityTypeMapping TypeName="ReclamosModel.cuadrilla">
-              <MappingFragment StoreEntitySet="cuadrilla">
-                <ScalarProperty Name="cantidadPeones" ColumnName="cantidadPeones" />
-                <ScalarProperty Name="encargado" ColumnName="encargado" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <EntitySetMapping Name="tipoReclamo">
+            <EntityTypeMapping TypeName="ControlDeReclamosModel.tipoReclamo">
+              <MappingFragment StoreEntitySet="tipoReclamo">
                 <ScalarProperty Name="numero" ColumnName="numero" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usuario">
+            <EntityTypeMapping TypeName="ControlDeReclamosModel.usuario">
+              <MappingFragment StoreEntitySet="usuario">
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="nombreDeUsuario" ColumnName="nombreDeUsuario" />
+                <ScalarProperty Name="contraseña" ColumnName="contraseña" />
+                <ScalarProperty Name="funcionario" ColumnName="funcionario" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="zona">
-            <EntityTypeMapping TypeName="ReclamosModel.zona">
+            <EntityTypeMapping TypeName="ControlDeReclamosModel.zona">
               <MappingFragment StoreEntitySet="zona">
-                <ScalarProperty Name="color" ColumnName="color" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
                 <ScalarProperty Name="numero" ColumnName="numero" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="color" ColumnName="color" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="asignar" TypeName="ReclamosModel.asignar" StoreEntitySet="asignar">
-            <EndProperty Name="zona">
-              <ScalarProperty Name="numero" ColumnName="numeroZona" />
-            </EndProperty>
+          <AssociationSetMapping Name="asignar" TypeName="ControlDeReclamosModel.asignar" StoreEntitySet="asignar">
             <EndProperty Name="cuadrilla">
               <ScalarProperty Name="numero" ColumnName="numeroCuadrilla" />
             </EndProperty>
+            <EndProperty Name="zona">
+              <ScalarProperty Name="numero" ColumnName="numeroZona" />
+            </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="historialDeCambios">
-            <EntityTypeMapping TypeName="ReclamosModel.historialDeCambios">
-              <MappingFragment StoreEntitySet="historialDeCambios">
-                <ScalarProperty Name="numeroReclamo" ColumnName="numeroReclamo" />
-                <ScalarProperty Name="longitud" ColumnName="longitud" />
-                <ScalarProperty Name="latitud" ColumnName="latitud" />
-                <ScalarProperty Name="comentario" ColumnName="comentario" />
-                <ScalarProperty Name="observaciones" ColumnName="observaciones" />
-                <ScalarProperty Name="fechaCambio" ColumnName="fechaCambio" />
-                <ScalarProperty Name="fechaIngreso" ColumnName="fechaIngreso" />
-                <ScalarProperty Name="estado" ColumnName="estado" />
-                <ScalarProperty Name="apellidoFunc" ColumnName="apellidoFunc" />
-                <ScalarProperty Name="nombreFunc" ColumnName="nombreFunc" />
-                <ScalarProperty Name="numero" ColumnName="numero" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

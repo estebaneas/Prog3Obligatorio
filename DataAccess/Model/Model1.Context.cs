@@ -25,13 +25,12 @@ namespace DataAccess.Model
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<tipoReclamo> tipoReclamo { get; set; }
-        public virtual DbSet<usuario> usuario { get; set; }
+        public virtual DbSet<cuadrilla> cuadrilla { get; set; }
         public virtual DbSet<historialDeCambios> historialDeCambios { get; set; }
         public virtual DbSet<punto> punto { get; set; }
         public virtual DbSet<reclamo> reclamo { get; set; }
-        public virtual DbSet<cuadrilla> cuadrilla { get; set; }
+        public virtual DbSet<tipoReclamo> tipoReclamo { get; set; }
+        public virtual DbSet<usuario> usuario { get; set; }
         public virtual DbSet<zona> zona { get; set; }
-
     }
 }

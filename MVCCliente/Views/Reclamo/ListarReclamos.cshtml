@@ -12,13 +12,13 @@
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.numero)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.observaciones)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.latitud)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.longitud)
+            @Html.DisplayNameFor(model => model.fechaIngreso)
         </th>
         <th></th>
     </tr>
@@ -26,13 +26,13 @@
 @foreach (var item in Model) {
     <tr>
         <td>
+            @Html.DisplayFor(modelItem => item.numero)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.observaciones)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.latitud)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.longitud)
+            @Html.DisplayFor(modelItem => item.fechaIngreso)
         </td>
         <td>
             @Html.ActionLink("Ver historial", "../HistorialCambios/ListarHistorialCambios", new { nroReclamo = item.numero }) |
