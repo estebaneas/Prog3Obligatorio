@@ -40,7 +40,7 @@ namespace MVCCliente.Controllers
                 if (!BLUsuario.EsFuncionario(dto.username))
                 {
                     //Crea la Cookie para que el usuario sea autenticado
-                    FormsAuthentication.SetAuthCookie(dto.username, false);
+                    FormsAuthentication.SetAuthCookie(dto.username, true);
 
                     Session[CLogin.KEY_SESSION_USERNAME] = dto.username;
                     Session[CLogin.KEY_SESSION_TIPO_USER] = "2";

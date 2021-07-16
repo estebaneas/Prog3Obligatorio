@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Mi áéíóú ASP.NET</title>
+    <title>@ViewBag.Title - Alcaldía de Toledo</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -22,14 +22,24 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
                     <li>@Html.ActionLink("Tipos Reclamo", "ListarReclamos", "TipoReclamo")</li>
                     <li>@Html.ActionLink("Reclamos", "ListarReclamos", "Reclamo")</li>
                     <li>@Html.ActionLink("Cuadrillas", "ListarCuadrillas", "Cuadrilla")</li>
-                    <li>@Html.ActionLink("Zona", "Zonas", "Zona")</li>
-                    <li>@Html.ActionLink("Nuevo Usuario", "AgregarUsuario", "Usuario")</li>
-                    <li>@Html.ActionLink("Log Out", "LogOut", "Login")</li>
+                    <li>@Html.ActionLink("Zonas", "Zonas", "Zona")</li>
+                    @{ try
+                        {
+                            if (@Session.Keys.Count > 0)
+                            {
+                                <li>@Html.ActionLink("Log Out", "LogOut", "Login")</li>
+                            }
+                            else
+                            {
+                                <li>@Html.ActionLink("Log In", "LogIn", "Login")</li>
+                                <li>@Html.ActionLink("Registrarse", "AgregarUsuario", "Usuario")</li>
+                            }
+                        }
+                        catch { }
+                    }
                 </ul>
             </div>
         </div>
@@ -39,12 +49,13 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Mi aplicación áéíóú  ASP.NET</p>
+            <p>&copy; @DateTime.Now.Year - Alcaldía de toledo</p>
         </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Styles.Render("~/Content/estilos")
     @RenderSection("scripts", required: false)
 </body>
 </html>

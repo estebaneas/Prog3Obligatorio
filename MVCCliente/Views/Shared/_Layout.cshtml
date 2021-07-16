@@ -25,8 +25,21 @@
                     <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
                     <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
                     <li>@Html.ActionLink("Reclamos", "ListarReclamos", "Reclamo")</li>
-                    <li>@Html.ActionLink("Log Out", "LogOut", "Login")</li>
-                    <li>@Html.ActionLink("Registrarse", "AgregarUsuario", "Usuario")</li>
+                    @{ try
+                        {
+                            if (@Session.Keys.Count > 0)
+                            {
+                                <li>@Html.ActionLink("Log Out", "LogOut", "Login")</li>
+                            }
+                            else
+                            {
+                                <li>@Html.ActionLink("Log In", "LogIn", "Login")</li>
+                                <li>@Html.ActionLink("Registrarse", "AgregarUsuario", "Usuario")</li>
+                            }
+                        }
+                        catch { }
+                    }
+
                 </ul>
             </div>
         </div>
