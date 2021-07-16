@@ -144,7 +144,10 @@ namespace BusinessLogic.Controllers
             return false;
         }
 
-
+        public bool hayPuntos()
+        {
+            return this._Repository.GetPuntoRepository().hayPuntos();
+        }
 
 
         //-------------------------------------------------------------------------------------------------

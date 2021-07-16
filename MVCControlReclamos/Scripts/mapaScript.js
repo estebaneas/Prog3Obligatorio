@@ -8,8 +8,8 @@ function cargarModel() {
     }*/
 }
 
-var puntosClientes = [];
-
+var puntosCalientes = [];
+var zonasConCantindad = [];
 var esTermico = false
 var lat;
 var long;
@@ -175,17 +175,37 @@ function initMap() {
         });
     }
     else {
+       
         dibujarZonas();
     }
 
 
-
+  
     
     function cargarTermico(nuevo) {
-        puntosClientes = [];
+        puntosCalientes = [];
+        zonasConCantindad = [];
+       
+
         try {
             let radio = 0;
             for (i = 0; i < reclamos.length; i++) {
+
+                try {
+                    if (zonasConCantindad.length == 0) {
+                        zonasConCantindad.push({ numero: reclamos[i].numeroZona, cantidad: 1 });
+                    } else {
+                        for (e = 0; e < zonasConCantindad.length; e++) {
+                            if (zonasConCantindad[e].numero == reclamos[i].numeroZona) {
+                                zonasConCantindad[e].cantidad++;
+                                break;
+                            } else if (e + 1 == zonasConCantindad.length) {
+                                zonasConCantindad.push({ numero: reclamos[i].numeroZona, cantidad: 1 });
+                            }
+                        }
+                    }
+
+                } catch (error){ console.log(error)}
 
                 let peso = 0;
                 
@@ -223,19 +243,15 @@ function initMap() {
 
                 }
                
-                puntosClientes.push({ location: heatLtLn, weight: peso*1 })
+                puntosCalientes.push({ location: heatLtLn, weight: peso*1 })
 
-            }
-            if (nuevo) {
-                    heatmap.setMap(null);
             }
             try {
                 var heatmap = new google.maps.visualization.HeatmapLayer({
-                    data: puntosClientes,
+                    data: puntosCalientes,
                     radius: radio
                 });
                 heatmap.setMap(map);
-                heatmap.setProp;
             } catch { }
 
 
@@ -247,9 +263,11 @@ function initMap() {
     cargarTermico();
    
 
-    function dibujarZonas() {
 
+    function dibujarZonas() {
+        
         let color;
+        let colorB;
         let vizor = false;
         
         try {
@@ -264,19 +282,35 @@ function initMap() {
         try {
             if (reclamos.length > 0 && !esTermico) {
                 vizor = true;
+
             }
         } catch { }
-
+        cargarTermico();
         for (let i = 0; i < zonas.length; i++) {
             if (vizor) {
                 color = "#a7cacf";
             }
-            else if (esTermico) { color = "#dbdbdb";}
+            else if (esTermico) {
+                    for (e = 0; e < zonasConCantindad.length; e++) {
+                        if (zonas[i].numero == zonasConCantindad[e].numero) {
+                            let colores = procesarColor(zonasConCantindad[e].cantidad, 0, reclamos.length);
+                            color = colores[0];
+                            colorB = colores[1];
+                            break;
+                        }
+                        else {
+                            color = "#00ff00";
+                            colorB = "#368036";
+                        }
+                    }
+            }
             else {
                 color = zonas[i].color;
             }
+                    
+
             var zonap = new google.maps.Polygon({
-                strokeColor: color,
+                strokeColor: colorB,
                 strokeOpacity: 0.8,
                 strokeWeight: 2,
                 fillColor: color,
@@ -287,10 +321,7 @@ function initMap() {
                 map: map,
                 id: i
             });
-
-            if (esTermico) {
-                zonap.setOptions({ fillOpacity: 0, strokeColor: "#5c5c5c", strokeWeight: 1, }) }
-
+                        
             google.maps.event.addListener(zonap, 'click', function (event) {
                 console.log(this.id);
                 try {
@@ -307,6 +338,8 @@ function initMap() {
                 }
             });
         }
+
+
     }
 
 
@@ -510,29 +543,6 @@ function initMap() {
                     let RR = 0;
                     let GG = 0;
                     let BB = 0;
-
-                    /*if (tothoras < 100) {
-                        G = parseInt(tothoras * (255 / 100));
-                        B = 255;
-                    }
-                    else if (tothoras >= 100 && tothoras < 200) {
-                        B = parseInt(255 - ((tothoras - 100) * 2.55));
-                        G = 255;
-                    }
-                    else if (tothoras >= 200 && tothoras <= 300) {
-                        R = parseInt(tothoras * (255 / 100));
-                        G = 255;
-                    }
-                    else if (tothoras >= 300 && tothoras <= 400) {
-                        G = parseInt(255 - ((tothoras - 100) * 2.55));
-                        R = 255;
-                    }
-                    else {
-                        R = 255;
-                        G = 0;
-                        B=0;
-                    }*/
-                    // escala = 200     (escala/100)    medio escala/2   
 
                     if (tothoras < medio) {
                         R = parseInt((tothoras / (medio / 100)) * (255 / 100));
@@ -1191,7 +1201,7 @@ function setPuntosForm(borrado) {
 function mostrarErrores() {
     var form = $("#formulario");
     form.valid();
-    setTimeout(validar, 20);
+    setTimeout(validar, 80);
       function validar() {
         if (!form.valid()) {
             $("#errores").show();
@@ -1205,13 +1215,15 @@ function mostrarErrores() {
 
 
 function mapaTermico(nuevo) {
-
+    //?ini=' + ini + '&fin=' + fin,
     if (nuevo) {
-        var ini = document.getElementById("fini").value;
-        var fin = document.getElementById("ffin").value
+        var inicio = document.getElementById("inicio").value;
+        var fin = document.getElementById("fin").value
+        var json = { ini: inicio , fin:fin}
         $.ajax({
-            url: '/Reclamo/CargarTermico?ini=' + ini + '&fin=' + fin,
+            url: '/Reclamo/CargarTermico',
             type: 'GET',
+            data : json,
             success: function (result) {
                 reclamos = result;
                 refrescarMapa();
@@ -1234,4 +1246,88 @@ function refrescarMapa() {
         error: function (err) { console.log(err); }
 
     });
+}
+
+
+function totalDeReclamosPorZona(numZona) {
+    $.ajax({
+        url: '/Reclamo/getTotalReclamosPorZona?numZona=' + numZona,
+        type: 'GET',
+        success: function (result) {
+            return result;
+        },
+        error: function (err) { console.log(err); }
+
+    });
+}
+
+function procesarColor(total , inicio,fin) {
+
+    medio = fin - inicio;
+
+    let R = 0;
+    let G = 0;
+    let B = 0;
+
+    let RR = 0;
+    let GG = 0;
+    let BB = 0;
+
+    if (total < medio) {
+        R = parseInt((total / (medio / 100)) * (255 / 100));
+        G = 255;
+
+    }
+    else if (total >= medio && total < fin) {
+        G = parseInt(255 - (((total / (medio / 100)) - 100) * 2.55));
+        R = 255;
+    }
+    else {
+        R = 255;
+        G = 0;
+    }
+
+    GG = parseInt(G * 0.5);
+    RR = parseInt(R * 0.5);
+    BB = parseInt(B * 0.5);
+
+    R = R.toString(16);
+    G = G.toString(16);
+    B = B.toString(16);
+
+    RR = RR.toString(16);
+    GG = GG.toString(16);
+    BB = BB.toString(16);
+
+    if (R.length < 2) {
+        R = "0" + R;
+
+    }
+
+
+    if (G.length < 2) {
+        G = "0" + G;
+
+    }
+    if (B.length < 2) {
+        B = "0" + B;
+
+    }
+    if (RR.length < 2) {
+        RR = "0" + RR;
+
+    }
+
+
+    if (GG.length < 2) {
+        GG = "0" + GG;
+
+    }
+    if (BB.length < 2) {
+        BB = "0" + BB;
+
+    }
+
+
+    return ["#" + R + G + B, "#" + RR + GG + BB]
 }
