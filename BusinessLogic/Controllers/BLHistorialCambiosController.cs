@@ -1,4 +1,5 @@
 ﻿using Common.DTOs;
+using DataAccess.Mappers;
 using DataAccess.Persistence;
 using System;
 using System.Collections.Generic;
@@ -11,14 +12,21 @@ namespace BusinessLogic.Controllers
     public class BLHistorialCambiosController
     {
         private Repository repository;
+        public HistorialCambiosMapper _historialMap;
 
         public BLHistorialCambiosController()
         {
             this.repository = new Repository();
+            this._historialMap = new HistorialCambiosMapper();
         }
 
-        public void altaHistorialCambios(DtoReclamo dto)
+        public void altaHistorialCambios(int nroReclamo, string username)
         {
+            DtoReclamo dtoReclamo = this.repository.GetReclamoRepository().getReclamo(nroReclamo);
+            DtoHistorialCambios dto = this._historialMap.convertMap(dtoReclamo);
+            DtoUsuario usuario = this.repository.GetUsuarioRepository().LeerUsuario(username);
+            dto.nombreFunc = usuario.nombre;
+            dto.apellidoFunc = usuario.apellido;
             this.repository.GetCambiosRepository().AltaCambiosHistorial(dto);
         }
 
@@ -56,6 +64,12 @@ namespace BusinessLogic.Controllers
             }
 
             return colErrores;
+        }
+
+        public List<DtoHistorialCambios> ListarCambios(int nroReclamo)
+        {
+            List<DtoHistorialCambios> dtoCambios = this.repository.GetCambiosRepository().LeerHistorialCambios(nroReclamo);
+            return dtoCambios;
         }
     }
 }

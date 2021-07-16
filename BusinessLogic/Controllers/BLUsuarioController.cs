@@ -43,9 +43,9 @@ namespace BusinessLogic.Controllers
             return colErrores;
         }
 
-        public bool ExisteNombreUsuario(string nomUsuario)
+        public bool ExisteNombreUsuario(string usario)
         {
-            return this.repository.GetUsuarioRepository().ExisteNombreUsuario(nomUsuario);
+            return this.repository.GetUsuarioRepository().ExisteNombreUsuario(usario);
         }
 
         public List<string> ValidarUsuario(DtoUsuario dto, bool esModificacion)
@@ -58,6 +58,11 @@ namespace BusinessLogic.Controllers
             }
 
             return errores;
+        }
+
+        public bool ExisteEmail(string email)
+        {
+            return this.repository.GetUsuarioRepository().ExisteEmail(email);
         }
 
         public List<string> ValidarBorrado(string email)
@@ -88,6 +93,11 @@ namespace BusinessLogic.Controllers
                 return bool.Parse(this.repository.GetUsuarioRepository().EsFuncionario(nombreUsuario).ToString());
             }
             
+        }
+
+        public string GetEmail(string username)
+        {
+            return this.repository.GetUsuarioRepository().getEmail(username);
         }
     }
 }

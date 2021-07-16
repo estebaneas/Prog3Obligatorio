@@ -30,11 +30,22 @@ namespace MVCCliente.Controllers
             return RedirectToAction("AgregarUsuario");
         }
 
-        public JsonResult ValidarCodigo(string nomUsuario)
+        public JsonResult ValidarUsuario(string usario)
         {
             bool rest = true;
             BLUsuarioController usuarioController = new BLUsuarioController();
-            if (usuarioController.ExisteNombreUsuario(nomUsuario) == true)
+            if (usuarioController.ExisteNombreUsuario(usario) == true)
+            {
+                rest = false;
+            }
+            return Json(rest, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult ValidarEmail(string email)
+        {
+            bool rest = true;
+            BLUsuarioController usuarioController = new BLUsuarioController();
+            if (usuarioController.ExisteEmail(email) == true)
             {
                 rest = false;
             }

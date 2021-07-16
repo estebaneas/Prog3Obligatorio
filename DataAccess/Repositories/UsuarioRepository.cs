@@ -67,6 +67,16 @@ namespace DataAccess.Repositories
 
         }
 
+        public bool ExisteEmail(string email)
+        {
+            bool existe = false;
+            using (ControlDeReclamosEntities context = new ControlDeReclamosEntities())
+            {
+                existe = context.usuario.Any(i => i.email == email);
+            }
+            return existe;
+        }
+
         public void ModificarUsuario(DtoUsuario dto)
         {
             using (ControlDeReclamosEntities context = new ControlDeReclamosEntities())
@@ -98,12 +108,12 @@ namespace DataAccess.Repositories
             }
         }
 
-        public DtoUsuario LeerUsuario(string email)
+        public DtoUsuario LeerUsuario(string username)
         {
             DtoUsuario dto = new DtoUsuario();
             using (ControlDeReclamosEntities context = new ControlDeReclamosEntities())
             {
-                usuario _usuario = context.usuario.AsNoTracking().FirstOrDefault(w => w.email == email);
+                usuario _usuario = context.usuario.FirstOrDefault(w => w.nombreDeUsuario == username);
                 dto = this.usuarioMapper.mapToDto(_usuario);
             }
             return dto;
@@ -119,12 +129,12 @@ namespace DataAccess.Repositories
             return existe;
         }
 
-        public bool ExisteNombreUsuario(string nombreUsuario)
+        public bool ExisteNombreUsuario(string usario)
         {
             bool existe = false;
             using (ControlDeReclamosEntities context = new ControlDeReclamosEntities())
             {
-                existe = context.usuario.Any(i => i.nombreDeUsuario == nombreUsuario );
+                existe = context.usuario.Any(i => i.nombreDeUsuario == usario);
             }
             return existe;
         }
@@ -148,6 +158,13 @@ namespace DataAccess.Repositories
                 funcionario = currUsuario.funcionario;
             }
             return funcionario;
+        }
+
+        public string getEmail(string username)
+        {
+            DtoUsuario dto = this.LeerUsuario(username);
+            string email = dto.email;
+            return email;
         }
     }
 }

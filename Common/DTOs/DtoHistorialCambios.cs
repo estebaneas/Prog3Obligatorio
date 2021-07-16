@@ -10,6 +10,8 @@ namespace Common.DTOs
     {
         public int numero { get; set; }
         public int numeroReclamo { get; set; }
+        public string nombreFunc { get; set; }
+        public string apellidoFunc { get; set; }
         public DateTime fechaCambio { get; set; }
         public DateTime fechaIngreso { get; set; }
         public string observaciones { get; set; }

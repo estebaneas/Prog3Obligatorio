@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MVCCliente.Helpers;
+using Common.Constantes;
 
 namespace MVCCliente.Controllers
 {
@@ -51,9 +52,11 @@ namespace MVCCliente.Controllers
         [HttpPost]
         public ActionResult AgregarReclamo(DtoReclamo dtoReclamo)
         {
+            string username = (string)Session[CLogin.KEY_SESSION_USERNAME]; ;
             BLReclamoController BLreclamo = new BLReclamoController();
             BLZonaController BLZ = new BLZonaController();
             BLCuadrillaController BLC = new BLCuadrillaController();
+            BLUsuarioController BLU = new BLUsuarioController();
             DtoPunto punto = new DtoPunto();
             List<DtoZona> colZonas = BLZ.listarZonas();
             punto.latitud = dtoReclamo.latitud;
@@ -66,7 +69,7 @@ namespace MVCCliente.Controllers
             dtoReclamo.numeroCuadrilla = cuadrillConMenosReclamos.numero;
             dtoReclamo.numeroZona = numZona;
             dtoReclamo.fechaIngreso = DateTime.Now;
-            dtoReclamo.emailUsuario = "test";
+            dtoReclamo.emailUsuario = BLU.GetEmail(username);
             dtoReclamo.estado = estadoReclamo.ASIGNADO;
             BLreclamo.agregarReclamo(dtoReclamo);
             return RedirectToAction("ListarReclamos");
@@ -78,11 +81,12 @@ namespace MVCCliente.Controllers
         }
         public ActionResult ListarReclamos()
         {
+            string username = (string)Session[CLogin.KEY_SESSION_USERNAME];
             BLReclamoController BLreclamo = new BLReclamoController();
-            List<DtoReclamo> colReclamos = BLreclamo.reclamosCronologicamente();
+            List<DtoReclamo> colReclamos = BLreclamo.reclamosByUsuario(username);
             return View(colReclamos);
         }
 
-     
+
     }
 }
