@@ -94,6 +94,11 @@ namespace BusinessLogic.Controllers
             }
             
         }
+
+        public string GetEmail(string username)
+        {
+            return this.repository.GetUsuarioRepository().getEmail(username);
+        }
     }
 }
 

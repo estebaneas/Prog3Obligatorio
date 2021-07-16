@@ -17,10 +17,12 @@ namespace BusinessLogic.Controllers
         public BLHistorialCambiosController()
         {
             this.repository = new Repository();
+            this._historialMap = new HistorialCambiosMapper();
         }
 
-        public void altaHistorialCambios(DtoReclamo dtoReclamo, string username)
+        public void altaHistorialCambios(int nroReclamo, string username)
         {
+            DtoReclamo dtoReclamo = this.repository.GetReclamoRepository().getReclamo(nroReclamo);
             DtoHistorialCambios dto = this._historialMap.convertMap(dtoReclamo);
             DtoUsuario usuario = this.repository.GetUsuarioRepository().LeerUsuario(username);
             dto.nombreFunc = usuario.nombre;

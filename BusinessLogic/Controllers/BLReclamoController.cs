@@ -90,7 +90,7 @@ namespace BusinessLogic.Controllers
                 this._Repository.GetReclamoRepository().modificarReclamo(dto);
 
                 BLHistorialCambiosController cambiosController = new BLHistorialCambiosController();
-                cambiosController.altaHistorialCambios(dto, username);
+                cambiosController.altaHistorialCambios(dto.numero, username);
             }
 
 

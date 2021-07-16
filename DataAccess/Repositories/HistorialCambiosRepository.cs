@@ -110,7 +110,7 @@ namespace DataAccess.Repositories
             List<DtoHistorialCambios> colDto = new List<DtoHistorialCambios>();
             using (ControlDeReclamosEntities context = new ControlDeReclamosEntities())
             {
-                List<historialDeCambios> colHistorialCambios = context.historialDeCambios.AsNoTracking().Where(w => w.numero == _numero).ToList();
+                List<historialDeCambios> colHistorialCambios = context.historialDeCambios.AsNoTracking().Where(w => w.numeroReclamo == _numero).ToList();
                 colDto = this.cambiosMapper.mapToDto(colHistorialCambios);
             }
             return colDto;

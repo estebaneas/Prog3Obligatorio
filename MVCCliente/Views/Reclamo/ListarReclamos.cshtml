@@ -35,7 +35,7 @@
             @Html.DisplayFor(modelItem => item.longitud)
         </td>
         <td>
-            @Html.ActionLink("Ver historial", "VerHistorial", new { nroReclamo = item.numero }) |
+            @Html.ActionLink("Ver historial", "../HistorialCambios/ListarHistorialCambios", new { nroReclamo = item.numero }) |
         </td>
     </tr>
 }

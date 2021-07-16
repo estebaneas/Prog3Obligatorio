@@ -40,6 +40,7 @@ namespace DataAccess.Repositories
                     }
                     catch (Exception ex)
                     {
+                        Console.WriteLine(ex);
                         trann.Rollback();
                     }
                 }
