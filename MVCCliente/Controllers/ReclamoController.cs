@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MVCCliente.Helpers;
+using Common.Constantes;
 
 namespace MVCCliente.Controllers
 {
@@ -78,11 +79,12 @@ namespace MVCCliente.Controllers
         }
         public ActionResult ListarReclamos()
         {
+            string username = (string)Session[CLogin.KEY_SESSION_USERNAME];
             BLReclamoController BLreclamo = new BLReclamoController();
-            List<DtoReclamo> colReclamos = BLreclamo.reclamosCronologicamente();
+            List<DtoReclamo> colReclamos = BLreclamo.reclamosByUsuario(username);
             return View(colReclamos);
         }
 
-     
+
     }
 }

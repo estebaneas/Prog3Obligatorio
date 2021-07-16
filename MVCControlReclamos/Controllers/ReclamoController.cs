@@ -1,4 +1,5 @@
 ﻿using BusinessLogic.Controllers;
+using Common.Constantes;
 using Common.DTOs;
 using DataAccess.Model;
 using MVCControlReclamos.Helpers;
@@ -144,8 +145,10 @@ namespace MVCControlReclamos.Controllers
         [HttpPost]
         public ActionResult EditarReclamo (DtoReclamo dto)
         {
+            string username = (string)Session[CLogin.KEY_SESSION_USERNAME];
+
             BLReclamoController reclamoController = new BLReclamoController();
-            List<string> colErrores = reclamoController.modificarReclamo(dto);
+            List<string> colErrores = reclamoController.modificarReclamo(dto, username);
            
 
             foreach (string error in colErrores)

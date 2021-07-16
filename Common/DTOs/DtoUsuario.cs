@@ -11,6 +11,7 @@ namespace Common.DTOs
 {
     public class DtoUsuario
     {
+        [Remote("ValidarEmail", "Usuario", ErrorMessage = "Ya existe una cuenta asociada a este email")]
         [Required(ErrorMessage = "Ingrese una dirección email")]
         [DisplayName("Email: ")]
         [EmailAddress]

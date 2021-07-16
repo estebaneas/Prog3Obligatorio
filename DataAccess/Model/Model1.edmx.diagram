@@ -8,17 +8,17 @@
         <EntityTypeShape EntityType="ReclamosModel.tipoReclamo" Width="1.5" PointX="3" PointY="0.75" />
         <EntityTypeShape EntityType="ReclamosModel.usuario" Width="1.5" PointX="3" PointY="3.5" />
         <EntityTypeShape EntityType="ReclamosModel.zona" Width="1.5" PointX="3" PointY="9.25" />
-        <EntityTypeShape EntityType="ReclamosModel.historialDeCambios" Width="1.5" PointX="7.5" PointY="4.625" />
         <EntityTypeShape EntityType="ReclamosModel.punto" Width="1.5" PointX="5.25" PointY="9.375" />
         <AssociationConnector Association="ReclamosModel.FK_Punto_Zona" />
         <EntityTypeShape EntityType="ReclamosModel.reclamo" Width="1.5" PointX="5.25" PointY="4" />
-        <AssociationConnector Association="ReclamosModel.FK_historialDeCambios_reclamo" />
         <AssociationConnector Association="ReclamosModel.FK_reclamo_tipoReclamo" />
         <AssociationConnector Association="ReclamosModel.FK_reclamo_usuario" />
         <AssociationConnector Association="ReclamosModel.FK_reclamo_zona" />
         <EntityTypeShape EntityType="ReclamosModel.cuadrilla" Width="1.5" PointX="0.875" PointY="9" />
         <AssociationConnector Association="ReclamosModel.FK_reclamo_cuadrilla" />
         <AssociationConnector Association="ReclamosModel.asignar" />
+        <EntityTypeShape EntityType="ReclamosModel.historialDeCambios" Width="1.5" PointX="7.5" PointY="4.375" />
+        <AssociationConnector Association="ReclamosModel.FK_historialDeCambios_reclamo" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
