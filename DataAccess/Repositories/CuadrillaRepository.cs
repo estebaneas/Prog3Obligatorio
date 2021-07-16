@@ -122,7 +122,7 @@ namespace DataAccess.Repositories
         {
             using (ControlDeReclamosEntities context = new ControlDeReclamosEntities())
             {
-                return this.cuadrillaMapper.mapToDto(context.zona.AsNoTracking().FirstOrDefault(s => s.numero == numZona).cuadrilla.ToList());
+                return this.cuadrillaMapper.mapToDto(context.zona.FirstOrDefault(s => s.numero == numZona).cuadrilla.ToList());
             }
         }
 

@@ -36,7 +36,7 @@ namespace DataAccess.Model
         public virtual ICollection<historialDeCambios> historialDeCambios { get; set; }
         public virtual tipoReclamo tipoReclamo { get; set; }
         public virtual usuario usuario { get; set; }
-        public virtual zona zona { get; set; }
         public virtual cuadrilla cuadrilla { get; set; }
+        public virtual zona zona { get; set; }
     }
 }

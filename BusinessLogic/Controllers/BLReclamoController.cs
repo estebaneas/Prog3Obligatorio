@@ -159,5 +159,10 @@ namespace BusinessLogic.Controllers
             }
             return colReclamos;
         }
+
+        public long totPorZona(int numZona)
+        {
+            return this._Repository.GetReclamoRepository().getTotalReclamosPorZona(numZona);
+        }
     }
 }

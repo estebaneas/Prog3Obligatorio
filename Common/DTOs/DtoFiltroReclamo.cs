@@ -15,6 +15,7 @@ namespace Common.DTOs
         public int? numCuadrilla { get; set; }
         public string targetID { get; set; }
         public DateTime? ini { get; set; }
+        public DateTime? fin { get; set; }
         public int cantPorPag { get; set; }
         public string colRelJavVar { get; set; }
         public string BtnTarget { get; set; }

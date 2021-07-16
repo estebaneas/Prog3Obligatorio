@@ -191,5 +191,13 @@ namespace DataAccess.Repositories
             }
         }
 
+        public long getTotalReclamosPorZona(int numZona)
+        {
+            using (ControlDeReclamosEntities context = new ControlDeReclamosEntities())
+            {
+                return context.reclamo.AsNoTracking().Count(r => r.numeroZona == numZona);
+            }
+        }
+
     }
 }
