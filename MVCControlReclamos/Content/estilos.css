@@ -7,12 +7,16 @@
     text-align:center
 }
 
-.tt{
-    border:red solid 1px;
+.tt {
+    border: red solid 1px;
+    background-image: src("~/Img/Toledo.jpg");
+    height:200px;
+    background-size:100%
 }
 
 .tt div{
-    border: red solid 1px;
+    border: green solid 1px;
+
 }
 
 .vcenter {
@@ -49,13 +53,41 @@ font-size:22px;
     font-size: 18px;
 }
 
-
+.imagen {
+   
+}
 
 .txtL{
     text-align: right;
 }
 
 
+.jumbotron {
+    background-image: src('https://www.bacanal.com.ar/wp-content/uploads/2018/02/TOLEDO-VA.jpg');
+    background-size:cover;
+    background: none ;
+}
 
 
+
+
+/* display: block;
+  width: 100%;
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;*/
 

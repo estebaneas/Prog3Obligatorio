@@ -115,7 +115,9 @@ function initMap() {
 
     const abj = document.getElementById("abj");
     const izq = document.getElementById("izq");
+    const abjIzqu = document.getElementById("crear");
     //CenterControl(centerControlDiv, map);
+    map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(abjIzqu);
     map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(abj);
     map.controls[google.maps.ControlPosition.LEFT_CENTER].push(izq);
 
@@ -123,9 +125,7 @@ function initMap() {
         position: null,
         map: null,
     });
-
-
-    
+           
 
     document.getElementById("ocultar").addEventListener("click", () => {
         map.setOptions({ styles: styles["hide"] });

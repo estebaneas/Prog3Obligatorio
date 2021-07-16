@@ -25,6 +25,8 @@ namespace MVCCliente
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/Content/estilos").Include("~/Content/estilos.css"));
             bundles.Add(new StyleBundle("~/Content/mapa").Include("~/Content/mapa.css"));
         }
     }
