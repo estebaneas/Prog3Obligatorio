@@ -227,8 +227,10 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Reclamo\Agregar.cshtml" />
-    <Content Include="Views\Reclamo\ListarReclamos.cshtml" />
     <Content Include="Views\Shared\_Mapa.cshtml" />
+    <Content Include="Views\Reclamo\Lista.cshtml" />
+    <Content Include="Views\Reclamo\DetalleReclamo.cshtml" />
+    <Content Include="Views\Reclamo\Reclamo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

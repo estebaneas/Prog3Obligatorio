@@ -67,20 +67,24 @@ namespace MVCCliente.Controllers
             dtoReclamo.emailUsuario = "test";
             dtoReclamo.estado = estadoReclamo.ASIGNADO;
             BLreclamo.agregarReclamo(dtoReclamo);
-            return RedirectToAction("ListarReclamos");
+            return View("DetalleReclamo",dtoReclamo);
         }
 
+        public ActionResult DetalleReclamo()
+        {
+
+            return View();
+        }
         public ActionResult AgregarR()
         {
             return View();
         }
-        public ActionResult ListarReclamos()
-        {
-            BLReclamoController BLreclamo = new BLReclamoController();
-            List<DtoReclamo> colReclamos = BLreclamo.reclamosCronologicamente();
-            return View(colReclamos);
+        public ActionResult Reclamo()
+        {          
+                return View();
         }
 
      
     }
 }
+    

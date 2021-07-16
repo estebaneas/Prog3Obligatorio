@@ -11,6 +11,8 @@ namespace Common.DTOs
 {
     public class DtoReclamo
     {
+     
+        [DisplayName("Número de reclamo: ")]
         public int numero { get; set; }
         [DisplayName("Estado: ")]
         [Required(ErrorMessage ="El estado es requerido")]

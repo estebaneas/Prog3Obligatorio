@@ -1,0 +1,92 @@
+﻿@model Common.DTOs.DtoReclamo
+
+<div>
+    <h4>DtoReclamo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.numero)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.numero)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fechaIngreso)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fechaIngreso)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.observaciones)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.observaciones)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.comentario)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.comentario)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.latitud)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.latitud)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.longitud)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.longitud)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.numTipoReclamo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.numTipoReclamo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.emailUsuario)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.emailUsuario)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.numeroCuadrilla)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.numeroCuadrilla)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.numeroZona)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.numeroZona)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
