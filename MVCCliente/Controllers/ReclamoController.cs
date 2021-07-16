@@ -5,9 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MVCCliente.Helpers;
 
 namespace MVCCliente.Controllers
 {
+    [UserAuthentication]
     public class ReclamoController : Controller
     {
         // GET: Reclamo

@@ -28,7 +28,6 @@ namespace DataAccess.Repositories
                 {
                     try
                     {
-                        dto.funcionario = true;
                         usuario usuarioEntity = this.usuarioMapper.mapToEntity(dto);
                         context.usuario.Add(usuarioEntity);
                         context.SaveChanges();
@@ -125,7 +124,7 @@ namespace DataAccess.Repositories
             bool existe = false;
             using (ControlDeReclamosEntities context = new ControlDeReclamosEntities())
             {
-                existe = context.usuario.AsNoTracking().Any(i => i.nombreDeUsuario == nombreUsuario );
+                existe = context.usuario.Any(i => i.nombreDeUsuario == nombreUsuario );
             }
             return existe;
         }

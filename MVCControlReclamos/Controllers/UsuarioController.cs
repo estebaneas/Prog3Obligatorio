@@ -22,16 +22,28 @@ namespace MVCControlReclamos.Controllers
         public ActionResult AgregarUsuario(DtoUsuario dtoUsuario)
         {
             BLUsuarioController BLUsuario = new BLUsuarioController();
+            dtoUsuario.funcionario = true;
             BLUsuario.altaUsuario(dtoUsuario);
             return RedirectToAction("AgregarUsuario");
         }
 
-       /* public ActionResult ListarUsuarios()
+        public JsonResult ValidarCodigo(string nomUsuario)
         {
-            BLUsuarioController BLUsuario = new BLUsuarioController();
-            List<DtoUsuario> colUsuarios = BLUsuario.l();
-            return View(colUsuarios);
-        }*/
+            bool rest = true;
+            BLUsuarioController usuarioController = new BLUsuarioController();
+            if (usuarioController.ExisteNombreUsuario(nomUsuario) == true)
+            {
+                rest = false;
+            }
+            return Json(rest, JsonRequestBehavior.AllowGet);
+        }
+
+        /* public ActionResult ListarUsuarios()
+         {
+             BLUsuarioController BLUsuario = new BLUsuarioController();
+             List<DtoUsuario> colUsuarios = BLUsuario.l();
+             return View(colUsuarios);
+         }*/
 
 
         // /Usuario/AgregarUsuario

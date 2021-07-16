@@ -43,5 +43,20 @@ namespace DataAccess.Mappers
 
             return _historialCambios;
         }
+
+        public historialDeCambios mapToEntity(DtoReclamo dto)
+        {
+            historialDeCambios _historialCambios = new historialDeCambios();
+            _historialCambios.numeroReclamo = dto.numero;
+            _historialCambios.fechaIngreso = dto.fechaIngreso;
+            _historialCambios.latitud = dto.latitud;
+            _historialCambios.longitud = dto.longitud;
+            _historialCambios.observaciones = dto.observaciones;
+            _historialCambios.comentario = dto.comentario;
+            _historialCambios.estado = dto.estado.ToString();
+
+
+            return _historialCambios;
+        }
     }
 }

@@ -11,10 +11,10 @@ namespace Common.DTOs
 {
     public class DtoLogin
     {
-        [Required]
+        [Required(ErrorMessage = "Nombre de usuario requerido")]
         [DisplayName("Nombre de usuario: ") ]
         public string username { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Contraseña requerida")]
         [DisplayName("Contraseña: ")]
         public string password { get; set; }
     }

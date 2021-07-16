@@ -20,8 +20,8 @@ namespace DataAccess.Model
         public System.DateTime fechaCambio { get; set; }
         public string observaciones { get; set; }
         public string comentario { get; set; }
-        public decimal latitud { get; set; }
-        public decimal longitud { get; set; }
+        public double latitud { get; set; }
+        public double longitud { get; set; }
         public int numeroReclamo { get; set; }
     
         public virtual reclamo reclamo { get; set; }

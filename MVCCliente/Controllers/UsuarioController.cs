@@ -1,5 +1,6 @@
 ﻿using BusinessLogic.Controllers;
 using Common.DTOs;
+using MVCCliente.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,22 +11,34 @@ namespace MVCCliente.Controllers
 {
     public class UsuarioController : Controller
     {
-        // GET: Usuario
-
-
-
-       /*public ActionResult puntoEnZona (DtoPunto punto)
+        public ActionResult AgregarUsuario()
         {
-            BLZonaController BLZ = new BLZonaController();
-            List<DtoZona> colZonas = BLZ.listarZonas();
-            bool puntoEnZ = BLZ.puntoEnZonas(punto, colZonas);
+            if (User.Identity.IsAuthenticated == true)
+            {
+                return Redirect("/Home");
+            }
 
-            return Json()
-        }*/
-
-        public ActionResult Prueba()
-        {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult AgregarUsuario(DtoUsuario dtoUsuario)
+        {
+            BLUsuarioController BLUsuario = new BLUsuarioController();
+            dtoUsuario.funcionario = false;
+            BLUsuario.altaUsuario(dtoUsuario);
+            return RedirectToAction("AgregarUsuario");
+        }
+
+        public JsonResult ValidarCodigo(string nomUsuario)
+        {
+            bool rest = true;
+            BLUsuarioController usuarioController = new BLUsuarioController();
+            if (usuarioController.ExisteNombreUsuario(nomUsuario) == true)
+            {
+                rest = false;
+            }
+            return Json(rest, JsonRequestBehavior.AllowGet);
         }
     }
 }
