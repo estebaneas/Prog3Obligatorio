@@ -15,6 +15,8 @@ namespace DataAccess.Mappers
             DtoHistorialCambios dto = new DtoHistorialCambios();
             dto.numero = _historialCambios.numero;
             dto.numeroReclamo = _historialCambios.numeroReclamo;
+            dto.nombreFunc = _historialCambios.nombreFunc;
+            dto.apellidoFunc = _historialCambios.apellidoFunc;
             dto.fechaCambio = _historialCambios.fechaCambio;
             dto.fechaIngreso = _historialCambios.fechaIngreso;
             dto.latitud = _historialCambios.latitud;
@@ -22,9 +24,21 @@ namespace DataAccess.Mappers
             dto.observaciones = _historialCambios.observaciones;
             dto.comentario = _historialCambios.comentario;
             dto.estado = _historialCambios.estado;
-            
+
 
             return dto;
+        }
+
+        public List<DtoHistorialCambios> mapToDto(List<historialDeCambios> colEntity)
+        {
+            List<DtoHistorialCambios> colDto = new List<DtoHistorialCambios>();
+            foreach (historialDeCambios item in colEntity)
+            {
+                DtoHistorialCambios dto = this.mapToDto(item);
+                colDto.Add(dto);
+            }
+
+            return colDto;
         }
 
         public historialDeCambios mapToEntity(DtoHistorialCambios dto)
@@ -32,6 +46,8 @@ namespace DataAccess.Mappers
             historialDeCambios _historialCambios = new historialDeCambios();
             _historialCambios.numero = dto.numero;
             _historialCambios.numeroReclamo = dto.numeroReclamo;
+            _historialCambios.nombreFunc = dto.nombreFunc;
+            _historialCambios.apellidoFunc = dto.apellidoFunc;
             _historialCambios.fechaCambio = dto.fechaCambio;
             _historialCambios.fechaIngreso = dto.fechaIngreso;
             _historialCambios.latitud = dto.latitud;
@@ -44,19 +60,19 @@ namespace DataAccess.Mappers
             return _historialCambios;
         }
 
-        public historialDeCambios mapToEntity(DtoReclamo dto)
+        public DtoHistorialCambios convertMap(DtoReclamo dto)
         {
-            historialDeCambios _historialCambios = new historialDeCambios();
-            _historialCambios.numeroReclamo = dto.numero;
-            _historialCambios.fechaIngreso = dto.fechaIngreso;
-            _historialCambios.latitud = dto.latitud;
-            _historialCambios.longitud = dto.longitud;
-            _historialCambios.observaciones = dto.observaciones;
-            _historialCambios.comentario = dto.comentario;
-            _historialCambios.estado = dto.estado.ToString();
+            DtoHistorialCambios dtoHistorialCambios = new DtoHistorialCambios();
+            dtoHistorialCambios.numeroReclamo = dto.numero;
+            dtoHistorialCambios.fechaIngreso = dto.fechaIngreso;
+            dtoHistorialCambios.latitud = dto.latitud;
+            dtoHistorialCambios.longitud = dto.longitud;
+            dtoHistorialCambios.observaciones = dto.observaciones;
+            dtoHistorialCambios.comentario = dto.comentario;
+            dtoHistorialCambios.estado = dto.estado.ToString();
 
 
-            return _historialCambios;
+            return dtoHistorialCambios;
         }
     }
 }

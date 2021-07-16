@@ -40,6 +40,7 @@ namespace DataAccess.Repositories
                     }
                     catch (Exception ex)
                     {
+                        Console.WriteLine(ex);
                         trann.Rollback();
                     }
                 }
@@ -51,7 +52,7 @@ namespace DataAccess.Repositories
             bool result = false;
             using (ControlDeReclamosEntities context = new ControlDeReclamosEntities())
             {
-                result = context.reclamo.AsNoTracking().Any(a => a.numero == numReclamo);
+                result = context.reclamo.Any(a => a.numero == numReclamo);
             }
 
             return result;
@@ -62,7 +63,7 @@ namespace DataAccess.Repositories
             DtoReclamo result = null;
             using (ControlDeReclamosEntities context = new ControlDeReclamosEntities())
             {
-                result = this.reclamoMapper.MapToDto(context.reclamo.AsNoTracking().FirstOrDefault(a => a.numero == nroReclamo));
+                result = this.reclamoMapper.MapToDto(context.reclamo.FirstOrDefault(a => a.numero == nroReclamo));
             }
 
             return result;
@@ -150,19 +151,19 @@ namespace DataAccess.Repositories
             }
         }
 
-        public List<DtoReclamo> getReclamosPorFecha(DateTime? ini)
-        {
-            using (ControlDeReclamosEntities context = new ControlDeReclamosEntities())
-            {
-                return this.reclamoMapper.MapToDto(context.reclamo.AsNoTracking().Where(r=>r.fechaIngreso.Year==ini.Value.Year).ToList());
-            }
-        }
-
         public List<DtoReclamo> getReclamosEntreFechas(DateTime? ini, DateTime? fin)
         {
             using (ControlDeReclamosEntities context = new ControlDeReclamosEntities())
             {
                 return this.reclamoMapper.MapToDto(context.reclamo.AsNoTracking().Where(r => r.fechaIngreso > DateTime.Today).ToList());
+            }
+        }
+
+        public List<DtoReclamo> getReclamosPorFecha(DateTime? ini)
+        {
+            using (ControlDeReclamosEntities context = new ControlDeReclamosEntities())
+            {
+                return this.reclamoMapper.MapToDto(context.reclamo.AsNoTracking().Where(r=>r.fechaIngreso.Year==ini.Value.Year).ToList());
             }
         }
 

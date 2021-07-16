@@ -15,6 +15,8 @@ namespace DataAccess.Model
     public partial class historialDeCambios
     {
         public int numero { get; set; }
+        public string nombreFunc { get; set; }
+        public string apellidoFunc { get; set; }
         public string estado { get; set; }
         public System.DateTime fechaIngreso { get; set; }
         public System.DateTime fechaCambio { get; set; }

@@ -22,7 +22,7 @@ namespace DataAccess.Repositories
             this.reclamoMapper = new ReclamoMapper();
         }
 
-        public void AltaCambiosHistorial(DtoReclamo dtoReclamo)
+        public void AltaCambiosHistorial(DtoHistorialCambios dtoHistorial)
         {
             using (ControlDeReclamosEntities context = new ControlDeReclamosEntities())
             {
@@ -30,7 +30,7 @@ namespace DataAccess.Repositories
                 {
                     try
                     {
-                        historialDeCambios historialEntity = this.cambiosMapper.mapToEntity(dtoReclamo);
+                        historialDeCambios historialEntity = this.cambiosMapper.mapToEntity(dtoHistorial);
                         historialEntity.fechaCambio = DateTime.Now;
                         context.historialDeCambios.Add(historialEntity);
                         context.SaveChanges();
@@ -105,15 +105,15 @@ namespace DataAccess.Repositories
             }
         }
 
-        public DtoHistorialCambios LeerHistorialCambios(int _numero)
+        public List<DtoHistorialCambios> LeerHistorialCambios(int _numero)
         {
-            DtoHistorialCambios dto = new DtoHistorialCambios();
+            List<DtoHistorialCambios> colDto = new List<DtoHistorialCambios>();
             using (ControlDeReclamosEntities context = new ControlDeReclamosEntities())
             {
-                historialDeCambios _historialCambios = context.historialDeCambios.AsNoTracking().FirstOrDefault(w => w.numero == _numero);
-                dto = this.cambiosMapper.mapToDto(_historialCambios);
+                List<historialDeCambios> colHistorialCambios = context.historialDeCambios.AsNoTracking().Where(w => w.numeroReclamo == _numero).ToList();
+                colDto = this.cambiosMapper.mapToDto(colHistorialCambios);
             }
-            return dto;
+            return colDto;
         }
 
         public bool ExisteCambio(int _numero)

@@ -31,6 +31,6 @@ namespace DataAccess.Model
         public virtual DbSet<cuadrilla> cuadrilla { get; set; }
         public virtual DbSet<reclamo> reclamo { get; set; }
         public virtual DbSet<zona> zona { get; set; }
-        public virtual DbSet<historialDeCambios> historialDeCambios { get; set; }
+
     }
 }
