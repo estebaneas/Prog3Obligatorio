@@ -1,4 +1,6 @@
-﻿using MVCControlReclamos.Helpers;
+﻿using BusinessLogic.Controllers;
+using Common.DTOs;
+using MVCControlReclamos.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +12,11 @@ namespace MVCControlReclamos.Controllers
     [UserAuthentication]
     public class HistorialCambiosController : Controller
     {
-        // GET: HistorialCambios
-        public ActionResult Index()
+        public ActionResult ListarHistorialCambios(int nroReclamo)
         {
-            return View();
+            BLHistorialCambiosController controller = new BLHistorialCambiosController();
+            List<DtoHistorialCambios> col = controller.ListarCambios(nroReclamo);
+            return View(col);
         }
     }
 }

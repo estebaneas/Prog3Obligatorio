@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Common.DTOs.DtoHistorialCambios>
+
+@{
+    ViewBag.Title = "ListarHistorialCambios";
+}
+
+<h2>Listar Historial Cambios</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nombreFunc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.apellidoFunc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fechaCambio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.comentario)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.estado)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nombreFunc)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.apellidoFunc)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fechaCambio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.comentario)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.estado)
+        </td>
+    </tr>
+}
+
+</table>

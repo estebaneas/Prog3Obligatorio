@@ -31,6 +31,7 @@
 
                 <dd>
                     @Html.ActionLink("Editar Estado", "IrEditar", new { nroReclamo = Model.numero }, new { @class = "btn btn-m btn-info" })
+                    @Html.ActionLink("Ver Historial", "../HistorialCambios/ListarHistorialCambios", new { nroReclamo = Model.numero }, new { @class = "btn btn-m btn-info" })
                 </dd>
 
                 <dt>
