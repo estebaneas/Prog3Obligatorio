@@ -84,6 +84,12 @@ namespace DataAccess.Repositories
             }
         }
 
-
+        public bool hayPuntos()
+        {
+            using (ControlDeReclamosEntities context = new ControlDeReclamosEntities())
+            {
+                return context.punto.AsNoTracking().GroupBy(p=>p.numeroZona).Any(p=>p.Count()>=3);
+            }
+        }
     }
 }

@@ -4,10 +4,10 @@
     ViewBag.Title = "NuevaZona";
 }
 <h2>Nueva Zona</h2>
-@using (Html.BeginForm("AgregarZona", "Zona",FormMethod.Post,  new { @id = "formulario" }))
+@using (Html.BeginForm("AgregarZona", "Zona", FormMethod.Post, new { @id = "formulario" }))
 {
     @Html.AntiForgeryToken()
-    
+
 <div class="prueba">
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div id="abj">
@@ -26,7 +26,7 @@
             <div class="p2">
                 <div>Nombre: </div>
                 <div class="">
-                    @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @id="nombrezonatxt", @class = "", @placeholder = "Nombre de zona" } })
+                    @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @id = "nombrezonatxt", @class = "", @placeholder = "Nombre de zona" } })
                 </div>
             </div>
 
@@ -54,12 +54,12 @@
     </div>
 
 
-    <div class="">
+    @{/*<div class="">
         <div class="">
             @Html.EditorFor(model => model.numero, new { htmlAttributes = new { @Value = ViewBag.NumeroZona, style = "visibility:hidden; " } })
 
         </div>
-    </div>
+    </div>*/}
 
     <div class="">
         <div class="">

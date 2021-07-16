@@ -322,11 +322,22 @@ namespace MVCControlReclamos.Controllers
         }
 
         [HttpGet]
-        public JsonResult CargarTermico(DateTime? ini, DateTime? fin)
+        public JsonResult CargarTermico(DtoFiltroReclamo filtro)
         {
             BLReclamoController BLR = new BLReclamoController();
-            List<DtoReclamo> colreclamos = BLR.getReclamos(null, null, null, ini, fin);
-            colreclamos = colreclamos.Where(r => r.fechaIngreso >= ini&&r.fechaIngreso<= fin).ToList();
+            List<DtoReclamo> colreclamos = BLR.getReclamos(null, null, null, null,null);
+            if (filtro.ini != null&&filtro.fin!=null)
+            {
+                colreclamos = colreclamos.Where(r => r.fechaIngreso.Date >= filtro.ini && r.fechaIngreso.Date <= filtro.fin).ToList();
+            }
+            else if (filtro.ini!=null)
+            {
+                colreclamos = colreclamos.Where(r => r.fechaIngreso.Date >= filtro.ini && r.fechaIngreso.Date <= DateTime.Now).ToList();
+            }
+            else if(filtro.fin!=null)
+            {
+                colreclamos = colreclamos.Where(r => r.fechaIngreso.Date >= DateTime.MinValue && r.fechaIngreso.Date <= filtro.fin).ToList();
+            }
             return Json(colreclamos,JsonRequestBehavior.AllowGet);
         }
 
@@ -336,5 +347,14 @@ namespace MVCControlReclamos.Controllers
             return PartialView("_Mapa");
         }
 
+
+        [HttpGet]
+        public JsonResult cantRecPZona(int numZona)
+        {
+            BLReclamoController BLR = new BLReclamoController();
+            long reclamosTot = BLR.totPorZona(numZona);
+
+            return Json(reclamosTot, JsonRequestBehavior.AllowGet);
+        }
     }
 }
