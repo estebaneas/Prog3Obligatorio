@@ -44,7 +44,7 @@ namespace DataAccess.Mappers
         public zona mapToEntity(DtoZona dto)
         {
             zona _zona = new zona();
-            _zona.numero = dto.numero;
+           // _zona.numero = dto.numero;
             _zona.nombre = dto.nombre;
             _zona.color = dto.color;
             _zona.punto = this._puntoMapper.mapToEntity(dto.colDtoPunto);

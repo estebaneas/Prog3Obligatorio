@@ -21,7 +21,6 @@ namespace DataAccess.Repositories
 
         public void altaZona(DtoZona dtoZona)
         {
-            zona nZona = new zona();
             using (ControlDeReclamosEntities context = new ControlDeReclamosEntities())
             {
                 using (DbContextTransaction trans = context.Database.BeginTransaction(IsolationLevel.ReadCommitted))

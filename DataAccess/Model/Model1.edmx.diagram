@@ -12,15 +12,15 @@
         <EntityTypeShape EntityType="ControlDeReclamosModel.reclamo" Width="1.5" PointX="5.25" PointY="3" IsExpanded="true" />
         <EntityTypeShape EntityType="ControlDeReclamosModel.tipoReclamo" Width="1.5" PointX="3" PointY="2.5" IsExpanded="true" />
         <EntityTypeShape EntityType="ControlDeReclamosModel.usuario" Width="1.5" PointX="3" PointY="5.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="ControlDeReclamosModel.zona" Width="1.5" PointX="3" PointY="8.5" IsExpanded="true" />
         <AssociationConnector Association="ControlDeReclamosModel.FK_reclamo_cuadrilla" ManuallyRouted="false" />
         <AssociationConnector Association="ControlDeReclamosModel.FK_historialDeCambios_reclamo" ManuallyRouted="false" />
-        <AssociationConnector Association="ControlDeReclamosModel.FK_Punto_Zona" ManuallyRouted="false" />
         <AssociationConnector Association="ControlDeReclamosModel.FK_reclamo_tipoReclamo" ManuallyRouted="false" />
         <AssociationConnector Association="ControlDeReclamosModel.FK_reclamo_usuario" ManuallyRouted="false" />
-        <AssociationConnector Association="ControlDeReclamosModel.FK_reclamo_zona" ManuallyRouted="false" />
-        <AssociationConnector Association="ControlDeReclamosModel.asignar" ManuallyRouted="false" />
-      </Diagram>
+        <EntityTypeShape EntityType="ControlDeReclamosModel.zona" Width="1.5" PointX="3" PointY="8.625" />
+        <AssociationConnector Association="ControlDeReclamosModel.FK_Punto_Zona" />
+        <AssociationConnector Association="ControlDeReclamosModel.FK_reclamo_zona" />
+        <AssociationConnector Association="ControlDeReclamosModel.asignar" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>
